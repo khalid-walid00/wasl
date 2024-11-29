@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Zain:wght@200;300;400;700;800;900&display=swap');
+
+:root {
+  --mainColor: #008ffb;
+  --linerWhite: #2D2743;
+  --subColor: #1D26A0;
+  --halfColor: #C5C6D3;
+  --primaryColor: #fff;
+  --linerMainColor: #EBF6F6;
+  --linerPrimary: #F7F7F7;
+  --secColor: #000;
+  --linerSecColor: #AFAFAF;
+  --linerGray: #8E8F90;
+  --linerSubGray: #E5E5E5;
+  --mainLiner: #FFFFFF;
+  --subLiner: #767676;
+  --lineBorder: #E5E5E5;
+  --warningColor: #D1E400;
+  --borderE:#EEEEEE;
+}
+
+* {
+  font-family: "Zain", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* color: #008ffb; */
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #F2F2F2;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F4F4F4;
+}
+
+
+.swiper-pagination-bullet {
+  background-color: #ddd;
+  background-color: #008ffb !important;
+  width: 10px !important;
+  border-radius: 20px !important;
+  transition: all 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #008ffb !important;
+  width: 30px !important;
+  border-radius: 20px !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.swiper-pagination {
+  bottom: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.swiper-slide-active {
+  margin-left: 0px !important;
+}
+
+
+.newSide {
+  position: fixed;
+  /* left: -100%; */
+  top: 0;
+  width: 350px;
+  height: 100%;
+  background: #fff;
+  color:  #000 ;
+  z-index: 1001;
+  transition: 0.3s;
+  overflow-y: auto;
+}

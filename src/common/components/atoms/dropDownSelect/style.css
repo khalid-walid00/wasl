@@ -1,0 +1,13 @@
+.rtl\:right-\[unset\]:where([dir="rtl"], [dir="rtl"] *) {
+    right: 0 !important;
+}
+.rtl\:left-3:where([dir="rtl"], [dir="rtl"] *) {
+    left: auto  !important;
+}
+
+.clip-triangle {
+    background-color: black;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 20px; /* عرض المثلث */
+    height: 20px; /* ارتفاع المثلث */
+  }

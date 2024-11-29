@@ -1,0 +1,7 @@
+.chartContainer {
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Similar to the image border */
+  border-radius: 8px;
+  /* background: linear-gradient(145deg, #202046, #13132b); */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+

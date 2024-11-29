@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "~/*": ["./src/*"],
+      "~/app/*": ["./src/app/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/articles/control/components/table/CustmTable.jtsx",
+    "src/app/settings/headScriptes/components/editer/index.js"
+  ],
+  "exclude": ["node_modules"],
+  "paths": {
+    "~/*": ["src/*"]
+    // "@theme/*": ["src/theme/*"],
+    // "@common/*": ["src/common/*"],
+    // "@i18n/*": ["src/i18n/*"],
+    // "@layouts/*": ["src/layouts/*"],
+    // "@assets/*": ["src/assets/*"],
+    // "@graphql/*": ["src/graphql/*"],
+    // "@config/*": ["src/config/*"],
+    // "@screens/*": ["src/screens/*"],
+    // "@services/*": ["src/services/*"],
+    // "@router/*": ["src/router/*"],
+    // "@redux/*": ["src/redux/*"],
+    // "@providers/*": ["src/providers/*"],
+    // "@utils/*": ["src/utils/*"],
+  }
+}
