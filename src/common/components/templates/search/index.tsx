@@ -52,7 +52,7 @@ function SearchTemplates() {
 
   return (
 
-    <div className='flex w- lg:gap-5 gap-1 items-center md:justify-normal justify-between'>
+    <div className='flex w- lg:gap-5 gap-1 items-center md:justify-normal justify-center'>
       <div className="flex shadow-[0px_0px_15px_rgba(0,0,0,0.1)] border border-[#ECECEC] md:w-auto  rounded-lg">
         <div  className="font-bold p-3">
           <svg onClick={redirect} className='cursor-pointer' width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
