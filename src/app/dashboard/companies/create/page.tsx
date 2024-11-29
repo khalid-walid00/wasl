@@ -12,7 +12,7 @@ function CreateComapany() {
     return (
         <div className=" bg-transparent py-[18px] flex flex-col gap-10 ">
             <HeadTable title="إنشاء شركة جديدة" description="انشاء شركة جديدة" />
-            <div className=" flex justify-between gap-8 container ">
+            <div className=" flex flex-col md:flex-row justify-between gap-8 container ">
                 <div className=" h-max w-full md:w-1/2 flex flex-col gap-6  bg-white  rounded-lg border border-grayWhite p-4">
                     <div className="text-2xl font-bold"> بيانات الشركة</div>
                     <div className=" flex flex-col gap-4 ">
@@ -71,7 +71,7 @@ function CreateComapany() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-11 w-1/2">
+                <div className="flex flex-col gap-11 w-full md:w-1/2">
                     <div className=" h-max w-full flex flex-col gap-6 bg-white  rounded-lg border border-grayWhite p-4">
                         <div className="text-2xl font-bold"> بيانات مدير الشركة</div>
 

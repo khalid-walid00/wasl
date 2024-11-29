@@ -5,8 +5,8 @@ import CustomInput from '~/common/components/atoms/input';
 
 function ComapnySearch() {
   return (
-    <div className=" flex gap-3">
-    <div className=" flex gap-2 w-11/12">
+    <div className="  flex gap-3 flex-col sm:flex-row">
+    <div className=" grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2  gap-2 w-full sm:w-11/12 ">
       <CustomInput placeholder="اسم المركبة" className='bg-[--linerPrimary]'/>
       <CustomInput placeholder="نوع المركبة" className='bg-[--linerPrimary]'/>
       <CustomInput placeholder="الموديل" className='bg-[--linerPrimary]'/>
@@ -14,7 +14,7 @@ function ComapnySearch() {
       <CustomInput placeholder="صندوق التروس"className='bg-[--linerPrimary]'/>
       <CustomInput placeholder="تاريخ التسجيل" className='bg-[--linerPrimary]'/>
   </div>
-  <div className=" w-1/12">
+  <div className="w-full sm:w-1/12">
   <Button>بحث</Button>
   </div>
   </div>
