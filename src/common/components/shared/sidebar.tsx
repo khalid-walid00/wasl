@@ -115,7 +115,7 @@ function Sidebar() {
             : "md:w-[4%] hidden md:block"
         } transition-all duration-300 h-screen
           right-0
-        overflow-y-auto fixed top-[7.9rem] md:top-0  md:pb-10 pb-20 text-white  `}
+        overflow-y-auto fixed top-[7.9rem] md:top-0  md:pb-10 pb-40 text-white  `}
         style={{
           msOverflowStyle: "none",
           scrollbarWidth: "none",
