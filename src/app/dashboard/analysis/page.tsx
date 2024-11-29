@@ -10,6 +10,9 @@ import SalesAnalysisTemplate from "~/common/components/templates/barAnalysis";
 import MostTrendingAnalysis from "../../../common/components/templates/mostTrendingAnalysis";
 import DountAnalysis from "~/common/components/templates/DountAnalysis";
 
+
+
+
 const Page = () => {
   const dispatch = useDispatch();
   // const { analysis: { countries, platforms, products, referrer }, loading } =
