@@ -30,7 +30,7 @@ function SideBarSelector({ className, title, content }: Props) {
 
   return (
     <div className="border-b last:border-0 border-[#E9E9E9] flex flex-col mx-4">
-      {title && <div className={`md:text-lg   ${showSideBar ? " p-3 xl:p-3 xl:pb-0 pb-0  " 
+      {title && <div className={`text-lg   ${showSideBar ? " p-3 xl:p-3 xl:pb-0 pb-0  " 
         : "text-center xl:pt-3 hidden"} text-mainColor `}>{title}</div>}
       <div className={`flex-col ${!showSideBar && "xl:pb-0"} pb-[16px] pt-3 px-0 flex gap-1`}>
         {content.map((item: any, index: number) => (
@@ -55,7 +55,7 @@ function SideBarSelector({ className, title, content }: Props) {
                 <div className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse "} gap-2`}>
                   {item.icon}
                   {showSideBar && (
-                    <div className="text-[14px] self-center">{item.text}</div>
+                    <div className=" self-center">{item.text}</div>
                   )}
                 </div>
               )}
@@ -94,7 +94,7 @@ function SideBarSelector({ className, title, content }: Props) {
                   <Link
                     href={subItem.href}
                     key={subIndex}
-                    className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse "} xl:text-[14px] text-[12px] gap-3 items-center px-2 transition-opacity duration-300 delay-500 ${path === subItem.href ? "scale-[1.01] text-mainColor" : "text-blackBlue"}`}
+                    className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse "} xl:text-[14px]  gap-3 items-center px-2 transition-opacity duration-300 delay-500 ${path === subItem.href ? "scale-[1.01] text-mainColor" : "text-blackBlue"}`}
                   >
                     <svg width="19" height="6" viewBox="0 0 19 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M0.5 3.00024H3.5" stroke={path === subItem.href ? "#008ffb" : "#333333"} strokeLinecap="round" />
