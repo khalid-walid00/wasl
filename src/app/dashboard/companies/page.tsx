@@ -1,182 +1,242 @@
 "use client";
-import { useState } from "react";
-import { Select, SelectItem } from "@nextui-org/react"; 
-import Table from "~/common/components/organisms/Table/index";
+import { useMemo, useState } from "react";
+import { Select, SelectItem } from "@nextui-org/react";
+import Table2 from "~/common/components/molecules/table/index";
 import DeleteManyProducts from "./deleteMany";
 import ActionList from "./components/actionList/ActionsMenu";
-import ComapnySearch from "./components/search";
+import ComapnySearch from "./components/header";
 import { statusOptions } from "./components/statusOptions";
+import HeadTable from "~/common/components/molecules/headTable";
 
 function Page() {
-  
+
   const staticData = [
     {
       id: 1,
-      companyName: "شركة ABC",
-      companyPhone: "+201234567890",
-      commercialRecord: "123456789",
-      managerName: "أحمد علي",
-      managerPhone: "+201234567891",
-      managerPhone2: "+201234567892",
-      status: "Active",
-      activity: "نشط",
-      registrationDate: "2024-01-01",
-      images: [{ imageUrl: "/assets/product1.jpg" }],
-      price: "1000",
-      stock: { quantity: 50 },
-      category: { title: "الفئة 1" },
-      subCategory: { title: "الفئة الفرعية 1" },
+      Account: "Smart Development Co.",
+      identityNumber: "+201234567891",
+      commercialRecord: "TR987654321",
+      representativeName: "Mohamed Youssef",
+      phoneNo: "+201234567892",
+      extensionNumber: "+201234567893",
+      emailId: "mohamed@smartdev.com",
+      status: "Inactive",
+      managerName: "Ahmed Said",
+      managerPhone: "+201234567894",
+      managerMobile: "+201234567895",
+      reply: "Not Replied",
+      waslkey:"def456uvw" ,
+      activity: "two_Car ",
+      date: "2023-06-01"
     },
     {
       id: 2,
-      companyName: "شركة XYZ",
-      companyPhone: "+201234567893",
-      commercialRecord: "987654321",
-      managerName: "فاطمة زيد",
-      managerPhone: "+201234567894",
-      managerPhone2: "+201234567895",
+      Account: "Smart Development Co.",
+      identityNumber: "+201234567891",
+      commercialRecord: "TR987654321",
+      representativeName: "Mohamed Youssef",
+      phoneNo: "+201234567892",
+      extensionNumber: "+201234567893",
+      emailId: "mohamed@smartdev.com",
       status: "Inactive",
-      activity: "معلق",
-      registrationDate: "2023-12-01",
-      images: [{ imageUrl: "/assets/product2.jpg" }],
-      price: "2000",
-      stock: { quantity: 30 },
-      category: { title: "الفئة 2" },
-      subCategory: { title: "الفئة الفرعية 2" },
-    },
-  ];
-  
-  const [statusData, setStatusData] = useState(staticData); 
+      managerName: "Ahmed Said",
+      managerPhone: "+201234567894",
+      managerMobile: "+201234567895",
+      reply: "Not Replied",
+      waslkey:"def456uvw" ,
+      activity: "teo_Car two",
+      date: "2023-06-01"
 
-
-  const columns = [
-    { name: "اسم الشركة", uid: "companyName" },
-    { name: "رقم الشركة", uid: "companyPhone" },
-    { name: "السجل التجاري", uid: "commercialRecord" },
-    { name: "اسم المدير", uid: "managerName" },
-    { name: "رقم المدير", uid: "managerPhone" },
-    { name: "رقم اخر للمدير", uid: "managerPhone2" },
-    { name: "الحالة", uid: "status" },
-    { name: "النشاط", uid: "activity" },
-    { name: "تاريخ التسجيل", uid: "registrationDate" },
-    { name: "الاعدادات", uid: "actions" },
-  ];
-  const renderCell = (item: any, columnKey: React.Key) => {
-    const selectorStatus = statusOptions.find(option => option.value === item?.status);
-  
-    switch (columnKey) {
-      case "companyName":
-        return <p>{item?.companyName}</p>;
-  
-      case "companyPhone":
-        return <p>{item?.companyPhone}</p>;
-  
-      case "commercialRecord":
-        return <p>{item?.commercialRecord}</p>;
-  
-      case "managerName":
-        return <p>{item?.managerName}</p>;
-  
-      case "managerPhone":
-        return <p>{item?.managerPhone}</p>;
-  
-      case "managerPhone2":
-        return <p>{item?.managerPhone2}</p>;
-  
-      case "status":
-        return (
-          <div className="flex justify-start" onMouseDown={(e) => e.stopPropagation()}>
-            <Select
-              style={{
-                border: `1px solid #008ffb`,
-                backgroundColor: "transparent",
-                borderRadius: "4px",
-                color: "#008ffb",
-                minHeight: "30px",
-                width: "120px",
-                height: "30px",
-              }}
-              size="lg"
-              placeholder={selectorStatus?.label || 'غير محدد'}
-              className="w-40"
-              classNames={{
-                base: "text-mainColor placeholder:text-mainColor p-0 m-0 bg-transparent",
-                popoverContent: "py-3 px-2 m-0 w-40 rounded-[4px]",
-                selectorIcon: `text-mainColor`,
-                value: "text-mainColor group-data-[has-value=true]:text-mainColor",
-              }}
-              onChange={(status: any) => {
-                const updatedData = statusData.map((product: any) =>
-                  product.id === item.id ? { ...product, status: status.target.value } : product
-                );
-                setStatusData(updatedData); // تحديث الحالة عبر useState
-              }}
-            >
-              {statusOptions?.map((role: any) => (
-                <SelectItem
-                  key={role.value}
-                  value={role.value}
-                  style={{
-                    backgroundColor: "#E4F2F2",
-                    borderRadius: "4px",
-                    color: "#008ffb",
-                  }}
-                >
-                  {role.label}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
-        );
-  
-      case "activity":
-        return <p>{item?.activity}</p>;
-  
-      case "registrationDate":
-        return <p>{item?.registrationDate}</p>;
-  
-      case "actions":
-        return <ActionList item={item} />;
-  
-      default:
-        return item;
     }
-  };
-  
+  ];
 
-  const statusTranslations = {
-    "الكل": "All",
-    "المهملات": "REJECTED",
-  };
 
-  const statuses = ['الكل', 'الكل', 'المهملات'];
+  const [statusData, setStatusData] = useState(staticData);
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Account',
+        accessor: 'Account',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.Account}</p>;
+        },
+      },
+      {
+        Header: 'Representative Name',
+        accessor: 'representativeName',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.representativeName}</p>;
+        },
+      },
+      {
+        Header: 'Identity Number',
+        accessor: 'identityNumber',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.identityNumber}</p>;
+        },
+      },
+      {
+        Header: 'Commercial Record',
+        accessor: 'commercialRecord',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.commercialRecord}</p>;
+        },
+      },
+      {
+        Header: 'Phone Number',
+        accessor: 'phoneNo',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.phoneNo}</p>;
+        },
+      },
+      {
+        Header: 'Extension Number',
+        accessor: 'extensionNumber',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.extensionNumber}</p>;
+        },
+      },
+      {
+        Header: 'Email ID',
+        accessor: 'emailId',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.emailId}</p>;
+        },
+      },
+      {
+        Header: 'Manager Name',
+        accessor: 'managerName',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.managerName}</p>;
+        },
+      },
+      {
+        Header: 'Manager Phone',
+        accessor: 'managerPhone',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.managerPhone}</p>;
+        },
+      },
+      {
+        Header: 'Manager Mobile',
+        accessor: 'managerMobile',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.managerMobile}</p>;
+        },
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: (tableProps:any) => {
+          const selectorStatus = statusOptions.find(
+            (option) => option.value === tableProps.row.original?.status
+          );
+          return (
+            <div className="flex justify-start" onMouseDown={(e) => e.stopPropagation()}>
+              <Select
+                style={{
+                  border: `1px solid #008ffb`,
+                  backgroundColor: 'transparent',
+                  borderRadius: '4px',
+                  color: '#008ffb',
+                  minHeight: '30px',
+                  width: '120px',
+                  height: '30px',
+                }}
+                size="lg"
+                placeholder={selectorStatus?.label || 'Not Specified'}
+                className="w-40"
+                onChange={(status) => {
+                  const updatedData = statusData.map((product) =>
+                    product.id === tableProps.row.original.id
+                      ? { ...product, status: status.target.value }
+                      : product
+                  );
+                  setStatusData(updatedData);
+                }}
+              >
+                {statusOptions?.map((role) => (
+                  <SelectItem
+                    key={role.value}
+                    value={role.value}
+                    style={{
+                      backgroundColor: '#E4F2F2',
+                      borderRadius: '4px',
+                      color: '#008ffb',
+                    }}
+                  >
+                    {role.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+          );
+        },
+      },
+      {
+        Header: 'Activity',
+        accessor: 'activity.title',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.activity}</p>;
+        },
+      },
+      {
+        Header: 'Reply Status',
+        accessor: 'reply',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.reply}</p>;
+        },
+      },
+      {
+        Header: 'Wasl Key',
+        accessor: 'waslkey.quantity',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.waslkey}</p>;
+        },
+      },
+      {
+        Header: 'activity',
+        accessor: 'activity',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.activity}</p>;
+        },
+      },
+      {
+        Header: 'date',
+        accessor: 'date',
+        Cell: (tableProps:any) => {
+          return <p>{tableProps.row.original?.date}</p>;
+        },
+      },
+      {
+        Header: 'Actions',
+        Cell: (tableProps:any) => {
+          return <ActionList item={tableProps.row.original} />;
+        },
+      },
+    ],
+    [statusData]
+  );
+
 
   return (
-    <Table
-      renderCell={renderCell}
-      columns={columns}
-      searchValue={""}
-      data={statusData}
-      loading={false}
-      searchComponent={<ComapnySearch />}
-      limit={10}
-      pagination={{ totalCount: statusData.length, totalPages: 1 }}
-      page={2}
-      statusTranslations={statusTranslations}
-      searchSlice={{ search: "", setSearch: () => {} }}
-      statuses={statuses}
-      setPage={() => {}}
-      nextPage={() => {}}
-      prevPage={() => {}}
-      setLimit={() => {}}
-      selectedKeys={new Set()}
-      setSelectedKeys={() => {}}
-      handleAction={`companies/create`}
-      actionText={"اضافة شركة"}
-      title={"عرض الشركات"}
-      searchPlaceholder="ابحث عن شركة .."
-      ActionsManyOprations={<DeleteManyProducts />}
-    />
+    <div className="bg-transparent py-[18px] flex flex-col gap-10">
+      <HeadTable title="Companies" description="Company details and actions" />
+      <div className="container">
+        <Table2
+          header={<ComapnySearch />}
+          columns={columns}
+          data={statusData}
+          loading={false}
+          pageCount={9}
+          limit={10}
+          nextPage={() => { }}
+          prevPage={() => { }}
+          setLimit={() => { }}
+        />
+      </div>
+    </div>
   );
 }
 

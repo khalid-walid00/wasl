@@ -1,198 +1,141 @@
 "use client";
-import { useState } from "react";
-import { Select, SelectItem } from "@nextui-org/react"; 
-import Table from "~/common/components/organisms/Table/index";
-import DeleteManyProducts from "./deleteMany";
+import { useMemo, useState } from "react";
+import HeadTable from "~/common/components/molecules/headTable";
+import Table from "~/common/components/molecules/table";
+import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
-import ComapnySearch from "./components/search";
-import { statusOptions } from "./components/statusOptions";
-import { useDispatch } from "react-redux";
-import { toggleModel } from "./create/createVehicle.slice";
-import CreateVehicle from "./create/page";
 
 function Page() {
-  const dispatch = useDispatch();
-  
   const staticData = [
     {
-      id: 1,
-      vehicleName: "تويوتا كورولا",
-      vehicleType: "سيدان",
-      vehicleModel: "2022",
-      fuelType: "بنزين",
-      gearBoxType: "أوتوماتيك",
-      status: "نشطة",
-      registrationDate: "2024-01-15",
+      Account: 101,
+      VehicleNo: "Vehicle-1234",
+      SequenceNumber: "1234",
+      PlateNumber: "XYZ1234",
+      PlateRightLetter: "X",
+      PlateMiddleLetter: "Y",
+      PlateType: "Private",
+      PlateLeftLetter: "Z",
+      IMEINumber: "IMEI123456789",
+      WASLVehicleKey: "WASL123456",
+      Response: "Approved",
+      RegistrationDate: "2024-11-20",
+      Activity: "Active",
+      Reply: "Success",
+      Actions:"Actions"
+
     },
     {
-      id: 2,
-      vehicleName: "هيونداي توسان",
-      vehicleType: "SUV",
-      vehicleModel: "2021",
-      fuelType: "ديزل",
-      gearBoxType: "يدوي",
-      status: "معلقة",
-      registrationDate: "2023-11-10",
-    },
-    {
-      id: 3,
-      vehicleName: "مرسيدس بنز C-Class",
-      vehicleType: "سيدان",
-      vehicleModel: "2023",
-      fuelType: "بنزين",
-      gearBoxType: "أوتوماتيك",
-      status: "نشطة",
-      registrationDate: "2024-02-20",
-    },
-    {
-      id: 4,
-      vehicleName: "نيسان باترول",
-      vehicleType: "SUV",
-      vehicleModel: "2020",
-      fuelType: "ديزل",
-      gearBoxType: "أوتوماتيك",
-      status: "مهملة",
-      registrationDate: "2022-07-30",
-    },
-    {
-      id: 5,
-      vehicleName: "شيفروليه تاهو",
-      vehicleType: "SUV",
-      vehicleModel: "2021",
-      fuelType: "بنزين",
-      gearBoxType: "أوتوماتيك",
-      status: "نشطة",
-      registrationDate: "2023-05-12",
+      Account: 102,
+      VehicleNo: "Vehicle-5678",
+      SequenceNumber: "5678",
+      PlateNumber: "ABC5678",
+      PlateRightLetter: "A",
+      PlateMiddleLetter: "B",
+      PlateType: "Commercial",
+      PlateLeftLetter: "C",
+      IMEINumber: "IMEI987654321",
+      WASLVehicleKey: "WASL654321",
+      Response: "Pending",
+      RegistrationDate: "2023-05-15",
+      Activity: "Inactive",
+      Reply: "Processing",
+      Actions:"Actions"
     },
   ];
   
   
+  
+
   const [statusData, setStatusData] = useState(staticData); 
 
-
-  const columns = [
-    { name: "اسم المركبة", uid: "vehicleName" },
-    { name: "نوع المركبة", uid: "vehicleType" },
-    { name: "الموديل", uid: "vehicleModel" },
-    { name: "البنزين", uid: "fuelType" },
-    { name: "صندوق التروس", uid: "gearBoxType" },
-    { name: "الحالة", uid: "status" },
-    { name: "تاريخ التسجيل", uid: "registrationDate" },
-    { name: "الاعدادات", uid: "actions" },
-  ];
-  const renderCell = (item: any, columnKey: React.Key) => {
-    const selectorStatus = statusOptions.find(option => option.value === item?.status);
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Account',
+        accessor: 'Account',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.Account}</p>,
+      },
+      {
+        Header: 'Vehicle No.',
+        accessor: 'VehicleNo',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.VehicleNo}</p>,
+      },
+      {
+        Header: 'Sequence Number',
+        accessor: 'SequenceNumber',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.SequenceNumber}</p>,
+      },
+      {
+        Header: 'Plate Number',
+        accessor: 'PlateNumber',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.PlateNumber}</p>,
+      },
+      {
+        Header: 'Plate Type',
+        accessor: 'PlateType',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.PlateType}</p>,
+      },
+      {
+        Header: 'IMEI Number',
+        accessor: 'IMEINumber',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.IMEINumber}</p>,
+      },
+      {
+        Header: 'WASL Key',
+        accessor: 'WASLVehicleKey',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.WASLVehicleKey}</p>,
+      },
+      {
+        Header: 'Response',
+        accessor: 'Response',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.Response}</p>,
+      },
+      {
+        Header: 'Registration Date',
+        accessor: 'RegistrationDate',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.RegistrationDate}</p>,
+      },
+      {
+        Header: 'Activity',
+        accessor: 'Activity',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.Activity}</p>,
+      },
+      {
+        Header: 'Reply',
+        accessor: 'Reply',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.Reply}</p>,
+      },
+      {
+        Header: 'Actions',
+        Cell: (tableProps: any) => {
+          return <ActionList item={tableProps.row.original} />;
+        },
+      },
+    ],
+    []
+  );
   
-    switch (columnKey) {
-      case "vehicleName":
-        return <p>{item?.vehicleName}</p>;
-  
-      case "vehicleType":
-        return <p>{item?.vehicleType}</p>;
-  
-      case "vehicleModel":
-        return <p>{item?.vehicleModel}</p>;
-        case "fuelType":
-          return <p>{item?.fuelType}</p>;
-    
-      case "gearBoxType":
-        return <p>{item?.gearBoxType}</p>;
-      case "status":
-        return (
-          <div className="flex justify-start" onMouseDown={(e) => e.stopPropagation()}>
-            <Select
-              style={{
-                border: `1px solid #008ffb`,
-                backgroundColor: "transparent",
-                borderRadius: "4px",
-                color: "#008ffb",
-                minHeight: "30px",
-                width: "120px",
-                height: "30px",
-              }}
-              size="lg"
-              placeholder={selectorStatus?.label || 'غير محدد'}
-              className="w-40"
-              classNames={{
-                base: "text-mainColor placeholder:text-mainColor p-0 m-0 bg-transparent",
-                popoverContent: "py-3 px-2 m-0 w-40 rounded-[4px]",
-                selectorIcon: `text-mainColor`,
-                value: "text-mainColor group-data-[has-value=true]:text-mainColor",
-              }}
-              onChange={(status: any) => {
-                const updatedData = statusData.map((product: any) =>
-                  product.id === item.id ? { ...product, status: status.target.value } : product
-                );
-                setStatusData(updatedData); // تحديث الحالة عبر useState
-              }}
-            >
-              {statusOptions?.map((role: any) => (
-                <SelectItem
-                  key={role.value}
-                  value={role.value}
-                  style={{
-                    backgroundColor: "#E4F2F2",
-                    borderRadius: "4px",
-                    color: "#008ffb",
-                  }}
-                >
-                  {role.label}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
-        );
-  
-    
-        return <p>{item?.activity}</p>;
-      case "registrationDate":
-        return <p>{item?.registrationDate}</p>;
-  
-      case "actions":
-        return <ActionList item={item} />;
-  
-      default:
-        return item;
-    }
-  };
   
 
-  const statusTranslations = {
-    "الكل": "All",
-    "المهملات": "REJECTED",
-  };
-
-  const statuses = ['الكل', 'الكل', 'المهملات'];
 
   return (
-    <>
-    <Table
-      renderCell={renderCell}
-      columns={columns}
-      searchValue={""}
-      data={statusData}
-      loading={false}
-      searchComponent={<ComapnySearch />}
-      limit={10}
-      pagination={{ totalCount: statusData.length, totalPages: 1 }}
-      page={2}
-      statusTranslations={statusTranslations}
-      searchSlice={{ search: "", setSearch: () => {} }}
-      statuses={statuses}
-      setPage={() => {}}
-      nextPage={() => {}}
-      prevPage={() => {}}
-      setLimit={() => {}}
-      selectedKeys={new Set()}
-      setSelectedKeys={() => {}}
-      handleAction={() =>dispatch(toggleModel())}
-      actionText={"اضافة مركبة"}
-      title={"عرض المركبات"}
-      searchPlaceholder="ابحث عن مركبة .."
-      ActionsManyOprations={<DeleteManyProducts />}
-    />
-    <CreateVehicle/>
-    </>
+    <div className="bg-transparent py-[18px] flex flex-col gap-10">
+    <HeadTable title="Drivers" description="View details and actions" />
+    <div className="container">
+      <Table
+        header={<VehicleHeader />}
+        columns={columns}
+        data={statusData}
+        loading={false}
+        pageCount={9}
+        limit={10}
+        nextPage={() => { }}
+        prevPage={() => { }}
+        setLimit={() => { }}
+      />
+    </div>
+  </div>
   );
 }
 

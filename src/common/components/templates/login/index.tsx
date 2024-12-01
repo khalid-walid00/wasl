@@ -8,9 +8,7 @@ import PasswordInput from "../../molecules/passwordInput";
 import Link from "next/link";
 import login from "~/features/auth/login";
 
-interface Country {
-  _id: string;
-}
+
 
 export default function LoginTemplate() {
   const [loading, setLoading] = useState(false);
@@ -70,10 +68,6 @@ export default function LoginTemplate() {
         </div>
       </div>
       <Button primary style={{ fontSize: "20px" }} type={"submit"} loading={loading}>تسجيل الدخول</Button>
-      <div className=" md:text-[20px] text-base flex items-center justify-center gap-[8px]">
-        <div className=" text-graySad"> ليس لديك حساب بعد؟ </div>
-        <Link href={`/signup/${paramValue ? "?plan=" + paramValue : ""}`} className=" text-mainColor"> تسجيل جديد </Link>
-      </div>
     </form>
   );
 }

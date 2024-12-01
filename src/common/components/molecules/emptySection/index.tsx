@@ -16,7 +16,6 @@ function EmptySection({ title, text, img, link, btn, event,backColor="#fff" }: P
     <div  style={{ backgroundColor: backColor }} className={`flex items-center justify-center flex-col   `}  >
       <div
         className=" container  "
-        dir="rtl"
       >
         <div className="flex flex-wrap items-center   ">
           <div className="w-8/12 mx-auto  ">

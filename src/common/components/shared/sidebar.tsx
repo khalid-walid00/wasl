@@ -40,61 +40,36 @@ function Sidebar() {
       ],
     },
     {
-      title: "ادارة الشركات",
+      title: "",
       content: [
         {
-          text: "الشركات",
+          text: "ادارة الشركات",
           icon: <PiBuildingOffice size={22} className=" text-mainColor" />,
           href: `/dashboard/companies`,
-          list: [
-            {
-              text: "الشركات",
-              href: `/dashboard/companies`,
-            },
-            {
-              text: "اضافة شركة",
-              href: `/dashboard/companies/create`,
-            },
-
-          ],
         },
+       
       ],
     },
     {
-      title: "المركبات",
+      title: "",
       content: [
         {
           text: "المركبات",
           icon: <PiBuildingOffice size={22} className=" text-mainColor" />,
           href: `/dashboard/vehicle`,
-          list: [
-            {
-              text: "عرض المركبات",
-              href: `/dashboard/vehicle`,
-            }
-          ],
         },
+       
       ],
     },
     {
-      title: "السائقين",
+      title: "",
       content: [
         {
           text: "السائقين",
           icon: <LiaBikingSolid  size={22} className=" text-mainColor" />,
           href: `/dashboard/drivers`,
-          list: [
-            {
-              text: "السائقين",
-              href: `/dashboard/drivers`,
-            },
-            {
-              text: "اضافة سائقين",
-              href: `/dashboard/drivers/create`,
-            },
-            
-          ],
         },
+       
       ],
     },
   ];
@@ -114,13 +89,12 @@ function Sidebar() {
             ? "w-full sm:w-1/3 md:w-2/6 lg:w-1/6 sm:1/3  "
             : "md:w-[4%] hidden md:block"
         } transition-all duration-300 h-screen
-          right-0
-        overflow-y-auto fixed top-[7.9rem] md:top-0  md:pb-10 pb-40 text-white  `}
+          left-0
+        overflow-y-auto fixed top-[80px] md:top-0  md:pb-10 pb-40 text-white  `}
         style={{
           msOverflowStyle: "none",
           scrollbarWidth: "none",
         }}
-        dir="rtl"
       >
         <style jsx>{`
           ::-webkit-scrollbar {
@@ -135,15 +109,15 @@ function Sidebar() {
           }  z-[99] h-[91PX] sticky shadow-sm border-b border-[#EFEFEF] top-0 py-8 bg-white`}
         >
           <div
-            className={` ${
-              showSideBar ? "justify-start text-4xl" : "justify-center"
+            className={` items-center ${
+              showSideBar ? "justify-start text-5xl" : "justify-center"
             } flex ${local === "ar" ? "flex-row" : "flex-row-reverse"}`}
           >
             <div className=" flex gap-2  items-center">
 
            <FaCar size={30} className=" text-mainColor"/>
            {
-            showSideBar && <div className=" text-3xl text-mainColor">وصلة</div>
+            showSideBar && <div className=" text- font-bold text-mainColor">WSL</div>
            }
           
             </div>

@@ -48,7 +48,6 @@ export default function TableTest({
   searchComponent,
   searchSlice,
   statusTranslations = {},
-  ActionsManyOprations,
   statuses = [],
   searchPlaceholder = 'بحث .. ',
   searchField = "title",
@@ -149,9 +148,6 @@ export default function TableTest({
               {searchComponent}
             <div className=" flex justify-between">
               <div className="flex gap-[16px] text-[--primaryColor]">
-
-                {ActionsManyOprations}
-
                 {statuses.length && (
                   <Dropdown>
                     <DropdownTrigger className="hidden sm:flex bg-[--linerMainColor]  text-mainColor font-bold">
@@ -303,7 +299,7 @@ export default function TableTest({
         {topContent}
         <Table
           isCompact
-          className=" container gap-0 border-none "
+          className="min-w-[600px] container gap-0 border-none "
           removeWrapper
           aria-label="Example table with custom cells, pagination and sorting"
           bottomContentPlacement="outside"
@@ -334,7 +330,6 @@ export default function TableTest({
               </TableColumn>
             )}
           </TableHeader>
-
           <TableBody
             className=" container overflow-x-auto "
             isLoading={loading}
@@ -354,7 +349,7 @@ export default function TableTest({
                 className="text-black hover:bg-transparent border-none  bg-opacity-50 even:bg-opacity-100 odd:bg-white  border-[#E3E3E3] border even:bg-[#F8F8F8]"
               >
                 {(columnKey) => (
-                  <TableCell className=" bg-transparent p-5 ">
+                  <TableCell className="bg-transparent p-5 whitespace-nowrap overflow-hidden text-ellipsis">
                     {renderCell(item, columnKey)}
                   </TableCell>
                 )}

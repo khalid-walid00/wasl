@@ -13,9 +13,9 @@ interface CustomSelectorProps {
   onChange: any;
   placeholder?: string;
   isClearable?: boolean;
-  className?:string
-  bgArrow?:string
-  isLoading?: boolean; 
+  className?: string;
+  bgArrow?: string;
+  isLoading?: boolean;
   isMulti?: boolean;
 }
 
@@ -26,16 +26,16 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
   onChange,
   placeholder = "اختر خيارًا",
   isClearable = true,
-  className='',
-  bgArrow='#008ffb',
-  isLoading=false,
-  isMulti=false
+  className = '',
+  bgArrow = '#008ffb',
+  isLoading = false,
+  isMulti = false
 }) => {
   return (
     <div className='flex flex-col w-full p-0 m-0'>
       {label && <label className={`font-normal ${className}`}>{label}</label>}
       <Select
-      isLoading={isLoading}
+        isLoading={isLoading}
         isClearable={isClearable}
         styles={{
           control: (provided) => ({
@@ -45,8 +45,10 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             backgroundColor: 'transparent',
             cursor: "pointer",
             boxShadow: 'none',
-            minHeight: '40px',
+            height: '100%',  // هنا تأخذ الارتفاع الكامل للعنصر الأب
             padding: '0', 
+            width: '100%',
+            textWrap: 'nowrap',
             '&:hover': {
               borderColor: '#d7d7d7',
             },
@@ -57,7 +59,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             backgroundColor: bgArrow,
             color: "white",
             display: 'flex',
-            height: '100%', 
+            height: '100%',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0',
@@ -66,11 +68,10 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             paddingRight: "11px",
             margin: '0', 
             border: 'none',
-              '&:hover':{
-                backgroundColor: '#008ffb',
-                color: "white",
+            '&:hover': {
+              backgroundColor: '#008ffb',
+              color: "white",
             },
-  
           }),
           clearIndicator: (provided) => ({
             ...provided,
@@ -79,35 +80,35 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             borderRadius: '50%',
             padding: '5px',
             cursor: 'pointer',
-            '&:hover':{
-              color:"red"
+            '&:hover': {
+              color: "red"
             }
           }),
           menu: (provided) => ({
             ...provided,
-            backgroundColor: '#fff', // لون الخلفية
-            borderRadius: '8px', // التحكم في الزوايا
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // إضافة ظل للقائمة
-            marginTop: '4px', // المسافة بين الحقل والقائمة
+            backgroundColor: '#fff', 
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
+            marginTop: '4px',
           }),
           menuList: (provided) => ({
             ...provided,
-            padding: '0', // إزالة التباعد داخل القائمة
+            padding: '0',
           }),
           option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isFocused ? '#008ffb' : '#fff', // لون الخلفية عند التحويم
-            borderRadius: '8px', // التحكم في الزوايا
-            color: '#333', // لون النص
-            padding: '10px 15px', // التباعد داخل العنصر
-            cursor: 'pointer', // تغيير شكل المؤشر
+            backgroundColor: state.isFocused ? '#008ffb' : '#fff', 
+            borderRadius: '8px',
+            color: '#333',
+            padding: '10px 15px', 
+            cursor: 'pointer',
           }),
         }}
         options={options}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full py-1 mb-1"
+        className="w-full   h-full"
         isMulti={isMulti}
       />
     </div>
