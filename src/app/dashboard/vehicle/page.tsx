@@ -4,6 +4,7 @@ import HeadTable from "~/common/components/molecules/headTable";
 import Table from "~/common/components/molecules/table";
 import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
+import CreateVehicle from "./create/page";
 
 function Page() {
   const staticData = [
@@ -135,6 +136,7 @@ function Page() {
         setLimit={() => { }}
       />
     </div>
+    <CreateVehicle/>
   </div>
   );
 }

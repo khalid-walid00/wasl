@@ -11,7 +11,7 @@ import CustomSelector from "~/common/components/atoms/customSelector/CustomSelec
 function CreateVehicle() {
   const dispatch = useDispatch();
   const { showModel, loading } = useSelector(
-    (state: any) => state.createVehicleSlice
+    (state:any) => state.createVehicleSlice
   );
 
   const toggleModelHandler = () => {
@@ -20,10 +20,10 @@ function CreateVehicle() {
 
   const optionsData = {
     vehicleStatus: [
-      { label: "نشط", value: "active" },
-      { label: "معلق", value: "pending" },
-      { label: "ملغي", value: "canceled" },
-      { label: "مهمل", value: "rejected" },
+      { label: "Active", value: "active" },
+      { label: "Pending", value: "pending" },
+      { label: "Canceled", value: "canceled" },
+      { label: "Rejected", value: "rejected" },
     ],
     carModel: [
       { label: "BMW", value: "bmw" },
@@ -32,22 +32,22 @@ function CreateVehicle() {
       { label: "Tesla", value: "tesla" },
     ],
     vehicleType: [
-        { label: "سيارة", value: "car" },
-        { label: "دراجة نارية", value: "motorcycle" },
-        { label: "شاحنة", value: "truck"},
-        { label: "حافلة", value: "bus" },
-        { label: "سيارة كهربائية", value: "electric_car" },
-        { label: "سيارة رياضية", value: "sports_car" }
-       ],
+      { label: "Car", value: "car" },
+      { label: "Motorcycle", value: "motorcycle" },
+      { label: "Truck", value: "truck" },
+      { label: "Bus", value: "bus" },
+      { label: "Electric Car", value: "electric_car" },
+      { label: "Sports Car", value: "sports_car" },
+    ],
     fuelType: [
-      { label: "بنزين", value: "petrol" },
-      { label: "ديزل", value: "diesel" },
-      { label: "غاز طبيعي", value: "natural_gas" },
-      { label: "كهرباء", value: "electric" },
+      { label: "Petrol", value: "petrol" },
+      { label: "Diesel", value: "diesel" },
+      { label: "Natural Gas", value: "natural_gas" },
+      { label: "Electric", value: "electric" },
     ],
     gearBoxType: [
-      { label: "يدوي", value: "manual" },
-      { label: "أوتوماتيك", value: "automatic" },
+      { label: "Manual", value: "manual" },
+      { label: "Automatic", value: "automatic" },
     ],
   };
 
@@ -61,56 +61,57 @@ function CreateVehicle() {
     >
       <div className="flex flex-col gap-y-4 min-h-screen">
         <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>اسم المركبة</CustomLabel>
-          <CustomInput placeholder="اسم المركبة" />
+          <CustomLabel bold>Vehicle Name</CustomLabel>
+          <CustomInput placeholder="Enter vehicle name" />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>نوع المركبة</CustomLabel>
+          <CustomLabel bold>Vehicle Type</CustomLabel>
           <CustomSelector
             options={optionsData.vehicleType}
             onChange={() => {}}
             value={null}
-            placeholder="حدد النوع"
-          />
-        </div>
-        <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>حالة المركبة</CustomLabel>
-          <CustomSelector
-            options={optionsData.vehicleType}
-            onChange={() => {}}
-            value={null}
-            placeholder="حدد حالة المركبة"
+            placeholder="Select type"
           />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>الموديل المركبة</CustomLabel>
+          <CustomLabel bold>Vehicle Status</CustomLabel>
+          <CustomSelector
+            options={optionsData.vehicleStatus}
+            onChange={() => {}}
+            value={null}
+            placeholder="Select status"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 items-start">
+          <CustomLabel bold>Vehicle Model</CustomLabel>
           <CustomSelector
             options={optionsData.carModel}
             onChange={() => {}}
             value={null}
-            placeholder="حدد الموديل"
+            placeholder="Select model"
           />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>نوع البنزين</CustomLabel>
+          <CustomLabel bold>Fuel Type</CustomLabel>
           <CustomSelector
             options={optionsData.fuelType}
             onChange={() => {}}
             value={null}
-            placeholder="حدد نوع البنزين"
+            placeholder="Select fuel type"
           />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>صندوق التروس</CustomLabel>
+          <CustomLabel bold>Gearbox Type</CustomLabel>
           <CustomSelector
             options={optionsData.gearBoxType}
             onChange={() => {}}
             value={null}
-            placeholder="حدد نوع صندوق التروس"
+            placeholder="Select gearbox type"
           />
         </div>
       </div>

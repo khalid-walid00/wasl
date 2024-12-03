@@ -33,7 +33,7 @@ const SideAction: React.FC<SideActionProps> = ({
               <button className=" w-[40px] h-[40px] rounded-full flex items-center justify-center bg-mainColor" onClick={toggleModelHandler} aria-label="Back">
                  <IoArrowBackSharp className="text-white" size={24} /> 
               </button>
-              اغلاق
+              
             </div>
             <div className="newBody flex flex-col gap-6 justify-between text-center min-h-[90vh]">
               <div className="">

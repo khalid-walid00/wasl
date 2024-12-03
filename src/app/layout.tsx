@@ -58,7 +58,7 @@ export default async function RootLayout({
       </head>
 
       <body>
-        <NextTopLoader showSpinner={false} color={"#259799"} />
+        <NextTopLoader showSpinner={false} color={"#008ffb"} />
             <ReduxProvider>
               {children}
             </ReduxProvider>

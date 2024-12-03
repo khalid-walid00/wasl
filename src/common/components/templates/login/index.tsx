@@ -26,7 +26,7 @@ export default function LoginTemplate() {
         password,
       })
 
-
+      // window.location.href = "/dashboard";
     } catch (error) {
       console.error("Unexpected error:", error);
       Toast.fire({

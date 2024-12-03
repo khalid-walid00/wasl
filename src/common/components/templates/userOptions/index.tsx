@@ -12,12 +12,12 @@ function UserOptionsTemplates({}: any) {
 
   const userOptionsList = [
     {
-      title: "الملف الشخصي",
+      title: "profile",
       path: "/profile",
       logo: <FaRegUser size={20} color="#008ffb" />,
     },
     {
-      title: "تسجيل الخروج",
+      title: "logout",
       onClick: logout,
       logo: <FiLogOut size={20} color="#008ffb" />,
     },
@@ -42,7 +42,7 @@ function UserOptionsTemplates({}: any) {
           /> 
           <div className=" lg:flex hidden  flex-col items-end">
             <div className=" flex gap-2">
-              <div className=" font-bold flex-1 text-start">الاسم للمستخدم</div>
+              <div className=" font-bold flex-1 text-start">name</div>
               <svg
                 className={`${
                   isOpen ? "rotate-180" : ""
@@ -66,7 +66,7 @@ function UserOptionsTemplates({}: any) {
               </svg>
             </div>
             <div className=" w-full text-[#979797] text-sm text-start font-bold ">
-              الدور
+              {"role"}
             </div>
           </div>
         </div>

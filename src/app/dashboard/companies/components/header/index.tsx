@@ -26,21 +26,21 @@ function ComapnyHeader() {
         <div className="  h-full flex">
           <CustomSelector
             value={null}
-            placeholder="حالة الشركة"
+            placeholder="Status"
             options={statuses}
             onChange={() => { }}
             />   
             </div>
             </div>     
         <div className="   w-full sm:w-2/12">
-          <Button>بحث</Button>
+          <Button>Search</Button>
         </div>
       </div>
       <div className=" flex justify-between">
         <div className="">
           <CustomSelector
             value={null}
-            placeholder="حالة الشركة"
+            placeholder="Status"
             options={statuses}
             onChange={() => { }}
           />

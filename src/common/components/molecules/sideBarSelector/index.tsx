@@ -29,7 +29,7 @@ function SideBarSelector({ className, title, content }: Props) {
   };
 
   return (
-    <div className="border-b last:border-0 border-[#E9E9E9] flex flex-col mx-4">
+    <div className={`border-b last:border-0 border-[#E9E9E9] flex flex-col ${showSideBar ? "mx-4" : "mx-2"} `}>
       {title && <div className={`text-lg   ${showSideBar ? " p-3 xl:p-3 xl:pb-0 pb-0  " 
         : "text-center xl:pt-3 hidden"} text-mainColor `}>{title}</div>}
       <div className={`flex-col ${!showSideBar && "xl:pb-0"} pb-[16px] pt-3 px-0 flex gap-1`}>
@@ -38,18 +38,17 @@ function SideBarSelector({ className, title, content }: Props) {
             {/* القائمه الرئيسيه */}
             <div
               onClick={() => toggleList(index)}
-              onMouseOver={() => dispatch(toggleSideBar(true))}
-              className={`flex py-2 xl:px-2 text-lg font-bold items-center  cursor-pointer ${showSideBar ? "justify-between pl-2" : "justify-center xl:pt-0"
+              className={`flex py-2 xl:px-2 text-lg font-bold items-center  cursor-pointer ${showSideBar ? "justify-between pl-2" : "justify-center "
                 } ${item.href == path ?
                   "bg-[#8fbfe4a3]  text-mainColor rounded-lg" : "text-blackBlue"} ${item.list?.some((list: any) => list.href == path) ? "bg-[#9dccf0a3]  text-mainColor rounded-lg" : "text-blackBlue"}
-                   ${local === "ar" ? "flex-row" : "flex-row-reverse "} gap-4 transition-all ${className}`}
+                   flex-row-reverse  gap-4 transition-all ${className}`}
             >
               {!item.list?.length ? (
-                <Link href={item.href} className={`items-center flex ${local === "ar" ? "flex-row" : "flex-row-reverse "} gap-2`}>
-                  {item.icon}
+                <Link href={item.href} className={`items-center flex flex-row  gap-2`}>
                   {showSideBar && (
                     <div className="md:text-[14px] text-base self-center">{item.text}</div>
                   )}
+                  {item.icon}
                 </Link>
               ) : (
                 <div className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse "} gap-2`}>

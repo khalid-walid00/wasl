@@ -9,23 +9,23 @@ const isUserPath = (pathname: string) => ['/profile'].includes(pathname);
 
 export async function middleware(req: NextRequest) {
 
-  // const token =  req.cookies.get(cookiesValues.qumraGlobalToken)?.value;
+  const token =  req.cookies.get(cookiesValues.GlobalToken)?.value;
 
   const pathname = req.nextUrl.pathname;
   const pathSegments = pathname.split('/');
 
   
-  // if (pathname === '/') {
-  //   return token ? redirectTo(req, '/dashboard') : redirectTo(req, '/login');
-  // }
+  if (pathname === '/') {
+    return token ? redirectTo(req, '/dashboard') : redirectTo(req, '/login');
+  }
 
-  // if (token && isLoginPath(pathname)) {
-  //   return redirectTo(req, '/');
-  // }
+  if (token && isLoginPath(pathname)) {
+    return redirectTo(req, '/');
+  }
 
-  // if (!token && !isLoginPath(pathname)) {
-  //   return redirectTo(req, '/login');
-  // }
+  if (!token && !isLoginPath(pathname)) {
+    return redirectTo(req, '/login');
+  }
 
   return NextResponse.next();
 }
