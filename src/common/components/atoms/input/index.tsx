@@ -24,7 +24,7 @@ function CustomInput({
       value={value}
       onBlur={onBlur}
       placeholder={placeholder}
-      className={`w-full rounded-lg bg-transparent py-[10px] px-[12px] h-[48px]  outline-none border border-[--lineBorder] ${className}`} // دعم `className` مخصص
+      className={`w-full text-end rounded-lg bg-transparent py-[10px] px-[12px] h-[48px]  outline-none border border-[--lineBorder] ${className}`} // دعم `className` مخصص
       {...rest}
     />
   );

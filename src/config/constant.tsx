@@ -25,7 +25,7 @@ export const allowPages: any = {
     development: 'development',
   };
   export const cookiesValues = {
-    GlobalToken: 'token',
+    GlobalToken: 'w-token',
   };
   export const appPlatforms = {
     STORE: 'STORE',

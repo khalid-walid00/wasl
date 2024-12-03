@@ -11,7 +11,8 @@ const persistConfig: any = {
   key: 'root',
   storage,
   blacklist: [
-  "createVehicleSlice"
+  "createVehicleSlice",
+  "companiesSlice"
   ],
 };
 

@@ -24,7 +24,7 @@ const Page = () => {
 
   return (
     <div className=" flex flex-col gap-6">
-      <DatepickerComponent />
+      {/* <DatepickerComponent />
       <div className="md:container bg-[#F7F7F7] px-[34px]  pb-[50px]">
 
         {false ? <><SectionLoading /></> : <>
@@ -43,7 +43,9 @@ const Page = () => {
           
         </>}
 
-      </div>    </div>
+      </div>     */}
+      
+      </div>
   );
 };
 

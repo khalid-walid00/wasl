@@ -7,32 +7,32 @@ import { Autoplay, Pagination } from "swiper/modules";
 import Image from "next/image";
 import LoginTemplate from "~/common/components/templates/login";
 
-const swipperData = [
-  {
-    id: 3,
-    image: "/assets/images/swipper1.png",
-    title: "testtest",
-    description:
-      "testtesttesttesttesttesttest",
-  },
-  {
-    id: 2,
-    image: "/assets/images/swipper3.png",
-    title: "testtest",
-    description:
-      "testtesttesttest",
-  },
-  {
-    id: 1,
-    image: "/assets/images/swipper4.png",
-    title: "testtesttesttest",
-    description:
-      "testtesttesttesttesttesttesttesttest",
-  },
-];
+// const swipperData = [
+//   {
+//     id: 3,
+//     image: "/assets/images/swipper1.png",
+//     title: "testtest",
+//     description:
+//       "testtesttesttesttesttesttest",
+//   },
+//   {
+//     id: 2,
+//     image: "/assets/images/swipper3.png",
+//     title: "testtest",
+//     description:
+//       "testtesttesttest",
+//   },
+//   {
+//     id: 1,
+//     image: "/assets/images/swipper4.png",
+//     title: "testtesttesttest",
+//     description:
+//       "testtesttesttesttesttesttesttesttest",
+//   },
+// ];
 const Page = () => {
   return (
-    <div className="relative bg-white overflow-hidden">
+    <div className="relative md:bg-grayWhite overflow-hidden">
       <svg
         className="z-[100]   md:flex hidden absolute top-0 left-0"
         width="177"
@@ -52,50 +52,21 @@ const Page = () => {
           fill="white"
         />
       </svg>
-      <div className="">
-        <div className="relative justify-between h-screen grid grid-cols-1 md:grid-cols-2 w-full lg:container px-5 gap-x-12 xl:gap-x-[110px] items-center content-center">
-          <div className=" h-full pl-2 py-10">
-            <LoginTemplate />
-          </div>
-          <div className="sticky top-0 hidden md:block">
-            <div className="relative h-full">
-              <Swiper
-                spaceBetween={50}
-                slidesPerView={1}
-                loop={true}
-                autoplay={{ delay: 3000 }}
-                pagination={{ clickable: true }}
-                modules={[Autoplay, Pagination]}
-                className="mySwiper h-full"
-              >
-                {swipperData.map((item, index) => (
-                  <SwiperSlide
-                    key={index}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <Image
+      <div className=" ">
+        <div className="relative  justify-between h-screen
+        w-full lg:container  items-center content-center">
+          <div className="bg-white place-items-center rounded-xl md:shadow-[0px_0px_40px_rgba(0,0,0,0.25)]   grid grid-cols-1 md:grid-cols-2 px-5 gap-x-12 xl:gap-x-[110px]">
+          
+          <Image
                       width={400}
                       height={380}
-                      src={item.image}
+                      className=" rounded-xl md:block hidden"
+                      src={"/assets/images/login.png"}
                       alt=" logo"
                     />
-                    <div className="text-[24px] font-bold text-mainColor ">
-                      {item.title}
-                    </div>
-                    <div className="flex justify-center">
-                      <div className="w-10/12 text-[18px] text-grayG text-center">
-                        {item.description}
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+          <div className=" h-full w-full pl-2 py-10">
+            <LoginTemplate />
+          </div>
           </div>
         </div>
       </div>

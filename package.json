@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3055",
+    "dev": "next dev -p 3030",
     "build": "next build",
-    "start": "next start -p 3055",
+    "start": "next start -p 3030",
     "server": "NODE_OPTIONS=--max-old-space-size=4096 next build",
     "lint": "next lint",
     "push": "npm run build && git add . && git commit -m 'update' && git push origin main"
@@ -24,7 +24,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react-navigation": "^3.4.0",
     "apexcharts": "^3.48.0",
-    "axios": "^1.6.7",
+    "axios": "^1.7.8",
     "clsx": "^2.1.1",
     "cookie": "^0.6.0",
     "date-fns": "^3.6.0",

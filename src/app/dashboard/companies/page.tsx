@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Select, SelectItem } from "@nextui-org/react";
 import Table2 from "~/common/components/molecules/table/index";
 import DeleteManyProducts from "./deleteMany";
@@ -7,9 +7,12 @@ import ActionList from "./components/actionList/ActionsMenu";
 import ComapnySearch from "./components/header";
 import { statusOptions } from "./components/statusOptions";
 import HeadTable from "~/common/components/molecules/headTable";
+import { useDispatch } from "react-redux";
+import { fetchDataRequest } from "./companies.slice";
 
 function Page() {
 
+  const dispatch = useDispatch();
   const staticData = [
     {
       id: 1,
@@ -218,7 +221,11 @@ function Page() {
     ],
     [statusData]
   );
-
+  useEffect(() => {
+    const endpoint = "/users";
+    const params = { userId: 1, status: "active" };
+    dispatch(fetchDataRequest({ endpoint, params, method: "GET" }));
+  }, [dispatch]);
 
   return (
     <div className="bg-transparent py-[18px] flex flex-col gap-10">

@@ -5,8 +5,6 @@ import { cookiesValues } from "~/config/constant";
 import { store } from "~/redux/persist";
 import { setUser } from "~/app/appSlice";
 
-const domain =
-  process.env.NODE_ENV === "production" ? ".qumra.cloud" : undefined;
 
 const logout = async () => {
   Swal.fire({
@@ -21,10 +19,7 @@ const logout = async () => {
   }).then((result) => {
     if (result.isConfirmed) {
       try {
-        // Cookies.remove(cookiesValues.GlobalToken, {
-        //   domain: domain,
-        //   path: "/",
-        // });
+        Cookies.remove(cookiesValues.GlobalToken);
         store.dispatch(setUser(null));
         window.location.href = "/login";
         Toast.fire({ icon: "success", title: "تم تسجيل الخروج بنجاح." });
