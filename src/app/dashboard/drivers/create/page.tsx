@@ -51,7 +51,6 @@ function CreateDriver() {
                 <div className="flex flex-col items-center gap-11 w-full  h-max  bg-white  rounded-lg border border-grayWhite p-4">
                     <div className=" h-max w-full flex flex-col gap-6 ">
                         <div className="text-2xl font-bold">Driver Information</div>
-
                         <div className=" w-full grid grid-cols-2 gap-4">
                             <div className="flex flex-col gap-2">
                                 <CustomLabel bold>Account</CustomLabel>
