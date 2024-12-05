@@ -1,7 +1,12 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+import { cookiesValues } from "~/config/constant";
 
 const axiosClient = axios.create({
   baseURL: process.env.MAIN_BASE_URL + '/api/v1/',
+  headers: {
+    'Authorization': 'Bearer ' + Cookies.get(cookiesValues.GlobalToken),
+  },
   timeout: 10000, 
 });
 

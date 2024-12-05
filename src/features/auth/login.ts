@@ -19,10 +19,14 @@ const login = async ({ email, password }: loginProps) => {
     console.log("Sending login request...");
     const response :any= await fetchDataFromApi(endpoint, null, "POST", body);
     const { Success, Data } = response;
+    console.log(response);
 
     if (Success) {
-      console.log("Login successful. Setting token...", Data);
-      Cookies.set(cookiesValues.GlobalToken, Data.token, { path: "/", secure: true });
+      if (Data?.Token) {
+        Cookies.set(cookiesValues.GlobalToken, Data.Token, { path: "/", secure: true });
+      } else {
+        console.error("Token is undefined or null");
+      }
       Toast.fire({ icon: "success", title: "جاري تحويلك ..." });
       store.dispatch(setUser(Data));
 

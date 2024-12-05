@@ -12,7 +12,8 @@ const persistConfig: any = {
   storage,
   blacklist: [
   "createVehicleSlice",
-  "companiesSlice"
+  "companiesSlice",
+  "forgetPassword"
   ],
 };
 

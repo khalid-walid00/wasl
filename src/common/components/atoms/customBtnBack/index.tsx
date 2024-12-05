@@ -1,20 +1,20 @@
 import React from "react";
-import { IoIosArrowForward } from "react-icons/io";
 import Button from "../button";
+import { IoIosArrowBack } from "react-icons/io";
 
 interface Props {
   event: any;
 }
 function CustomBtnBack({ event }: Props) {
   return (
-    <div className=" cursor-pointer ">
+    <div className=" h-full cursor-pointer ">
       <Button
         onClick={event}
-        className=" text-[22px] font-bold  cursor-pointer "
+        className=" text-[22px] font-bold h-[100%] cursor-pointer "
       >
         <div className=" flex items-stretch gap-2">
-        عودة
-        <IoIosArrowForward /> 
+        Back
+        <IoIosArrowBack /> 
         </div>
       </Button>
     </div>

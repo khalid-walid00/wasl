@@ -7,11 +7,12 @@ import ActionList from "./components/actionList/ActionsMenu";
 import ComapnySearch from "./components/header";
 import { statusOptions } from "./components/statusOptions";
 import HeadTable from "~/common/components/molecules/headTable";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchDataRequest } from "./companies.slice";
 
 function Page() {
-
+  const data = useSelector((state: any) => state.companiesSlice);
+  console.log(data);
   const dispatch = useDispatch();
   const staticData = [
     {
@@ -59,172 +60,145 @@ function Page() {
   const columns = useMemo(
     () => [
       {
-        Header: 'Account',
-        accessor: 'Account',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.Account}</p>;
+        Header: 'Id',
+        accessor: 'Id',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.Id}</p>;
         },
       },
       {
-        Header: 'Representative Name',
-        accessor: 'representativeName',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.representativeName}</p>;
+        Header: 'Wasl Id',
+        accessor: 'WaslId',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.WaslId}</p>;
         },
       },
       {
-        Header: 'Identity Number',
-        accessor: 'identityNumber',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.identityNumber}</p>;
+        Header: 'Is Deleted From Wasl',
+        accessor: 'IsDeletedFromWasl',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.IsDeletedFromWasl ? 'Yes' : 'No'}</p>;
         },
       },
       {
-        Header: 'Commercial Record',
-        accessor: 'commercialRecord',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.commercialRecord}</p>;
+        Header: 'Created Date',
+        accessor: 'CreatedDate',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.CreatedDate ? new Date(tableProps.row.original.CreatedDate).toLocaleString() : 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Name',
+        accessor: 'Name',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.Name}</p>;
+        },
+      },
+      {
+        Header: 'Email Address',
+        accessor: 'EmailAddress',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.EmailAddress}</p>;
         },
       },
       {
         Header: 'Phone Number',
-        accessor: 'phoneNo',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.phoneNo}</p>;
-        },
-      },
-      {
-        Header: 'Extension Number',
-        accessor: 'extensionNumber',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.extensionNumber}</p>;
-        },
-      },
-      {
-        Header: 'Email ID',
-        accessor: 'emailId',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.emailId}</p>;
-        },
-      },
-      {
-        Header: 'Manager Name',
-        accessor: 'managerName',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.managerName}</p>;
-        },
-      },
-      {
-        Header: 'Manager Phone',
-        accessor: 'managerPhone',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.managerPhone}</p>;
-        },
-      },
-      {
-        Header: 'Manager Mobile',
-        accessor: 'managerMobile',
+        accessor: 'PhoneNumber',
         Cell: (tableProps: any) => {
-          return <p>{tableProps.row.original?.managerMobile}</p>;
-        },
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-        Cell: (tableProps:any) => {
-          const selectorStatus = statusOptions.find(
-            (option) => option.value === tableProps.row.original?.status
-          );
-          return (
-            <div className="flex justify-start" onMouseDown={(e) => e.stopPropagation()}>
-              <Select
-                style={{
-                  border: `1px solid #008ffb`,
-                  backgroundColor: 'transparent',
-                  borderRadius: '4px',
-                  color: '#008ffb',
-                  minHeight: '30px',
-                  width: '120px',
-                  height: '30px',
-                }}
-                size="lg"
-                placeholder={selectorStatus?.label || 'Not Specified'}
-                className="w-40"
-                onChange={(status) => {
-                  const updatedData = statusData.map((product) =>
-                    product.id === tableProps.row.original.id
-                      ? { ...product, status: status.target.value }
-                      : product
-                  );
-                  setStatusData(updatedData);
-                }}
-              >
-                {statusOptions?.map((role) => (
-                  <SelectItem
-                    key={role.value}
-                    value={role.value}
-                    style={{
-                      backgroundColor: '#E4F2F2',
-                      borderRadius: '4px',
-                      color: '#008ffb',
-                    }}
-                  >
-                    {role.label}
-                  </SelectItem>
-                ))}
-              </Select>
-            </div>
-          );
+          return <p>{tableProps.row.original?.PhoneNumber || 'N/A'}</p>;
         },
       },
       {
         Header: 'Activity',
-        accessor: 'activity.title',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.activity}</p>;
+        accessor: 'Activity',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.Activity || 'N/A'}</p>;
         },
       },
       {
-        Header: 'Reply Status',
-        accessor: 'reply',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.reply}</p>;
+        Header: 'Created By',
+        accessor: 'CreatedBy',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.CreatedBy}</p>;
         },
       },
       {
-        Header: 'Wasl Key',
-        accessor: 'waslkey.quantity',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.waslkey}</p>;
+        Header: 'Identity Number',
+        accessor: 'IdentityNumber',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.IdentityNumber || 'N/A'}</p>;
         },
       },
       {
-        Header: 'activity',
-        accessor: 'activity',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.activity}</p>;
+        Header: 'Commercial Record Number',
+        accessor: 'CommercialRecordNumber',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.CommercialRecordNumber || 'N/A'}</p>;
         },
       },
       {
-        Header: 'date',
-        accessor: 'date',
-        Cell: (tableProps:any) => {
-          return <p>{tableProps.row.original?.date}</p>;
+        Header: 'Commercial Record Issue Date Hijri',
+        accessor: 'CommercialRecordIssueDateHijri',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.CommercialRecordIssueDateHijri || 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Date of Birth Gregorian',
+        accessor: 'DateOfBirthGregorian',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.DateOfBirthGregorian || 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Extension Number',
+        accessor: 'ExtensionNumber',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.ExtensionNumber || 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Manager Name',
+        accessor: 'ManagerName',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.ManagerName || 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Manager Phone Number',
+        accessor: 'ManagerPhoneNumber',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.ManagerPhoneNumber || 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Manager Mobile Number',
+        accessor: 'ManagerMobileNumber',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.ManagerMobileNumber || 'N/A'}</p>;
+        },
+      },
+      {
+        Header: 'Uplevel Operation Company Id',
+        accessor: 'UplevelOperationCompanyId',
+        Cell: (tableProps: any) => {
+          return <p>{tableProps.row.original?.UplevelOperationCompanyId || 'N/A'}</p>;
         },
       },
       {
         Header: 'Actions',
-        Cell: (tableProps:any) => {
+        Cell: (tableProps: any) => {
           return <ActionList item={tableProps.row.original} />;
         },
       },
     ],
-    [statusData]
+    []
   );
+  
   useEffect(() => {
-    const endpoint = "/users";
+    const endpoint = "operationCompany/all";
     const params = { userId: 1, status: "active" };
-    dispatch(fetchDataRequest({ endpoint, params, method: "GET" }));
+    dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
   }, [dispatch]);
 
   return (
