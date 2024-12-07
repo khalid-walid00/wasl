@@ -247,7 +247,6 @@ function Page() {
         columns={columns}
         data={statusData}
         loading={false}
-        pageCount={9}
         limit={10}
         nextPage={() => { }}
         prevPage={() => { }}

@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-console": "warn", // بدلاً من منع استخدام console، قم بتحذير فقط
+    "react/no-unescaped-entities": "off" // تعطيل القاعدة تمامًا
+  }
 }

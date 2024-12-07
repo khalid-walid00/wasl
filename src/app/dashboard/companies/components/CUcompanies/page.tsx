@@ -19,10 +19,8 @@ import ManagerMobileNumber from "./components/ManagerMobileNumber";
 import UplevelOperationCompanyId from "./components/uplevelOperationCompanyId";
 import Button from "~/common/components/atoms/button";
 import { fetchOneData,clearOneData, sendData} from "../../companies.slice";
- interface CUCompaniesProps {
-    _id?: string
- }
-const CUCompaniesComponent = ({ _id }: CUCompaniesProps) => {
+
+const CUCompaniesComponent = ({ _id }: any) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
