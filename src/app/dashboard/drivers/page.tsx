@@ -1,11 +1,13 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Select, SelectItem } from "@nextui-org/react"; 
 import ActionList from "./components/actionList/ActionsMenu";
 import DriverHeader from "./components/header";
 import { statusOptions } from "./components/statusOptions";
 import Table from "~/common/components/molecules/table";
 import HeadTable from "~/common/components/molecules/headTable";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDataRequest } from "./drivers.slice";
 
 function Page() {
   const staticData = [
@@ -98,8 +100,14 @@ function Page() {
       licenseExpiry: "2025-11-25",
     }
   ];
-  
-  
+  const dispatch = useDispatch();
+  const data = useSelector((state: any) => state.vehiclesSlice);
+    
+  useEffect(() => {
+    const endpoint = "drivers/all";
+    const params = { userId: 1, status: "active" };
+    dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
+  }, [dispatch]);
 
   const [statusData, setStatusData] = useState(staticData); 
 

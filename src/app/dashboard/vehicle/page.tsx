@@ -1,10 +1,12 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import HeadTable from "~/common/components/molecules/headTable";
 import Table from "~/common/components/molecules/table";
 import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
 import CreateVehicle from "./create/page";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDataRequest } from "./vehicle.slice";
 
 function Page() {
   const staticData = [
@@ -44,9 +46,15 @@ function Page() {
       Actions:"Actions"
     },
   ];
+  const dispatch = useDispatch();
+  const data = useSelector((state: any) => state.vehiclesSlice);
+  console.log(data);
   
-  
-  
+  useEffect(() => {
+    const endpoint = "vehicles/all";
+    const params = { userId: 1, status: "active" };
+    dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
+  }, [dispatch]);
 
   const [statusData, setStatusData] = useState(staticData); 
 

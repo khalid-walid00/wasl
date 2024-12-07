@@ -4,6 +4,7 @@ import ReduxProvider from "~/providers/reduxProvider";
 import metatagsGenerator, {
   ContentType,
 } from "~/utils/formater/metatagsGenerator";
+import "react-datepicker/dist/react-datepicker.css"; 
 import NextTopLoader from "nextjs-toploader";
 import "tippy.js/dist/tippy.css";
 export const metadata: Metadata = metatagsGenerator({

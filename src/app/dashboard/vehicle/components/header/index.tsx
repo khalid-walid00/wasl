@@ -41,7 +41,7 @@ function VehicleHeader() {
             />   
             </div>     
         <div className="   w-full sm:w-2/12">
-          <Button>S</Button>
+          <Button>Search</Button>
         </div>
       </div>
       <div className=" flex justify-between">

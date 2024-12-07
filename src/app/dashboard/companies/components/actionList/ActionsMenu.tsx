@@ -41,7 +41,7 @@ function ActionList({ item }: Props) {
         <DropdownMenu className="shadow-lg rounded-lg ">
           <DropdownItem className=" flex">
             <Link
-              href={`/${subdomain}/products/${item?.id}`}
+              href={`/dashboard/companies/update/${item?.Id}`}
               className="flex text-xs items-center  gap-1"
             >
               <Image
@@ -51,12 +51,12 @@ function ActionList({ item }: Props) {
                 src="/assets/icons/svg/edit.svg"
                 alt="icon"
               />
-              <span className="group-hover:text-black">تعديل</span>
+              <span className="group-hover:text-black">Edit</span>
             </Link>
           </DropdownItem>
 
           <DropdownItem className=" flex">
-            <DeleteOne _id={item.id} />
+            <DeleteOne _id={item.Id} />
           </DropdownItem>
         </DropdownMenu>
         

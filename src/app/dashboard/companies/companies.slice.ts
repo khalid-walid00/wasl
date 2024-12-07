@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { pagination } from "~/config/constant";
+import { CompanyData } from "./companies.slice.type";
+import { clear } from "console";
 
 let url; if (typeof window !== 'undefined') { url = new URL(window.location.href); } else { url = new URL('http://localhost:3055') }
 const searchitems = {
@@ -9,31 +11,49 @@ const searchitems = {
   date: null,
   sort: null
 }
-interface dataTypes {
-  _id: string,
-}
+
+const company : CompanyData = {
+  Id:"",
+  Name: "",
+  IdentityNumber: "",
+  CommercialRecordNumber: "",
+  CommercialRecordIssueDateHijri: "",
+  DateOfBirthHijri: "",
+  DateOfBirthGregorian: "",
+  PhoneNumber: "",
+  ExtensionNumber: "",
+  EmailAddress: "",
+  ManagerName: "",
+  ManagerPhoneNumber: "",
+  ManagerMobileNumber: "",
+  Activity: "",
+  UplevelOperationCompanyId: "",
+};
 interface PaginationType {
   totalCount: number,
   totalPages: number,
 }
 
 interface itemsTypes {
-  data: dataTypes[],
-  pagination: PaginationType;
+  Data: CompanyData[],
+  Message: string,
+  StatusCode: boolean;
 }
 const items : itemsTypes = {
-  data: [],
-  pagination: {
-    totalCount: 0,
-    totalPages: 0,
-  },
+  Data: [],
+  Message:"",
+  StatusCode:false
 }
 
 const initialState = {
   items: items,
   loading: false,
   error: false,
+  company,
   searchitems,
+  inquiryIndividual: {},
+  inquiryIndividualLoading: false,
+  inquiryCompanyLoading: false,
   page:  Number(url.searchParams.get("page") || pagination.defaultPage),
   limit: Number( url.searchParams.get("limit") || pagination.defaultLimit)  ,
   pagination: {
@@ -63,6 +83,34 @@ export const companiesSlice = createSlice({
       state.items = action.payload;
       state.loading = false;
     },
+    fetchOneData: (state, action) => {
+      const company = state.items.Data.find((item) => item.Id === action.payload);
+       if (company) {
+        state.company = company;
+      }
+    },
+    setCUData: (state, action) => {
+      state.company =  {...state.company, ...action.payload};
+    },
+    sendData: (state) => {
+      state.loading = true;
+    },
+    fetchInquiryIndividual: (state) => {
+      state.inquiryIndividualLoading = true;
+    },
+    
+    setInquiryIndividual: (state) => {
+      state.inquiryIndividualLoading = true;
+    },
+    fetchInquiryCompany: (state) => {
+      state.inquiryCompanyLoading = true;
+    },
+    setInquiryCompany: (state) => {
+      state.inquiryIndividualLoading = true;
+    },
+    clearOneData: (state) => {
+      state.company = company;
+    },
     nextPage: (state) => {
       state.page += 1;
       state.loading = true;
@@ -87,25 +135,25 @@ export const companiesSlice = createSlice({
     },
     addItem: (state, action) => {
     
-        state.items.data.unshift(action.payload)
+        state.items.Data.unshift(action.payload)
       
     },
     replaceItem: ( state , action ) => {
-      const { data } = state.items;
+      const { Data } = state.items;
       const { payload } = action;
     
-      const index = data.findIndex((item:any ) => item._id === payload._id);
+      const index = Data.findIndex((item:any ) => item._id === payload._id);
     
       if (index !== -1) {
-        state.items.data[index] = {
-          ...state.items.data[index],
+        state.items.Data[index] = {
+          ...state.items.Data[index],
           ...payload.data 
         };
       }
     }, 
     deleteItem: (state, action) => {
      const idsToRemove =action.payload
-        state.items.data = state.items.data?.filter(item => item._id !== idsToRemove);
+        state.items.Data = state.items.Data?.filter(item => item.Id !== idsToRemove);
     },
     setPage:(state,action)=>{
       state.page = +action.payload; 
@@ -113,6 +161,7 @@ export const companiesSlice = createSlice({
     },
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search , setPage
+export const { setDataEmpty, addItem, setSearch , replaceItem, search , setPage,fetchOneData,
+  clearOneData,setCUData,setInquiryIndividual,sendData,setInquiryCompany
   , fetchDataRequest, fetchDataFailed, setData , nextPage , prevPage, setLimit ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;
