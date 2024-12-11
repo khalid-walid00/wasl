@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { cookiesValues } from "~/config/constant";
 
 const axiosClient = axios.create({
-  baseURL: process.env.MAIN_BASE_URL+'/api/v1/',
+  baseURL: 'http://212.102.11.66:22/api/v1',
   headers: {
     'Authorization': 'Bearer ' + Cookies.get(cookiesValues.GlobalToken),
   },
