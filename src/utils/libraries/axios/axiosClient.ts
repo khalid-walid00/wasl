@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { cookiesValues } from "~/config/constant";
 
 const axiosClient = axios.create({
-  baseURL: 'http://212.102.11.66:14005/api/v1', // Use HTTPS
+  baseURL: 'http://192.99.33.197:8081/api/v1', // Use HTTPS
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json, text/plain, */*',
