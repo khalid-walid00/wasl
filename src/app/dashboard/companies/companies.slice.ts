@@ -5,8 +5,8 @@ import { clear } from "console";
 
 let url; if (typeof window !== 'undefined') { url = new URL(window.location.href); } else { url = new URL('http://localhost:3055') }
 const searchitems = {
-  title: null,
-  search: null,
+  Name: null,
+  ManagerMobileNumber: null,
   status: null,
   date: null,
   sort: null

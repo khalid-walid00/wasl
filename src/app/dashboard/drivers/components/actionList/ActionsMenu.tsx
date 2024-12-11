@@ -41,7 +41,7 @@ function ActionList({ item }: Props) {
         <DropdownMenu className="shadow-lg rounded-lg ">
           <DropdownItem className=" flex">
             <Link
-              href={`/${subdomain}/products/${item?.id}`}
+              href={`/dashboard/drivers/${item?.id}`}
               className="flex text-xs items-center  gap-1"
             >
               <Image

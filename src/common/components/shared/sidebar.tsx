@@ -9,7 +9,8 @@ import { useParams } from "next/navigation";
 import { PiBuildingOffice } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import { LiaBikingSolid } from "react-icons/lia";
-import { FaCar } from "react-icons/fa6";
+import { IoCarSportOutline } from "react-icons/io5";
+import { GoGitPullRequest } from "react-icons/go";
 
 function Sidebar() {
   const { app } = useParams();
@@ -51,7 +52,7 @@ function Sidebar() {
       content: [
         {
           text: "Vehicles",
-          icon: <PiBuildingOffice size={22} className=" text-mainColor" />,
+          icon: <IoCarSportOutline size={22} className=" text-mainColor" />,
           href: `/dashboard/vehicle`,
         },
       ],
@@ -63,6 +64,16 @@ function Sidebar() {
           text: "Drivers",
           icon: <LiaBikingSolid size={22} className=" text-mainColor" />,
           href: `/dashboard/drivers`,
+        },
+      ],
+    },
+    {
+      title: "",
+      content: [
+        {
+          text: "RestFull Api",
+          icon: <GoGitPullRequest size={22} className=" text-mainColor" />,
+          href: `/dashboard/restFullApi`,
         },
       ],
     },
