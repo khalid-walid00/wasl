@@ -38,8 +38,8 @@ axiosClient.interceptors.response.use(
 
 export const fetchDataFromApi = (
   endpoint: string, 
+  method: any, 
   params?: any, 
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = "GET", 
   body?: any
 ) => {
   return axiosClient({
