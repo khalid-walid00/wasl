@@ -4,7 +4,7 @@ import { cookiesValues } from '~/config/constant';
 import https from 'https';
 
 const axiosClient = axios.create({
-  baseURL: process.env.MAIN_BASE_URL,
+  baseURL: "https://fakestoreapi.com",
   headers: {
     'Authorization': 'Bearer ' + Cookies.get(cookiesValues.GlobalToken),
   },
