@@ -5,7 +5,7 @@ import { cookiesValues } from "~/config/constant";
 const axiosClient = axios.create({
   baseURL: 'http://192.99.33.197:8081/api/v1',
   headers: {
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     Accept: 'application/json, text/plain, */*',
   },
   timeout: 10000, 
