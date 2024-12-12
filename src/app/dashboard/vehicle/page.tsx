@@ -6,7 +6,7 @@ import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
 import CreateVehicle from "./create/page";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest } from "./vehicle.slice";
+import { fetchDataRequest, nextPage, prevPage, setLimit } from "./vehicle.slice";
 
 function Page() {
   const staticData = [
@@ -138,9 +138,9 @@ function Page() {
         data={statusData}
         loading={false}
         limit={10}
-        nextPage={() => { }}
-        prevPage={() => { }}
-        setLimit={() => { }}
+        nextPage={nextPage}
+        prevPage={prevPage}
+        setLimit={setLimit}
       />
     </div>
     <CreateVehicle/>

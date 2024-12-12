@@ -13,11 +13,11 @@ type loginProps = {
 
 const login = async ({ email, password }: loginProps) => {
   const endpoint = "/authentication/login";
-  const body = { username: email, password: password };
+  const body = { Email: email, Password: password };
 
   try {
     console.log("Sending login request...");
-    const response :any= await fetchDataFromApi(endpoint, null, "POST", body);
+    const response :any= await fetchDataFromApi(endpoint, {}, "POST", body);
     const { Success, Data } = response;
     console.log(response);
 
@@ -30,8 +30,7 @@ const login = async ({ email, password }: loginProps) => {
       Toast.fire({ icon: "success", title: "جاري تحويلك ..." });
       store.dispatch(setUser(Data));
 
-      console.log("Redirecting to dashboard...");
-      window.location.href = "/dashboard";
+      // window.location.href = "/dashboard";
     } else {
       Toast.fire({ icon: "error", title: "فشل تسجيل الدخول. يرجى التحقق من المعلومات." });
     }
