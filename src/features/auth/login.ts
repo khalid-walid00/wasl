@@ -12,7 +12,7 @@ type loginProps = {
 
 
 const login = async ({ email, password }: loginProps) => {
-  const endpoint = "/auth/login";
+  const endpoint = "/authentication/login";
   const body = { username: email, password: password };
 
   try {
