@@ -1,5 +1,5 @@
 import {uploadFile}  from './uploadFile';
-import  AxiosClient from './axiosClient';
+import  {fetchDataFromApi as AxiosClient} from './axiosClient';
 export {
     uploadFile,
     AxiosClient

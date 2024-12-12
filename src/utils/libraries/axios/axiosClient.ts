@@ -9,10 +9,10 @@ interface FetchParams {
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-const fetchDataFromApi = async (
-  endpoint: string,
-  params: FetchParams = {},
-  method: RequestMethod = 'GET',
+export const fetchDataFromApi = async (
+  endpoint: any,
+  params: any,
+  method: any = 'GET',
   body?: any
 ): Promise<any> => {
   const url = new URL(`${baseURL}${endpoint}`);
@@ -51,4 +51,3 @@ const fetchDataFromApi = async (
   }
 };
 
-export default fetchDataFromApi;
