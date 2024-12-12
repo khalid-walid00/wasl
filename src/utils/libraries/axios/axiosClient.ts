@@ -1,19 +1,44 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { cookiesValues } from '~/config/constant';
-import https from 'https';
+import axios from "axios";
+import Cookies from "js-cookie";
+import { cookiesValues } from "~/config/constant";
 
 const axiosClient = axios.create({
-  baseURL: "https://fakestoreapi.com",
+  baseURL: process.env.MAIN_BASE_URL, 
   headers: {
-    'Authorization': 'Bearer ' + Cookies.get(cookiesValues.GlobalToken),
+    'Content-Type': 'application/json',
+    Accept: 'application/json, text/plain, */*',
   },
-  httpsAgent: new https.Agent({ rejectUnauthorized: false }), // Ignore SSL errors (not recommended for production)
+  timeout: 10000, 
 });
 
+// Add a request interceptor to dynamically set Authorization header
+axiosClient.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get(cookiesValues.GlobalToken);
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Enhance error handling
 axiosClient.interceptors.response.use(
   (response) => response.data,
-  (error) => Promise.reject(error)
+  (error) => {
+    if (error.response) {
+      // Server responded with a status other than 2xx
+      console.error("API Error:", error.response.data);
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error("Network Error:", error.message);
+    } else {
+      // Something else caused the error
+      console.error("Unexpected Error:", error.message);
+    }
+    return Promise.reject(error);
+  }
 );
 
 export const fetchDataFromApi = (
