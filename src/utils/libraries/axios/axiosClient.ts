@@ -6,8 +6,7 @@ const axiosClient = axios.create({
   baseURL: 'http://192.99.33.197:8083/api/v1', 
   headers: {
     'Content-Type': 'application/json',
-    Accept: 'application/json, text/plain, */*',
-    'api-supported-versions': '1.0'
+    Accept: 'application/json, text/plain, */*'
   },
   timeout: 10000, 
 });
