@@ -12,8 +12,8 @@ type loginProps = {
 
 
 const login = async ({ email, password }: loginProps) => {
-  const endpoint = "authentication/login";
-  const body = { Email: email, Password: password };
+  const endpoint = "/auth/login";
+  const body = { username: email, password: password };
 
   try {
     console.log("Sending login request...");
