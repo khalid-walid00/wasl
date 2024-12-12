@@ -7,7 +7,7 @@ const nextConfig = {
   },
   env: {
     MAIN_BASE_URL: process.env.MAIN_BASE_URL,
-    MODE: process.env.MODE
+    MODE: process.env.MODE,
   },
   async rewrites() {
     return [
