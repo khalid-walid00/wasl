@@ -41,7 +41,7 @@ export default function GetThePasswordTemplate() {
     const endpoint = `authentication/check-code`;
 
     setLoading(true);
-    fetchDataFromApi(endpoint, null, "Post", variables)
+    fetchDataFromApi(endpoint, null, "POST", variables)
       .then(({StatusCode}:any) => {
        if (StatusCode === 200) {
         dispatch(setData({Code:variables.Code}));

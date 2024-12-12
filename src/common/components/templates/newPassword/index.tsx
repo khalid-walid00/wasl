@@ -33,7 +33,7 @@ export default function NewPasswordTemplate() {
 
     setLoading(true);
    
-    fetchDataFromApi(endpoint, null, "Post", variables)
+    fetchDataFromApi(endpoint, null, "POST", variables)
     .then(({StatusCode}:any) => {
       if (StatusCode === 200) {
         Toast.fire({

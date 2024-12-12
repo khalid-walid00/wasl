@@ -38,7 +38,7 @@ axiosClient.interceptors.response.use(
 
 export const fetchDataFromApi = async (
   endpoint: string,
-  params?: Record<string, any>,
+  params?:any,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body: any | null = null
 ) => {

@@ -20,7 +20,7 @@ export default function ForgetPasswordTemplate() {
     
     const endpoint = `authentication/forget-password?Email=${values.email}`;
     try {
-     fetchDataFromApi(endpoint, null, "Get", null)
+     fetchDataFromApi(endpoint, null, "GET", null)
      .then(({StatusCode,Message}:any) => {
        if (StatusCode === 200) {
          dispatch(setData({Email:values.email}))
