@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookiesValues } from './config/constant';
+import Router from 'next/router';
 
 // دالة لإعادة التوجيه
 const redirectTo = (req: NextRequest, path: string) => NextResponse.redirect(new URL(path, req.url));
 
 const isLoginPath = (pathname: string) => ['/login', '/sign', '/verification', '/forgetPassword', '/signup'].includes(pathname);
-const isUserPath = (pathname: string) => ['/profile'].includes(pathname);
 
 export async function middleware(req: NextRequest) {
 

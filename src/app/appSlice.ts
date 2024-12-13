@@ -8,6 +8,7 @@ const initialState = {
   showSideBar: true,
   showBuilder: true,
   user: {},
+  redirectTo: null as string | null,
 }
 
 export const reducer = createSlice({
@@ -36,9 +37,15 @@ export const reducer = createSlice({
     },
     toggleBuilder: (state) => {
       state.showBuilder = !state.showBuilder
-    }
+    },
+    setRedirectTo(state, action) {
+      state.redirectTo = action.payload;
+    },
+    resetRedirect(state) {
+      state.redirectTo = null;
+    },
   },
 });
 
-export const { setLoading, mainToggle, setUser, appLoad, toggleSideBar,toggleBuilder } = reducer.actions;
+export const { setLoading, mainToggle, setUser, appLoad, toggleSideBar,toggleBuilder, setRedirectTo, resetRedirect } = reducer.actions;
 export const configuerStore = reducer.reducer

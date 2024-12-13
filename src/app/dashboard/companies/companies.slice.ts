@@ -43,7 +43,7 @@ const items : itemsTypes = {
    Data: [
     {
       Id: "2",
-      WaslId: "987654321",
+      WaslId: "7012345678",
       IsDeletedFromWasl: true,
       CreatedDate: "2024-05-10",
       Name: "Tech Innovations Ltd.",
@@ -51,7 +51,7 @@ const items : itemsTypes = {
       PhoneNumber: "0987654321",
       Activity: "Inactive",
       CreatedBy: "Admin",
-      IdentityNumber: "123456789",
+      IdentityNumber: "7012345678",
       DateOfBirthHijri: "1445-02-15",
       CommercialRecordNumber: "5678901234",
       CommercialRecordIssueDateHijri: "1440-07-09",
@@ -64,7 +64,7 @@ const items : itemsTypes = {
     },
     {
       Id: "3",
-      WaslId: "1122334455",
+      WaslId: "7012345678",
       IsDeletedFromWasl: false,
       CreatedDate: "2023-11-25",
       Name: "Global Solutions Group",
@@ -72,7 +72,7 @@ const items : itemsTypes = {
       PhoneNumber: "0212345678",
       Activity: "Active",
       CreatedBy: "User",
-      IdentityNumber: "1122334455",
+      IdentityNumber: "7012345678",
       DateOfBirthHijri: "1443-09-10",
       CommercialRecordNumber: "1234567890",
       CommercialRecordIssueDateHijri: "1441-03-01",
@@ -85,7 +85,7 @@ const items : itemsTypes = {
     },
     {
       Id: "4",
-      WaslId: "6677889900",
+      WaslId: "7012345678",
       IsDeletedFromWasl: false,
       CreatedDate: "2023-07-17",
       Name: "Innovative Designs",
@@ -93,7 +93,7 @@ const items : itemsTypes = {
       PhoneNumber: "0398765432",
       Activity: "Active",
       CreatedBy: "Manager",
-      IdentityNumber: "5544332211",
+      IdentityNumber: "7012345678",
       DateOfBirthHijri: "1446-01-02",
       CommercialRecordNumber: "9988776655",
       CommercialRecordIssueDateHijri: "1442-11-19",
@@ -284,6 +284,7 @@ const initialState = {
   loading: false,
   error: false,
   company,
+  companyId:"",
   searchitems,
   inquiryIndividual: {},
   inquiryIndividualLoading: false,
@@ -318,6 +319,7 @@ export const companiesSlice = createSlice({
       state.loading = false;
     },
     fetchOneData: (state, action) => {
+      state.companyId = action.payload;
       const company = state.items.Data.find((item) => item.Id === action.payload);
        if (company) {
         state.company = company;
@@ -384,20 +386,18 @@ export const companiesSlice = createSlice({
       }
     },
     addItem: (state, action) => {
-    
         state.items.Data.unshift(action.payload)
-      
     },
     replaceItem: ( state , action ) => {
       const { Data } = state.items;
       const { payload } = action;
-    
-      const index = Data.findIndex((item:any ) => item._id === payload._id);
-    
+      console.log("payload", payload);
+      const index = Data.findIndex((item:any ) => item.Id === payload.Id);
+      console.log("index", index);
       if (index !== -1) {
         state.items.Data[index] = {
           ...state.items.Data[index],
-          ...payload.data 
+          ...payload 
         };
       }
     }, 

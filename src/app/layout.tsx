@@ -7,6 +7,7 @@ import metatagsGenerator, {
 import "react-datepicker/dist/react-datepicker.css"; 
 import NextTopLoader from "nextjs-toploader";
 import "tippy.js/dist/tippy.css";
+import GlobalRedirect from "~/features/redirect";
 export const metadata: Metadata = metatagsGenerator({
   title: "الصفحة الرئيسية",
   description: `وصف`,
@@ -61,6 +62,7 @@ export default async function RootLayout({
       <body>
         <NextTopLoader showSpinner={false} color={"#008ffb"} />
             <ReduxProvider>
+            <GlobalRedirect/>
               {children}
             </ReduxProvider>
       </body>

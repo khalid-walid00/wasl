@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { Select, SelectItem } from "@nextui-org/react";
 import Table2 from "~/common/components/molecules/table/index";
 import DeleteManyProducts from "./deleteMany";
 import ActionList from "./components/actionList/ActionsMenu";
