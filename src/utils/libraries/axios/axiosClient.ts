@@ -1,53 +1,33 @@
 "use server";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { cookiesValues } from "~/config/constant";
 
-const axiosClient = axios.create({
-  baseURL: "http://192.99.33.197:8081/api/v1",
-  headers: {
-    Accept: "application/json, text/plain, */*",
-  },
-  timeout: 10000,
-});
-
-axiosClient.interceptors.request.use(
-  (config) => {
-    const token = Cookies.get(cookiesValues.GlobalToken);
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-axiosClient.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
-    if (error.response) {
-      console.error("API Error:", error.response.data);
-    } else if (error.request) {
-      console.error("Network Error:", error.message);
-    } else {
-      console.error("Unexpected Error:", error.message);
-    }
-    return Promise.reject(error);
-  }
-);
-
 export const fetchDataFromApi = async (
   endpoint: string,
-  params?:any,
+  params: any = null,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
-  body: any | null = null
+  body: any = null
 ) => {
-  return axiosClient({
-    url: endpoint,
-    params,
-    method,
-    data: body,
+  const token = Cookies.get(cookiesValues.GlobalToken); 
+  const headers: HeadersInit = {
+    Accept: "application/json, text/plain, */*",
+  };
+
+  if (method !== "GET" && body) {
+    headers["Content-Type"] = "application/json"; 
+  }
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  const requestBody = body ? JSON.stringify(body) : null; 
+  const response = await fetch(`http://192.99.33.197:8081/api/v1${endpoint}`, {
+    method,  
+    headers,
+    body: requestBody,
+    ...(method === "GET" && { body: null })
   });
+  return await response.json();
 };
 
-export default axiosClient;
+export default fetchDataFromApi;

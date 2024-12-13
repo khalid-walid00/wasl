@@ -17,47 +17,38 @@ export default function ForgetPasswordTemplate() {
   const dispatch = useDispatch()
   
   const handleSubmit = async (values: any) => {
-    
-    const endpoint = `authentication/forget-password?Email=${values.email}`;
     try {
-     fetchDataFromApi(endpoint, null, "GET", null)
-     .then(({StatusCode,Message}:any) => {
-       if (StatusCode === 200) {
-         dispatch(setData({Email:values.email}))
-         dispatch(goToStep(2));
-          return Toast.fire({
-            title: Message,
-            icon: "success",
-          });
-        }
-        })
-      
-        .catch((error) => {
-          return Toast.fire({
-            title: "لقد حدث خطأ ما. حاول مجددا",
-            icon: "error",
-          });
-        })
-
-
-    } catch (err) {
-      console.error("خطأ في التحقق:", err);
+      const response = await fetchDataFromApi(`/authentication/forget-password?Email=${values.email}`, null, "GET", null);
+      const { StatusCode, Message }: any = response;
+      console.log("response", response);
+  
+      if (StatusCode === 200) {
+        dispatch(setData({ Email: values.email }));
+        dispatch(goToStep(2));
+        return Toast.fire({
+          title: Message,
+          icon: "success",
+        });
+      }
+    } catch (error: any) {
+      console.log("error", error);
       Toast.fire({
-        title: "حدث خطأ غير متوقع",
+        title: error,
         icon: "error",
       });
     }
   };
-
+  
+  
 
   const formik = useFormik({
     initialValues: { email: "" },
     onSubmit: handleSubmit,
   });
 
-const handleBack = () => {
-  router.push("/login");
-}
+  const handleBack = () => {
+    router.push("/login");
+  };
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex w-full flex-col gap-8">

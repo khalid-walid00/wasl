@@ -17,9 +17,9 @@ const login = async ({ email, password }: loginProps) => {
 
   try {
     console.log("Sending login request...");
-    const response :any= await fetchDataFromApi(endpoint, {}, "POST", body);
+    const response :any= await fetchDataFromApi(endpoint, null, "POST", body);
     const { Success, Data } = response;
-    console.log(response);
+    console.log("response", response);
 
     if (Success) {
       if (Data?.Token) {
