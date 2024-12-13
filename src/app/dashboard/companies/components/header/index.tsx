@@ -1,4 +1,3 @@
-import { DropdownItem, Input } from '@nextui-org/react';
 import Link from 'next/link';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,18 +10,21 @@ function ComapnyHeader() {
   const dispatch = useDispatch();
   const { searchitems } = useSelector((state: any) => state.companiesSlice);
   const statuses = [{
-    value: "all", label: "all",
+    value: "All", label: "All",
   },
   {
-    value: "active", label: "active",
+    value: "Active", label: "Active",
   },
   {
-    value: "inactive", label: "inactive",
+    value: "Inactive", label: "Inactive",
   },
   ]
 
   const HandelSearchByName = (value: string, type: string) => {
-    dispatch(setSearch({ type, value }));
+    let finalValue;
+    if ( value === "All" && type ==="Activity") finalValue = "";
+    else finalValue = value;
+     dispatch(setSearch({ type, value:finalValue}));
   }
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
@@ -48,12 +50,12 @@ function ComapnyHeader() {
         </div>
       </div>
       <div className=" flex justify-between">
-        <div className=" w-2/12">
+        <div className=" sm:w-2/12">
           <CustomSelector
-            value={null}
-            placeholder="Status"
+            value={searchitems.type === "Activity" ? searchitems.value : ""}
+            placeholder="Activity"
             options={statuses}
-            onChange={() => { }}
+            onChange={(e: any) => HandelSearchByName(e, "Activity")}
           />
         </div>
         <Link href={"/dashboard/companies/create"} className=" text-background bg-mainColor  h-[40px]   flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2 ">

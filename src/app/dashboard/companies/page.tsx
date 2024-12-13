@@ -161,7 +161,7 @@ function Page() {
   return (
     <div className="bg-transparent py-[18px] flex flex-col gap-10">
       <HeadTable title="Companies" description="Company details and actions" />
-      <div className="container">
+      <div className="container ">
         <Table2
           header={<ComapnySearch />}
           columns={columns}

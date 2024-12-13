@@ -50,7 +50,7 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
   };
   
   const pagination = () => (
-    <div className=" w-full flex sm:flex-row flex-col justify-between">
+    <div className=" w-full flex sm:flex-row flex-col gap-y-3 justify-between">
      <div className=" flex gap-6 items-center ">
       <div className=" flex items-center gap-4">
       <button
@@ -74,7 +74,7 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
         صفحة {pageIndex + 1} من {pageCount}
       </span>
       </div>
-      <div className=" ">
+      <div className="">
 
       <select
         className="btn_sec"

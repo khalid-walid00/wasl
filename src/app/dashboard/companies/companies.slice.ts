@@ -362,12 +362,14 @@ export const companiesSlice = createSlice({
     }, 
     setSearch: (state, action) => {
       const { type, value } = action.payload;
+      console.log("typvalue", type, value);
       state.searchitems.type = type;
       state.searchitems.value = value;
     },
     
     search: (state) => {
       const { type, value } = state.searchitems;    
+      console.log("type, value", type, value);
       const company = state.items.Data.find((item: any) => {
         if (value !== "") return item[type] && item[type].toString().includes(value); 
       });    

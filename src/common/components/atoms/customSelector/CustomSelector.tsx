@@ -9,8 +9,8 @@ interface Option {
 interface CustomSelectorProps {
   label?: string; 
   options: Option[];
-  value: Option | null;
-  onChange: any;
+  value: string | null;
+  onChange: (selectedValue: any) => void;
   placeholder?: string;
   isClearable?: boolean;
   className?: string;
@@ -31,6 +31,10 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
   isLoading = false,
   isMulti = false
 }) => {
+  const selectedValue = value
+    ? options.find(option => option.value === value) || null
+    : null;
+
   return (
     <div className='flex flex-col w-full p-0 m-0'>
       {label && <label className={`font-normal ${className}`}>{label}</label>}
@@ -107,8 +111,8 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
           }),
         }}
         options={options}
-        value={value}
-        onChange={onChange}
+        value={selectedValue} 
+        onChange={(selectedOption:any) => onChange(selectedOption ? selectedOption.value : null)}
         placeholder={placeholder}
         className="w-full h-full"
         isMulti={isMulti}

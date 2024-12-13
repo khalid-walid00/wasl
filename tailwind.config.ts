@@ -49,8 +49,7 @@ export default {
           lg: "2rem",
           xl: "3rem",
           "2xl": "4rem",
-        },
-        
+        }
       },
       colors:{
      
