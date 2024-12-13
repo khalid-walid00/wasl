@@ -12,8 +12,8 @@ function CommercialRecordIssueDateHijri() {
     const dispatch = useDispatch();
 
     const CommercialRecordIssueDateHijriChange = (e: any) => {
-
-        dispatch(setCUData({ CommercialRecordIssueDateHijri: e }));
+        const formattedDate = e ? e.toISOString().split('T')[0] : "";
+        dispatch(setCUData({ CommercialRecordIssueDateHijri: formattedDate}));
     };
 
     return (
@@ -23,8 +23,10 @@ function CommercialRecordIssueDateHijri() {
                 <DatePicker
                     selected={CommercialRecordIssueDateHijri}
                     onChange={CommercialRecordIssueDateHijriChange}
-                    wrapperClassName="w-full"
-                    className="px-3 border-none outline-none w-full transition-all text-mainColor h-[42px] bg-transparent rounded-[8px]"
+                    wrapperClassName="w-full  z-[888]"
+                    calendarClassName="z-[888]"
+                    popperClassName="z-[888]"
+                    className="px-3 border-none z-[888] outline-none w-full transition-all text-mainColor h-[42px] bg-transparent rounded-[8px]"
                     placeholderText={"Registration Date"}
                     dateFormat="yyyy-MM-dd"
                 />

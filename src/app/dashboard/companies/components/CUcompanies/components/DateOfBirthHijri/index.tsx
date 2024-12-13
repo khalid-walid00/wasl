@@ -12,8 +12,8 @@ function DateOfBirthHijri() {
     const dispatch = useDispatch();
 
     const DateOfBirthHijriChange = (e: any) => {
-
-        dispatch(setCUData({ DateOfBirthHijri: e }));
+        const formattedDate = e ? e.toISOString().split('T')[0] : "";
+        dispatch(setCUData({ DateOfBirthHijri: formattedDate }));
     };
 
     return (
@@ -24,6 +24,8 @@ function DateOfBirthHijri() {
                     selected={DateOfBirthHijri}
                     onChange={DateOfBirthHijriChange}
                     wrapperClassName="w-full"
+                   calendarClassName="z-[888]"
+                    popperClassName="z-[888]"
                     className="px-3 border-none outline-none w-full transition-all text-mainColor h-[42px] bg-transparent rounded-[8px]"
                     placeholderText={"Registration Date"}
                     dateFormat="yyyy-MM-dd"

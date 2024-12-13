@@ -59,6 +59,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             },
           }),
 
+
           dropdownIndicator: (provided) => ({
             ...provided,
             backgroundColor: bgArrow,

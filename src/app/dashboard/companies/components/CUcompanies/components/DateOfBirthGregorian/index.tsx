@@ -12,8 +12,8 @@ function DateOfBirthGregorian() {
     const dispatch = useDispatch();
 
     const DateOfBirthGregorianChange = (e: any) => {
-        // const formattedDate = e ? format(e, "yyyy-MM-dd") : null;
-        dispatch(setCUData({ DateOfBirthGregorian:e }));
+        const formattedDate = e ? e.toISOString().split('T')[0] : "";
+        dispatch(setCUData({ DateOfBirthGregorian:formattedDate}));
     };
 
     return (
@@ -24,6 +24,8 @@ function DateOfBirthGregorian() {
                     selected={DateOfBirthGregorian}
                     onChange={DateOfBirthGregorianChange}
                     wrapperClassName="w-full"
+                             calendarClassName="z-[888]"
+                    popperClassName="z-[888]"
                     className="px-3 border-none outline-none w-full transition-all text-mainColor h-[42px] bg-transparent rounded-[8px]"
                     placeholderText={"Registration Date"}
                 />
