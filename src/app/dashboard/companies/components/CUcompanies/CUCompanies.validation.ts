@@ -1,80 +1,68 @@
-import { z } from 'zod';
+import * as Yup from 'yup';
 
-const companySchema = z.object({
-  Name: z
-    .string()
-    .min(3, { message: "اسم الشركة يجب أن يحتوي على 3 أحرف على الأقل." })
-    .nonempty({ message: "اسم الشركة مطلوب." }),
+const companySchema = Yup.object({
+  Name: Yup.string()
+    .min(3, "اسم الشركة يجب أن يحتوي على 3 أحرف على الأقل.")
+    .required("اسم الشركة مطلوب."),
 
-  IdentityNumber: z
-    .string()
-    .length(10, { message: "رقم الهوية يجب أن يكون مكوناً من 10 أرقام." }),
+  IdentityNumber: Yup.string()
+    .matches(/^(10|70)\d{8}$/, "رقم الهوية يجب أن يبدأ بـ '10' أو '70' ويتكون من 10 أرقام.")
+    .length(10, "رقم الهوية يجب أن يكون مكوناً من 10 أرقام.")
+    .required("رقم الهوية مطلوب."),
 
-  CommercialRecordNumber: z
-    .string()
-    .nonempty({ message: "رقم السجل التجاري مطلوب." }),
+  CommercialRecordNumber: Yup.string()
+    .required("رقم السجل التجاري مطلوب."),
 
-  CommercialRecordIssueDateHijri: z
-    .string()
-    .nonempty({ message: "تاريخ إصدار السجل التجاري مطلوب." }),
+  CommercialRecordIssueDateHijri: Yup.string()
+    .required("تاريخ إصدار السجل التجاري مطلوب."),
 
-  DateOfBirthHijri: z
-    .string()
-    .nonempty({ message: "تاريخ الميلاد بالهجري مطلوب." }),
+  DateOfBirthHijri: Yup.string()
+    .required("تاريخ الميلاد بالهجري مطلوب."),
 
-  DateOfBirthGregorian: z
-    .string()
-    .nonempty({ message: "تاريخ الميلاد بالميلادي مطلوب." }),
+  DateOfBirthGregorian: Yup.string()
+    .required("تاريخ الميلاد بالميلادي مطلوب."),
 
-  PhoneNumber: z
-    .string()
-    .nonempty({ message: "رقم الهاتف مطلوب." })
-    .min(9, { message: "رقم الهاتف يجب أن يكون مكوناً من 9 أرقام." })
-    .max(15, { message: "رقم الهاتف يجب أن يكون مكوناً من 15 رقمًا." }),
+  PhoneNumber: Yup.string()
+    .required("رقم الهاتف مطلوب.")
+    .min(9, "رقم الهاتف يجب أن يكون مكوناً من 9 أرقام.")
+    .max(15, "رقم الهاتف يجب أن يكون مكوناً من 15 رقمًا."),
 
-  ExtensionNumber: z
-    .string()
+  ExtensionNumber: Yup.string()
     .optional(),
 
-  EmailAddress: z
-    .string()
-    .nonempty({ message: "البريد الإلكتروني مطلوب." })
-    .email({ message: "البريد الإلكتروني غير صحيح." }),
+  EmailAddress: Yup.string()
+    .email("البريد الإلكتروني غير صحيح.")
+    .required("البريد الإلكتروني مطلوب."),
 
-  ManagerName: z
-    .string()
-    .nonempty({ message: "اسم المدير مطلوب." }),
+  ManagerName: Yup.string()
+    .required("اسم المدير مطلوب."),
 
-  ManagerPhoneNumber: z
-    .string()
-    .nonempty({ message: "رقم هاتف المدير مطلوب." }),
+  ManagerPhoneNumber: Yup.string()
+    .required("رقم هاتف المدير مطلوب."),
 
-  ManagerMobileNumber: z
-    .string()
-    .nonempty({ message: "رقم جوال المدير مطلوب." })
-    .min(9, { message: "رقم الجوال يجب أن يكون مكوناً من 9 أرقام." })
-    .max(15, { message: "رقم الجوال يجب أن يكون مكوناً من 15 رقمًا." }),
+  ManagerMobileNumber: Yup.string()
+    .required("رقم جوال المدير مطلوب.")
+    .min(9, "رقم الجوال يجب أن يكون مكوناً من 9 أرقام.")
+    .max(15, "رقم الجوال يجب أن يكون مكوناً من 15 رقمًا."),
 
-  Activity: z
-    .string()
-    .nonempty({ message: "نشاط الشركة مطلوب." }),
+  Activity: Yup.string()
+    .required("نشاط الشركة مطلوب."),
 
-  UplevelOperationCompanyId: z
-    .string()
-    .min(3, { message: "رقم الشركة العليا يجب أن يحتوي على 3 أحرف على الأقل." })
+  UplevelOperationCompanyId: Yup.string()
+    .min(3, "رقم الشركة العليا يجب أن يحتوي على 3 أحرف على الأقل.")
 });
 
-export const validateCompanyData = (data: Record<string, any>) => {
+export const validateCompanyData = async (data: Record<string, any>) => {
   try {
     console.log("validateCompanyData", data);
-    companySchema.parse(data);
+    await companySchema.validate(data, { abortEarly: false });
     return { valid: true, errors: null };
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      const errorMessages = error.errors.map((err) => err.message);
+    if (error instanceof Yup.ValidationError) {
+      const errorMessages = error.errors.join(" | ");
       return {
         valid: false,
-        errors: errorMessages.join(" | "),
+        errors: errorMessages,
       };
     }
     throw error;

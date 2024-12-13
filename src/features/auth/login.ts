@@ -14,10 +14,11 @@ type loginProps = {
 const login = async ({ email, password }: loginProps) => {
   const endpoint = "/authentication/login";
   const body = { Email: email, Password: password };
-
+   
   try {
     const response :any= await fetchDataFromApi(endpoint, null, "POST", body);
     const { Success, Data ,Message} = response;
+    console.log(response);
     if (Success) {
       if (Data?.Token) {
         Cookies.set(cookiesValues.GlobalToken, Data.Token, { path: "/", secure: true });

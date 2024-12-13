@@ -1,17 +1,21 @@
 export declare type CompanyData = {
   Name: string;
-  Id:string,
+  Id: string;
+  CreatedDate?: string;
+  CreatedBy?: string;
+  WaslId: string;
   IdentityNumber: string;
   CommercialRecordNumber: string;
+  IsDeletedFromWasl: boolean;
   CommercialRecordIssueDateHijri: string;
-  DateOfBirthHijri: string;
-  DateOfBirthGregorian: string;
+  DateOfBirthHijri: string | null;
+  DateOfBirthGregorian: string | null;
   PhoneNumber: string;
-  ExtensionNumber: string;
+  ExtensionNumber: string | null;
   EmailAddress: string;
   ManagerName: string;
   ManagerPhoneNumber: string;
   ManagerMobileNumber: string;
   Activity: string;
   UplevelOperationCompanyId: string;
-}
+};

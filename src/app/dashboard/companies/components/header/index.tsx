@@ -1,11 +1,15 @@
 import { DropdownItem, Input } from '@nextui-org/react';
 import Link from 'next/link';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '~/common/components/atoms/button';
 import CustomSelector from '~/common/components/atoms/customSelector/CustomSelector';
 import CustomInput from '~/common/components/atoms/input';
+import { search, setSearch } from '../../companies.slice';
 
 function ComapnyHeader() {
+  const dispatch = useDispatch();
+  const { searchitems } = useSelector((state: any) => state.companiesSlice);
   const statuses = [{
     value: "all", label: "all",
   },
@@ -16,28 +20,35 @@ function ComapnyHeader() {
     value: "inactive", label: "inactive",
   },
   ]
+
+  const HandelSearchByName = (value: string, type: string) => {
+    dispatch(setSearch({ type, value }));
+  }
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
       <div className=" flex gap-3 flex-col sm:flex-row">
         <div className=" grid md:grid-cols-4  grid-cols-2  gap-2 w-full sm:w-11/12 ">
-          <CustomInput placeholder="Account Name" className='bg-[--linerPrimary]' />
-          <CustomInput placeholder="Identity Number" className='bg-[--linerPrimary]' />
-          <CustomInput placeholder='CR Number' className='bg-[--linerPrimary]' />
-        <div className="  h-full flex">
-          <CustomSelector
-            value={null}
-            placeholder="Status"
-            options={statuses}
-            onChange={() => { }}
-            />   
-            </div>
+          <CustomInput 
+            value={searchitems.type === "Name" ? searchitems.value : ""} 
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => HandelSearchByName(e.target.value, "Name")}
+            placeholder="Account Name" 
+            className='bg-[--linerPrimary]' 
+          />
+          <CustomInput
+            value={searchitems.type === "IdentityNumber" ? searchitems.value : ""} 
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => HandelSearchByName(e.target.value, "IdentityNumber")}
+          placeholder="Identity Number" className='bg-[--linerPrimary]' />
+          <CustomInput
+            value={searchitems.type === "CommercialRecordNumber" ? searchitems.value : ""} 
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => HandelSearchByName(e.target.value, "CommercialRecordNumber")}
+           placeholder='CR Number' className='bg-[--linerPrimary]' />
             </div>     
         <div className="   w-full sm:w-2/12">
-          <Button>Search</Button>
+          <Button onClick={() => dispatch(search())}>Search</Button>
         </div>
       </div>
       <div className=" flex justify-between">
-        <div className="">
+        <div className=" w-2/12">
           <CustomSelector
             value={null}
             placeholder="Status"

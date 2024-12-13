@@ -20,6 +20,7 @@ export default function ForgetPasswordTemplate() {
       const response = await fetchDataFromApi(`/authentication/forget-password?Email=${values.email}`, null, "GET", null);
       setLoading(false);
       const { StatusCode, Message,errors,status }: any = response;
+      console.log("response", response);
       if (StatusCode === 200) {
         dispatch(setData({ Email: values.email }));
         dispatch(goToStep(2));

@@ -15,12 +15,6 @@ export default function LoginTemplate() {
     setLoading(true);
     try {
       const { email, password } = values;
-      let registerData: any = {
-        email,
-        password,
-      };
-
-      // await validationSchema.validate(registerData);
       await login({
         email,
         password,

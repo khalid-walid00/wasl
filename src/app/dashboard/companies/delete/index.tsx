@@ -7,7 +7,7 @@ import { deleteItem } from "../companies.slice";
 
 export default function DeleteOne({ _id }: any) {
   const dispatch = useDispatch();
-  const deleteHandler = () => {
+  const deleteHandler =  () => {
     const endpoint = `operationCompany/delete?operationCompanyId=${_id}`;
 
 
@@ -20,29 +20,28 @@ export default function DeleteOne({ _id }: any) {
       confirmButtonText: "yes",
       cancelButtonText: "no",
       timerProgressBar: true,
-    }).then((result) => {
-      fetchDataFromApi(endpoint, null, "DELETE", null).then(({ StatusCode }: any) => {
-        if (StatusCode === 200) {
-          Toast.fire({
-            icon: "success",
-            title: "deleted successfully",
-            showConfirmButton: false,
-          })
-          dispatch(deleteItem(_id));
-
-        }
-      }).catch((err) => {
+    }).then(async() => {
+      const response = await fetchDataFromApi(endpoint, null, "DELETE", null)
+      const { StatusCode, Message } = response
+      if (StatusCode === 200) {
         Toast.fire({
-          title: err.message,
+          icon: "success",
+          title:Message ,
+          showConfirmButton: false,
+        })
+        dispatch(deleteItem(_id));
+      }
+        else{
+        Toast.fire({
           icon: "error",
-        });
-      });
-    });
+          title:Message ,
+          showConfirmButton: false,
+        })
+      }
+     })
   };
-
   return (
     <>
-
       <div
         className="flex cursor-pointer text-xs items-center  gap-1 group  rounded-xl "
         onClick={deleteHandler}
