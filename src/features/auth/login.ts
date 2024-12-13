@@ -16,26 +16,20 @@ const login = async ({ email, password }: loginProps) => {
   const body = { Email: email, Password: password };
 
   try {
-    console.log("Sending login request...");
     const response :any= await fetchDataFromApi(endpoint, null, "POST", body);
-    const { Success, Data } = response;
-    console.log("response", response);
-
+    const { Success, Data ,Message} = response;
     if (Success) {
       if (Data?.Token) {
         Cookies.set(cookiesValues.GlobalToken, Data.Token, { path: "/", secure: true });
-      } else {
-        console.error("Token is undefined or null");
       }
-      Toast.fire({ icon: "success", title: "جاري تحويلك ..." });
+      Toast.fire({ icon: "success", title:Message });
       store.dispatch(setUser(Data));
 
-      // window.location.href = "/dashboard";
+      window.location.href = "/dashboard";
     } else {
-      Toast.fire({ icon: "error", title: "فشل تسجيل الدخول. يرجى التحقق من المعلومات." });
+      Toast.fire({ icon: "error", title: Message });
     }
   } catch (error: any) {
-    console.error("Login error:", error);
     const errorMessage = error.response?.data?.message || "حدث خطأ، يرجى المحاولة مرة أخرى.";
     Toast.fire({ icon: "error", title: errorMessage });
   }

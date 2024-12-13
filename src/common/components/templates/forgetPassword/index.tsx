@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import { Toast } from "~/utils/libraries";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { goToStep, setData } from "~/app/(auth)/forgetPassword/forgetPassword.slice";
-import { validatePhoneAndCountry } from "~/app/(auth)/forgetPassword/forgetPassword.validation";
 import Button from "../../atoms/button";
 import CustomBtnBack from "../../atoms/customBtnBack";
 import EmailInput from "../../molecules/emailInput";
@@ -17,11 +15,11 @@ export default function ForgetPasswordTemplate() {
   const dispatch = useDispatch()
   
   const handleSubmit = async (values: any) => {
+    setLoading(true);
     try {
       const response = await fetchDataFromApi(`/authentication/forget-password?Email=${values.email}`, null, "GET", null);
-      const { StatusCode, Message }: any = response;
-      console.log("response", response);
-  
+      setLoading(false);
+      const { StatusCode, Message,errors,status }: any = response;
       if (StatusCode === 200) {
         dispatch(setData({ Email: values.email }));
         dispatch(goToStep(2));
@@ -29,13 +27,27 @@ export default function ForgetPasswordTemplate() {
           title: Message,
           icon: "success",
         });
+      } else if (status === 400) {
+        const errorMessages = Object.keys(errors).map(field => {
+          return `${field}: ${errors[field].join(", ")}`;
+        }).join(", ");
+        return Toast.fire({
+          title: errorMessages, 
+          icon: "error", 
+        });
+      }
+      else{
+        Toast.fire({
+          title: Message,
+          icon: "error",
+        });
       }
     } catch (error: any) {
-      console.log("error", error);
       Toast.fire({
         title: error,
         icon: "error",
       });
+      setLoading(false);
     }
   };
   

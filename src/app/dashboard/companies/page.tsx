@@ -420,7 +420,7 @@ function Page() {
   );
   
   useEffect(() => {
-    const endpoint = "operationCompany/all";
+    const endpoint = "/operationCompany/all";
     const params = { userId: 1, status: "active" };
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET",body: null }));
   }, [dispatch]);

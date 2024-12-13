@@ -11,12 +11,9 @@ import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
 export default function NewPasswordTemplate() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const dispatch = useDispatch()
   const { data } = useSelector((state: any) => state.forgetPassword);
   const endpoint = `authentication/reset-password`;
-  console.log("data",data);
-
-  const handleSubmit = (values: any) => {
+  const handleSubmit =  async (values: any) => {
     const { password, rePassword } = values;
     if (password !== rePassword) {
       Toast.fire({
@@ -25,42 +22,44 @@ export default function NewPasswordTemplate() {
       });
       return;
     }
-    const variables: any = {
+    const body: any = {
       Email: data.Email,
       Password:password,
       Code: data.Code
     };
+    try{
 
     setLoading(true);
-   
-    fetchDataFromApi(endpoint, null, "POST", variables)
-    .then(({StatusCode}:any) => {
-      if (StatusCode === 200) {
+   const response = await fetchDataFromApi(endpoint, null, "POST", body)
+   setLoading(false); 
+
+      const { StatusCode, Message } = response
+   if (StatusCode === 200) {
         Toast.fire({
-          title: "تم التحقق بنجاح",
+          title:Message,
           icon: "success",
         });
         router.push("/login");
-      }
-      })
-      .catch((error) => {
+      }else{
+
         Toast.fire({
-          title: "لقد حدث خطأ ما. حاول مجددا",
+          title: Message,
           icon: "error",
         });
-      })
-      .finally(() => {
-        setLoading(false); 
-      });
+      }
+    }
+catch(error){
+  setLoading(false);
+  Toast.fire({
+    title:"error occured",
+    icon: "error",
+  });
+}
   };
-
   const formik = useFormik({
     initialValues: { password: "", rePassword: "" },
     onSubmit: handleSubmit,
   });
-
-
-
   return (
     <form onSubmit={formik.handleSubmit} className="flex w-full flex-col">
     <div className="flex flex-col gap-8">

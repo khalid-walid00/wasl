@@ -12,7 +12,6 @@ export const fetchDataFromApi = async (
   const headers: HeadersInit = {
     Accept: "application/json, text/plain, */*",
   };
-
   if (method !== "GET" && body) {
     headers["Content-Type"] = "application/json"; 
   }
@@ -20,14 +19,24 @@ export const fetchDataFromApi = async (
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
+
   const requestBody = body ? JSON.stringify(body) : null; 
-  const response = await fetch(`http://192.99.33.197:8081/api/v1${endpoint}`, {
+
+  const url = new URL(`http://192.99.33.197:8081/api/v1${endpoint}`);
+
+  if (params) {
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+  }
+
+  const response = await fetch(url.toString(), {
     method,  
     headers,
     body: requestBody,
     ...(method === "GET" && { body: null })
   });
-  return await response.json();
+
+  const responseData = await response.json();
+  return responseData;
 };
 
 export default fetchDataFromApi;

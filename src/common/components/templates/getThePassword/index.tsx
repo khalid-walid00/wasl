@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Toast } from "~/utils/libraries";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { goToStep, setData } from "~/app/(auth)/forgetPassword/forgetPassword.slice";
 import Button from "../../atoms/button";
 import OtpInput from "../../molecules/otpInput";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import CustomBtnBack from "../../atoms/customBtnBack";
 
 export default function GetThePasswordTemplate() {
   const [loading, setLoading] = useState(false);
   const [timeLeft, setTimeLeft] = useState(120); 
-  const router = useRouter();
   const { data } = useSelector((state: any) => state.forgetPassword);
   const dispatch = useDispatch();
 
@@ -31,36 +29,39 @@ export default function GetThePasswordTemplate() {
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}`;
   };
-  const handleSubmit = (values: any) => {
-    // Combine all OTP inputs into one string
+  const handleSubmit = async (values: any) => {
     const verificationCode = `${values.opt1}${values.opt2}${values.opt3}${values.opt4}${values.opt5}${values.opt6}`;
-    const variables = {
+    const body = {
       Code: verificationCode,
       Email : data.Email
     };
-    const endpoint = `authentication/check-code`;
-
+    const endpoint = `/authentication/check-code`;
     setLoading(true);
-    fetchDataFromApi(endpoint, {}, "POST", variables)
-      .then(({StatusCode}:any) => {
+    try{
+    const response = await fetchDataFromApi(endpoint,null,"POST", body)
+    setLoading(false);
+       const {StatusCode,Message} = response
        if (StatusCode === 200) {
-        dispatch(setData({Code:variables.Code}));
+        dispatch(setData({Code:body.Code}));
         dispatch(goToStep(3));
         Toast.fire({
-          title: "تم التحقق بنجاح",
+          title: Message,
           icon: "success",
         });
-      }
-      })
-      .catch((error) => {
+      }else{
         Toast.fire({
-          title: "لقد حدث خطأ ما. حاول مجددا",
+          title: Message,
           icon: "error",
-        });
-      })
-      .finally(() => {
+        })
+      }
+      }catch(error){
         setLoading(false);
-      });
+        Toast.fire({
+          title: "Code not valid",
+          icon: "error",
+        })
+      }
+
   };
 
   const formik = useFormik({
@@ -101,9 +102,12 @@ export default function GetThePasswordTemplate() {
       </div>
     </div>
   </div>
-  <Button style={{height: "55px"}} primary type="submit" loading={loading}>
+  <div className=" flex gap-6">
+  <Button disabled={timeLeft <= 0} style={{height: "55px",backgroundColor:timeLeft <= 0 ? "#D9D9D9" : ""}} primary type="submit" loading={loading}>
     Verify
   </Button>
+  <CustomBtnBack event={() => dispatch(goToStep(1))} />
+  </div>
 </form>
 
   );
