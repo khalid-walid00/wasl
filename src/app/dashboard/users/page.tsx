@@ -148,9 +148,6 @@ function Page() {
         data={statusData}
         loading={false}
         limit={10}
-        nextPage={() => { }}
-        prevPage={() => { }}
-        setLimit={() => { }}
       />
     </div>
   </div>

@@ -45,10 +45,11 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             backgroundColor: 'transparent',
             cursor: "pointer",
             boxShadow: 'none',
-            height: '100%',  // هنا تأخذ الارتفاع الكامل للعنصر الأب
+            height: '100%',  
             padding: '0', 
             width: '100%',
             textWrap: 'nowrap',
+            zIndex: 100, 
             '&:hover': {
               borderColor: '#d7d7d7',
             },
@@ -90,6 +91,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
             marginTop: '4px',
+            zIndex: 100,
           }),
           menuList: (provided) => ({
             ...provided,
@@ -108,7 +110,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full   h-full"
+        className="w-full h-full"
         isMulti={isMulti}
       />
     </div>

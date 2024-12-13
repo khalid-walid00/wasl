@@ -138,9 +138,6 @@ function Page() {
         data={statusData}
         loading={false}
         limit={10}
-        nextPage={nextPage}
-        prevPage={prevPage}
-        setLimit={setLimit}
       />
     </div>
     <CreateVehicle/>

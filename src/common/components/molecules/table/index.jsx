@@ -5,7 +5,8 @@ import { LoadingScreen } from '../../templates/loadingSecreen';
 import { useTable } from 'react-table';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) => {} }) => {
+
+const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) => {}}) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(limit);
 
@@ -49,7 +50,7 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
   };
   
   const pagination = () => (
-    <div className=" w-full flex justify-between">
+    <div className=" w-full flex sm:flex-row flex-col justify-between">
      <div className=" flex gap-6 items-center ">
       <div className=" flex items-center gap-4">
       <button
