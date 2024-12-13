@@ -106,7 +106,7 @@ export default function GetThePasswordTemplate() {
   <Button disabled={timeLeft <= 0} style={{height: "55px",backgroundColor:timeLeft <= 0 ? "#D9D9D9" : ""}} primary type="submit" loading={loading}>
     Verify
   </Button>
-  <CustomBtnBack event={() => dispatch(goToStep(1))} />
+  <CustomBtnBack type="button" onClick={() => dispatch(goToStep(1))} />
   </div>
 </form>
 

@@ -96,7 +96,7 @@ export default function ForgetPasswordTemplate() {
     <Button style={{ height: "55px" }} primary type={"submit"} loading={loading}>
       Send
     </Button>
-    <CustomBtnBack event={handleBack} />
+    <CustomBtnBack type="button" onClick={handleBack} />
     </div>
     <div onClick={handleBack} className="absolute top-[30px] left-[22px] flex md:hidden items-center justify-center w-[40px] h-[40px] rounded-full border border-mainColor">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
