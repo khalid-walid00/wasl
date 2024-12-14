@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { goToStep } from "~/app/(auth)/forgetPassword/forgetPassword.slice";
 import PasswordInput from "../../molecules/passwordInput";
 import Button from "../../atoms/button";
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 
 export default function NewPasswordTemplate() {
   const [loading, setLoading] = useState(false);

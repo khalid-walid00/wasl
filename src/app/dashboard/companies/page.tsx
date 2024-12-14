@@ -1,18 +1,15 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import Table2 from "~/common/components/molecules/table/index";
-import DeleteManyProducts from "./deleteMany";
 import ActionList from "./components/actionList/ActionsMenu";
 import ComapnySearch from "./components/header";
-import { statusOptions } from "./components/statusOptions";
 import HeadTable from "~/common/components/molecules/headTable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, nextPage, prevPage, setLimit } from "./companies.slice";
+import { fetchDataRequest,setLimit } from "./companies.slice";
 
 function Page() {
   const {items:{Data},limit,itemsSearch} = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
- console.log(itemsSearch);
 
  const columns = useMemo(
   () => [

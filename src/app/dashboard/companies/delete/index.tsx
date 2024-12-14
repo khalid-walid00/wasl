@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { Toast } from "~/utils/libraries";
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { deleteItem } from "../companies.slice";
 
 export default function DeleteOne({ _id }: any) {

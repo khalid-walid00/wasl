@@ -287,6 +287,8 @@ const initialState = {
   companyId:"",
   searchitems,
   inquiryIndividual: {},
+  ActivityLoading: false,
+  Activity: [{ value: "Active", label: "Active" }, { value: "Inactive", label: "Inactive" }],
   inquiryIndividualLoading: false,
   inquiryCompanyLoading: false,
   page:  Number(url.searchParams.get("page") || pagination.defaultPage),
@@ -344,31 +346,21 @@ export const companiesSlice = createSlice({
     setInquiryCompany: (state) => {
       state.inquiryIndividualLoading = true;
     },
+    fetchActivity: (state) => {
+      state.ActivityLoading = true;
+    },
+    setActivity: (state, action) => {
+      state.ActivityLoading = false;
+      state.Activity = action.payload;
+    },
     clearOneData: (state) => {
       state.company = company;
     },
-    nextPage: (state) => {
-      state.page += 1;
-      state.loading = true;
-    },
-    prevPage: (state) => {
-      if (state.page > 1) {
-        state.page -= 1;
-        state.loading = true;
-      }
-    },
-    setLimit: (state, action) => {     
-      state.page = 1; 
-      state.limit = action.payload;
-      state.loading = true;
-    }, 
     setSearch: (state, action) => {
       const { type, value } = action.payload;
-      console.log("typvalue", type, value);
       state.searchitems.type = type;
       state.searchitems.value = value;
     },
-    
     search: (state) => {
       const { type, value } = state.searchitems;    
       console.log("type, value", type, value);
@@ -405,13 +397,14 @@ export const companiesSlice = createSlice({
      const idsToRemove =action.payload
         state.items.Data = state.items.Data?.filter(item => item.Id !== idsToRemove);
     },
-    setPage:(state,action)=>{
-      state.page = +action.payload; 
+    setLimit: (state, action) => {     
+      state.page = 1; 
+      state.limit = action.payload;
       state.loading = true;
-    },
+    }, 
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search , setPage,fetchOneData,
-  clearOneData,setCUData,setInquiryIndividual,sendData,setInquiryCompany
-  , fetchDataRequest, fetchDataFailed, setData , nextPage , prevPage, setLimit ,deleteItem } = companiesSlice.actions;
+export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,fetchActivity,setActivity,
+  clearOneData,setCUData,setInquiryIndividual,sendData,setInquiryCompany,fetchInquiryCompany,setLimit
+  , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

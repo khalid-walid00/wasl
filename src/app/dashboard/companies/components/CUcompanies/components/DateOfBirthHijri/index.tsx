@@ -6,14 +6,14 @@ import { setCUData } from "~/app/dashboard/companies/companies.slice";
 
 function DateOfBirthHijri() {
     const {
-        company: { DateOfBirthHijri }
+        company: { DateOfBirthHijri ,IdentityNumber}
     } = useSelector((state: any) => state.companiesSlice);
 
     const dispatch = useDispatch();
 
     const DateOfBirthHijriChange = (e: any) => {
         const formattedDate = e ? e.toISOString().split('T')[0] : "";
-        dispatch(setCUData({ DateOfBirthHijri: formattedDate }));
+        if(!IdentityNumber.startsWith("70"))dispatch(setCUData({ DateOfBirthHijri: formattedDate }));
     };
 
     return (

@@ -12,6 +12,18 @@ function IdentityNumber() {
   const dispatch = useDispatch();
   const handleIdentityNumberhange = (e: any) => {
     dispatch(setCUData({ IdentityNumber: e.target.value }));
+  if(company?.IdentityNumber?.startsWith("70")){
+    dispatch(setCUData({ DateOfBirthHijri: "" }));
+  }else{
+    dispatch(setCUData({ 
+      CommercialRecordNumber: "",
+      CommercialRecordIssueDateHijri:"",
+      ManagerName:"",
+      ManagerPhoneNumber:"",
+      ManagerMobileNumber:"",
+      DateOfBirthGregorian:"",
+    }));
+  }
   };
 
   return (

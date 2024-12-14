@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { setData, fetchDataFailed } from "./vehicle.slice"
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 
 function* fetchDataSaga(action: any): Generator<any, void, any> {
   try {

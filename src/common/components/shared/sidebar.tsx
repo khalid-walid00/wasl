@@ -118,7 +118,7 @@ function Sidebar() {
             <div className=" flex w-full justify-between  items-center">
 
               {
-                showSideBar && <div className=" text- font-bold text-mainColor">WSL</div>
+                showSideBar && <div className=" text- font-bold text-mainColor">WASL</div>
               }
               <Image
                 width={40}

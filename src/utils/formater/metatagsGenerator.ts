@@ -22,7 +22,7 @@ const metatagsGenerator = ({ title, description, imageUrl, authorName, type, url
     openGraph: {
       title,
       description,
-      siteName: "wsl",
+      siteName: "WASL",
 
       images: [{
         url: imageUrl,

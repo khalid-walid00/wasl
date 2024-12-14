@@ -7,7 +7,7 @@ import { goToStep, setData } from "~/app/(auth)/forgetPassword/forgetPassword.sl
 import Button from "../../atoms/button";
 import CustomBtnBack from "../../atoms/customBtnBack";
 import EmailInput from "../../molecules/emailInput";
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 
 export default function ForgetPasswordTemplate() {
   const [loading, setLoading] = useState(false);

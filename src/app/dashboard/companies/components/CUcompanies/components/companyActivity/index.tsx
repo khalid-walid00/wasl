@@ -10,19 +10,13 @@ type Option = {
 };
 
 function CompanyActivity() {
-    const {
-        company :{Activity}
-    } = useSelector((state: any) => state.companiesSlice);
+ const {company :{Activity},Activity:optionsActivity} = useSelector((state: any) => state.companiesSlice);
 
     const dispatch = useDispatch();
     const ActivityChange = (e: any) => {
         dispatch(setCUData({ Activity: e }));
     };
-   const options: Option[] = [
-       { label: "DEFAULT1", value: "DEFAULT1" },
-       { label: "DEFAULT2", value: "DEFAULT2" },
-       { label: "DEFAULT3", value: "DEFAULT3" },
-   ]
+
     return (
         <div className="flex flex-col gap-2">
         <CustomLabel bold>Activity</CustomLabel>
@@ -30,7 +24,7 @@ function CompanyActivity() {
 
         <CustomSelector
             value={Activity}
-            options={options}
+            options={optionsActivity}
             onChange={ActivityChange}
             placeholder={"Select Type"}
             isLoading={false}

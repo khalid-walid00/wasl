@@ -1,7 +1,7 @@
 import { Toast } from "~/utils/libraries";
 import Cookies from "js-cookie";
 import { cookiesValues } from "~/config/constant";
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { setUser } from "~/app/appSlice";
 import { store } from "~/redux/persist";
 

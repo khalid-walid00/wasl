@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { goToStep, setData } from "~/app/(auth)/forgetPassword/forgetPassword.slice";
 import Button from "../../atoms/button";
 import OtpInput from "../../molecules/otpInput";
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import CustomBtnBack from "../../atoms/customBtnBack";
 
 export default function GetThePasswordTemplate() {

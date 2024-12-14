@@ -1,6 +1,6 @@
 import { call, put, select } from "redux-saga/effects";
 import { validateCompanyData } from "../CUCompanies.validation";
-import { fetchDataFromApi } from "~/utils/libraries/axios/axiosClient";
+import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { Toast } from "~/utils/libraries";
 import { addItem, clearOneData,replaceItem } from "../../../companies.slice";
 import { setRedirectTo } from "~/app/appSlice";

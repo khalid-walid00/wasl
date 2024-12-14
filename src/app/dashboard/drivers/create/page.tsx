@@ -23,7 +23,7 @@ function CreateDriver() {
         vehicleType: [
             { label: "سيارة", value: "car" },
             { label: "دراجة نارية", value: "motorcycle" },
-            { label: "شاحنة", value: "truck" },
+            { label: "��احنة", value: "truck" },
             { label: "حافلة", value: "bus" },
             { label: "سيارة كهربائية", value: "electric_car" },
             { label: "سيارة رياضية", value: "sports_car" }
@@ -156,8 +156,8 @@ function CreateDriver() {
                             <div className="flex flex-col w-8/12 gap-2">
                                 <CustomLabel bold>Assign Assest</CustomLabel>
                                 <CustomSelector
-                                    value={{ label: "Sect Type", value: "" }}
-                                    options={[{ label: "", value: "" }]}
+                                    value=""
+                                    options={[{ label: "test", value: "test" }]}
                                     onChange={(e: any) => console.log(e)}
                                     placeholder={"Select Type"}
                                     isLoading={false}
@@ -168,7 +168,7 @@ function CreateDriver() {
                             <div className="flex flex-col gap-2">
                                 <CustomLabel bold>Employment Status</CustomLabel>
                                 <CustomSelector
-                                    value={{ label: "Sect Type", value: "" }}
+                                    value=""
                                     options={[{ label: "", value: "" }]}
                                     onChange={(e: any) => console.log(e)}
                                     placeholder={"Select Type"}
@@ -178,7 +178,7 @@ function CreateDriver() {
                             <div className="flex flex-col gap-2">
                                 <CustomLabel bold>DOB Format</CustomLabel>
                                 <CustomSelector
-                                    value={{ label: "Sect Type", value: "" }}
+                                    value=""
                                     options={[{ label: "", value: "" }]}
                                     onChange={(e: any) => console.log(e)}
                                     placeholder={"Select Type"}
@@ -188,7 +188,7 @@ function CreateDriver() {
                             <div className="flex flex-col gap-2">
                                 <CustomLabel bold>Nationality:</CustomLabel>
                                 <CustomSelector
-                                    value={{ label: "Sect Type", value: "" }}
+                                    value=""
                                     options={[{ label: "", value: "" }]}
                                     onChange={(e: any) => console.log(e)}
                                     placeholder={"Driver Nationality"}
