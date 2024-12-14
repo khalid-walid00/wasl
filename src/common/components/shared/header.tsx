@@ -35,14 +35,10 @@ export default function PrimarySearchAppBar({ iconToggle = false }: { iconToggle
 
   return (
     <div className="sticky bg-[#fff] top-0 z-[99999] shadow-sm " >
-      <div className="w-full flex justify-start items-center border-b border-[#EFEFEF] md:py-5 pt-2 pb-5 px-4 md:px-5">
+      <div className="w-full flex justify-start items-center border-b border-[#EFEFEF] h-[61px] px-4 md:px-5">
         <div className={`w-full flex flex-wrap items-center flex-col-reverse lg:flex-row gap-y-2 `}>
           <div className={`flex  w-full lg:w-6/12  sm:gap-6 gap-3 items-center justify-between flex-row`}>
-            <div className="flex lg:gap-6 gap-2  items-center justify-start w-full">
-              <div className="  flex items-center justify-center md:border-r pr-2 border-[#ECECEC]" >
-                <UserOptionsTemplates />
-              </div>
-            </div>
+            
             <HiOutlineMenuAlt3 onClick={() => dispatch(toggleSideBar(!showSideBar))} className={`${showSideBar ? "0" : "rotate-180"} ${iconToggle ? "block" : "hidden"}  md:hidden transition-all duration-300 cursor-pointer text-mainColor w-[40px] h-[40px]`} />
           </div>
           <div className={`flex  w-full lg:w-6/12   flex-row justify-end xs:justify-end gap-3 text-white items-center `} >

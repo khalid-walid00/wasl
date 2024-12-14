@@ -25,12 +25,12 @@ function SideBarSelector({ className, title, content }: Props) {
   }, [dispatch, showSideBar]);
 
   const toggleList = (index: number) => {
-    setOpenIndex(prev => (prev === index ? null : index)); 
+    setOpenIndex(prev => (prev === index ? null : index));
   };
 
   return (
     <div className={`border-b last:border-0 border-[#E9E9E9] flex flex-col ${showSideBar ? "mx-4" : "mx-2"} `}>
-      {title && <div className={`text-lg   ${showSideBar ? " p-3 xl:p-3 xl:pb-0 pb-0  " 
+      {title && <div className={`text-lg   ${showSideBar ? " p-3 xl:p-3 xl:pb-0 pb-0  "
         : "text-center xl:pt-3 hidden"} text-mainColor `}>{title}</div>}
       <div className={`flex-col ${!showSideBar && "xl:pb-0"} pb-[16px] pt-3 px-0 flex gap-1`}>
         {content.map((item: any, index: number) => (
@@ -44,12 +44,21 @@ function SideBarSelector({ className, title, content }: Props) {
                    flex-row-reverse  gap-4 transition-all ${className}`}
             >
               {!item.list?.length ? (
-                <Link href={item.href} className={`items-center flex flex-row  gap-2`}>
-                  {showSideBar && (
-                    <div className="md:text-[14px] text-base self-center">{item.text}</div>
-                  )}
-                  {item.icon}
-                </Link>
+                item.href ? (
+                  <Link href={item.href} className={`items-center flex flex-row  gap-2`}>
+                    {showSideBar && (
+                      <div className="md:text-[14px] text-base self-center">{item.text}</div>
+                    )}
+                    {item.icon}
+                  </Link>
+                ) : (
+                  <button className={`items-center flex flex-row  gap-2`} onClick={item.onClick}>
+                    {showSideBar && (
+                      <div className="md:text-[14px] text-base self-center">{item.text}</div>
+                    )}
+                    {item.icon}
+                  </button>
+                )
               ) : (
                 <div className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse "} gap-2`}>
                   {item.icon}
@@ -72,9 +81,9 @@ function SideBarSelector({ className, title, content }: Props) {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path fillRule="evenodd" clipRule="evenodd" d="M14.5695 6.60743C14.8853 6.93587 14.8751 7.45813 14.5466 7.77394L10.2151 11.8542L14.5466 15.9346C14.8751 16.2504 14.8853 16.7726 14.5695 17.1011C14.2537 17.4295 13.7314 17.4397 13.403 17.1239L8.45299 12.4489C8.29122 12.2934 8.1998 12.0787 8.1998 11.8542C8.1998 11.6298 8.29122 11.4151 8.45299 11.2596L13.403 6.58456C13.7314 6.26876 14.2537 6.279 14.5695 6.60743Z" 
-                  fill={item.list?.some((list: any) => list.href == path) ? "#008ffb" : "#333333"} fillOpacity="0.77"
-                   stroke={item.list?.some((list: any) => list.href == path) ? "#008ffb" : "#333333"} strokeOpacity="0.77" strokeWidth="0.25" strokeLinecap="round" strokeLinejoin="round" />
+                  <path fillRule="evenodd" clipRule="evenodd" d="M14.5695 6.60743C14.8853 6.93587 14.8751 7.45813 14.5466 7.77394L10.2151 11.8542L14.5466 15.9346C14.8751 16.2504 14.8853 16.7726 14.5695 17.1011C14.2537 17.4295 13.7314 17.4397 13.403 17.1239L8.45299 12.4489C8.29122 12.2934 8.1998 12.0787 8.1998 11.8542C8.1998 11.6298 8.29122 11.4151 8.45299 11.2596L13.403 6.58456C13.7314 6.26876 14.2537 6.279 14.5695 6.60743Z"
+                    fill={item.list?.some((list: any) => list.href == path) ? "#008ffb" : "#333333"} fillOpacity="0.77"
+                    stroke={item.list?.some((list: any) => list.href == path) ? "#008ffb" : "#333333"} strokeOpacity="0.77" strokeWidth="0.25" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               )}
               {item.number && (

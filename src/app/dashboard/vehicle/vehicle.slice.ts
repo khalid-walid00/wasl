@@ -202,7 +202,6 @@ export const vehiclesSlice = createSlice({
     },
     replaceItem: (state, action: PayloadAction<{ Data: Partial<DataTypes> & { Id: string } }>) => {
       const Data  = action.payload.Data;
-      console.log("Data", Data);
       const index = state.items.Data.findIndex((item) => item.Id === Data?.Id);
       if (index !== -1) {
         state.items.Data[index] = { ...state.items.Data[index], ...Data };

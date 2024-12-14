@@ -11,11 +11,12 @@ import { CiUser } from "react-icons/ci";
 import { LiaBikingSolid } from "react-icons/lia";
 import { IoCarSportOutline } from "react-icons/io5";
 import { GoGitPullRequest } from "react-icons/go";
+import Logout from "~/features/auth/logout";
+import { FiLogOut } from "react-icons/fi";
 
 function Sidebar() {
   const { app } = useParams();
   const { user, showSideBar } = useSelector((state: any) => state.config);
-  const local = "ar";
   const menu = [
     {
       title: "",
@@ -77,6 +78,16 @@ function Sidebar() {
         },
       ],
     },
+    {
+      title: "",
+      content: [
+        {
+          text: "Logout",
+          icon: <FiLogOut size={22} className=" text-mainColor" />,
+          onClick: Logout,
+        },
+      ],
+    },
   ];
 
 
@@ -109,13 +120,13 @@ function Sidebar() {
         `}</style>
         <div
           className={`${showSideBar && "px-6"
-            }  z-[99] h-[85px] sticky shadow-sm border-b border-[#EFEFEF] top-0 py-8 bg-white`}
+            }  z-[99] h-[61px] sticky shadow-sm border-b border-[#EFEFEF] top-0  bg-white`}
         >
           <div
-            className={` items-center ${showSideBar ? "justify-start text-5xl" : "justify-center"
+            className={` items-center h-full ${showSideBar ? "justify-start text-5xl" : "justify-center"
               } flex flex-row-reverse`}
           >
-            <div className=" flex w-full justify-between  items-center">
+            <div className=" flex w-full justify-between  h-full items-center">
 
               {
                 showSideBar && <div className=" text- font-bold text-mainColor">WASL</div>

@@ -6,7 +6,7 @@ import { store } from "~/redux/persist";
 import { setUser } from "~/app/appSlice";
 
 
-const logout = async () => {
+const Logout = async () => {
   Swal.fire({
     title: "هل انت متأكد من تسجيل الخروج؟",
     text: "يمكنك ترك الموقع بدون عمل تسجيل خروج",
@@ -31,4 +31,4 @@ const logout = async () => {
   });
 };
 
-export default logout;
+export default Logout;
