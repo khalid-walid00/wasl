@@ -24,21 +24,25 @@ function VehicleHeader() {
       <div className=" flex gap-3 flex-col sm:flex-row">
         <div className=" grid lg:grid-cols-6 md:grid-cols-4  grid-cols-2  gap-2 w-full sm:w-11/12 ">
           <CustomInput placeholder="Account Name" className='bg-[--linerPrimary]' />
+          <div className="">
           <CustomSelector
             value={null}
             placeholder="Aseet Name"
             options={statuses}
             onChange={() => { }}
             />   
-             <CustomInput placeholder='File No' className='bg-[--linerPrimary]' />
+            </div>
+            <CustomInput placeholder='File No' className='bg-[--linerPrimary]' />
           <CustomInput placeholder='Sequence Number' className='bg-[--linerPrimary]' />
           <CustomInput placeholder='Search IMCI' className='bg-[--linerPrimary]' />
+          <div className="">
           <CustomSelector
             value={null}
             placeholder="Activity"
             options={statuses}
             onChange={() => { }}
             />   
+            </div>
             </div>     
         <div className="   w-full sm:w-2/12">
           <Button>Search</Button>

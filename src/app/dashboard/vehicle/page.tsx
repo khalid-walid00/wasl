@@ -9,46 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDataRequest, nextPage, prevPage, setLimit } from "./vehicle.slice";
 
 function Page() {
-  const staticData = [
-    {
-      Account: 101,
-      VehicleNo: "Vehicle-1234",
-      SequenceNumber: "1234",
-      PlateNumber: "XYZ1234",
-      PlateRightLetter: "X",
-      PlateMiddleLetter: "Y",
-      PlateType: "Private",
-      PlateLeftLetter: "Z",
-      IMEINumber: "IMEI123456789",
-      WASLVehicleKey: "WASL123456",
-      Response: "Approved",
-      RegistrationDate: "2024-11-20",
-      Activity: "Active",
-      Reply: "Success",
-      Actions:"Actions"
-
-    },
-    {
-      Account: 102,
-      VehicleNo: "Vehicle-5678",
-      SequenceNumber: "5678",
-      PlateNumber: "ABC5678",
-      PlateRightLetter: "A",
-      PlateMiddleLetter: "B",
-      PlateType: "Commercial",
-      PlateLeftLetter: "C",
-      IMEINumber: "IMEI987654321",
-      WASLVehicleKey: "WASL654321",
-      Response: "Pending",
-      RegistrationDate: "2023-05-15",
-      Activity: "Inactive",
-      Reply: "Processing",
-      Actions:"Actions"
-    },
-  ];
   const dispatch = useDispatch();
-  const data = useSelector((state: any) => state.vehiclesSlice);
-  console.log(data);
+  const {items:{Data}} = useSelector((state: any) => state.vehiclesSlice);
   
   useEffect(() => {
     const endpoint = "vehicles/all";
@@ -56,8 +18,8 @@ function Page() {
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
   }, [dispatch]);
 
-  const [statusData, setStatusData] = useState(staticData); 
 
+  
   const columns = useMemo(
     () => [
       {
@@ -135,7 +97,7 @@ function Page() {
       <Table
         header={<VehicleHeader />}
         columns={columns}
-        data={statusData}
+        data={Data ?? []}
         loading={false}
         limit={10}
       />
