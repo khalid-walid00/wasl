@@ -9,16 +9,23 @@ import { toggleModel } from '../../create/createVehicle.slice';
 
 function VehicleHeader() {
   const dispatch = useDispatch();
-  const statuses = [{
-    value: "all", label: "all",
-  },
-  {
-    value: "active", label: "active",
-  },
-  {
-    value: "inactive", label: "inactive",
-  },
-  ]
+  const statuses = [
+    {
+      value: "Active", label: "Active"
+    },
+    {
+      value: "Inactive", label: "Inactive"
+    },
+    {
+      value: "delete", label: "delete"
+    },
+    ]
+    const tooltipOptions = [
+      { id: "Active", tooltipContent: "المركبات الموجوده في wasl" },
+      { id: "Inactive", tooltipContent: "المركبات الغير موجوده في wasl" },
+      { id: "delete", tooltipContent: "المركبات المحذوفه من wasl فقط" },
+    ];
+    
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
       <div className=" flex gap-3 flex-col sm:flex-row">
@@ -35,14 +42,6 @@ function VehicleHeader() {
             <CustomInput placeholder='File No' className='bg-[--linerPrimary]' />
           <CustomInput placeholder='Sequence Number' className='bg-[--linerPrimary]' />
           <CustomInput placeholder='Search IMCI' className='bg-[--linerPrimary]' />
-          <div className="">
-          <CustomSelector
-            value={null}
-            placeholder="Activity"
-            options={statuses}
-            onChange={() => { }}
-            />   
-            </div>
             </div>     
         <div className="   w-full sm:w-2/12">
           <Button>Search</Button>
@@ -55,6 +54,7 @@ function VehicleHeader() {
             placeholder="driver status"
             options={statuses}
             onChange={() => { }}
+            tooltipOptions={tooltipOptions}
           />
         </div>     
 

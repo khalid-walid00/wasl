@@ -130,7 +130,7 @@ export const vehiclesSlice = createSlice({
       state.page = pagination.defaultPage;
       state.limit = pagination.defaultLimit;
     },
-    fetchDataRequest: (state) => {
+    fetchDataRequest: (state, action) => {
       state.loading = true;
     },
     fetchDataFailed: (state) => {
@@ -163,18 +163,18 @@ export const vehiclesSlice = createSlice({
       state.loading = true;
     },
     addItem: (state, action: PayloadAction<DataTypes>) => {
-      state.items.data.unshift(action.payload);
+      state.items.Data.unshift(action.payload);
     },
-    replaceItem: (state, action: PayloadAction<{ _id: string; data: Partial<DataTypes> }>) => {
-      const { _id, data } = action.payload;
-      const index = state.items.data.findIndex((item) => item._id === _id);
+    replaceItem: (state, action: PayloadAction<{ _id: string; Data: Partial<DataTypes> }>) => {
+      const { _id, Data } = action.payload;
+      const index = state.items.Data.findIndex((item) => item._id === _id);
       if (index !== -1) {
-        state.items.data[index] = { ...state.items.data[index], ...data };
+        state.items.Data[index] = { ...state.items.Data[index], ...Data };
       }
     },
     deleteItem: (state, action: PayloadAction<string>) => {
       const idsToRemove = action.payload;
-      state.items.data = state.items.data.filter((item) => item._id !== idsToRemove);
+      state.items.Data = state.items.Data.filter((item) => item._id !== idsToRemove);
     },
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
