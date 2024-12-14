@@ -11,7 +11,6 @@ const persistConfig: any = {
   key: 'root',
   storage,
   blacklist: [
-  "createVehicleSlice",
   "companiesSlice",
   "forgetPassword",
   "vehiclesSlice",
@@ -21,7 +20,6 @@ const persistConfig: any = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// إعداد الـ Store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -32,8 +30,6 @@ export const store = configureStore({
     }).concat(sagaMiddleware),
 });
 
-// تشغيل الـ Saga Middleware
 sagaMiddleware.run(rootSaga);
 
-// إعداد الـ Persistor
 export const persistor = persistStore(store);

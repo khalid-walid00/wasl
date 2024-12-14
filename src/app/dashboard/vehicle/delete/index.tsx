@@ -12,7 +12,7 @@ export default function DeleteOne({ _id }: any) {
 
 
     Swal.fire({
-      title: `are you sure you want to delete this company ?`,
+      title: `are you sure you want to delete this Vehicle ?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#e91e63",

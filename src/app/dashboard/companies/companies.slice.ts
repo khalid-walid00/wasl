@@ -333,6 +333,7 @@ export const companiesSlice = createSlice({
     sendData: (state) => {
       state.loading = true;
     },
+
     fetchInquiryIndividual: (state) => {
       state.inquiryIndividualLoading = true;
     },

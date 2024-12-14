@@ -20,83 +20,96 @@ const searchItems: SearchItems = {
 };
 
 interface DataTypes {
-  _id: string;
+  Id: string;
   Account: number;
   VehicleNo: string;
   SequenceNumber: string;
   PlateNumber: string;
   PlateRightLetter: string;
   PlateMiddleLetter: string;
-  PlateType: string;
   PlateLeftLetter: string;
+  PlateType: number | null;
   IMEINumber: string;
   WASLVehicleKey: string;
   Response: string;
   RegistrationDate: string;
   Activity: string;
   Reply: string;
-  Actions: string;
 }
 
-interface PaginationType {
-  totalCount: number;
-  totalPages: number;
-}
 
 interface ItemsTypes {
   Data: DataTypes[];
   Message: string;
   StatusCode: boolean;
 }
-
+const vehicle: DataTypes | null = {
+  Id: "",
+  Account:66 ,
+  VehicleNo: "",
+  SequenceNumber: "",
+  PlateNumber: "",
+  PlateRightLetter: "",
+  PlateMiddleLetter: "",
+  PlateType: null,
+  PlateLeftLetter: "",
+  IMEINumber: "",
+  WASLVehicleKey: "",
+  Response: "",
+  RegistrationDate: "",
+  Activity: "",
+  Reply: "",
+};
 interface StateTypes {
   items: ItemsTypes;
   loading: boolean;
   error: boolean;
   searchItems: SearchItems;
   itemsSearch: DataTypes[];
+  inquiryLoading: boolean;
+  inquiry: any;
+  vehicle: DataTypes | null;
+  vehicleId: string | null;
+  showModel: boolean;
   page: number;
   limit: number;
-  pagination: PaginationType;
 }
 
 const items: ItemsTypes = {
   Data: [
     {
-      _id: "1",
+      Id: "1",
       Account: 999,
       VehicleNo: "Vehicle-1234",
       SequenceNumber: "1234",
-      PlateNumber: "XYZ1234",
+      PlateNumber: "1234",
       PlateRightLetter: "X",
       PlateMiddleLetter: "Y",
-      PlateType: "Private",
+      PlateType: 2,
       PlateLeftLetter: "Z",
-      IMEINumber: "IMEI123456789",
+      IMEINumber: "23456789",
       WASLVehicleKey: "WASL123456",
       Response: "Approved",
       RegistrationDate: "2024-11-20",
       Activity: "Active",
       Reply: "Success",
-      Actions: "Actions"
     },
     {
-      _id: "2",
+      Id: "2",
       Account: 102,
       VehicleNo: "Vehicle-5678",
       SequenceNumber: "5678",
-      PlateNumber: "ABC5678",
-      PlateRightLetter: "A",
-      PlateMiddleLetter: "B",
-      PlateType: "Commercial",
+      PlateNumber: "5545",
+      PlateRightLetter: "j",
+      PlateMiddleLetter: "b",
+      PlateType: 1,
       PlateLeftLetter: "C",
-      IMEINumber: "IMEI987654321",
+      IMEINumber: "9885437545345",
       WASLVehicleKey: "WASL654321",
       Response: "Pending",
       RegistrationDate: "2023-05-15",
       Activity: "Inactive",
       Reply: "Processing",
-      Actions: "Actions"
     }
   ],
     
@@ -108,17 +121,18 @@ const initialState: StateTypes = {
   items: items,
   loading: false,
   error: false,
+  showModel: false,
   searchItems,
+  vehicle,
+  vehicleId: null,
   itemsSearch: [],
+  inquiryLoading: false,
+  inquiry: [],
   page: Number(url.searchParams.get("page") || pagination.defaultPage),
   limit: Number(url.searchParams.get("limit") || pagination.defaultLimit),
-  pagination: {
-    totalCount: 0,
-    totalPages: 0
-  }
+
 };
 
-// إنشاء الـ Slice
 export const vehiclesSlice = createSlice({
   name: "vehiclesSlice",
   initialState,
@@ -134,19 +148,26 @@ export const vehiclesSlice = createSlice({
     fetchDataFailed: (state) => {
       state.error = true;
     },
+    fetchOneData: (state, action) => {
+      state.vehicleId = action.payload;
+      const vehicle = state.items.Data.find((item) => item.Id === action.payload);
+       if (vehicle) {
+        state.vehicle = vehicle;
+      }
+    },
+    fetchInquiry: (state) => {
+      state.inquiryLoading = true;
+    },
+    
+    setInquiry: (state, action) => {
+      state.inquiry = action.payload;
+    },
     setData: (state, action: PayloadAction<ItemsTypes>) => {
       state.items = action.payload;
       state.loading = false;
     },
-    nextPage: (state) => {
-      state.page += 1;
-      state.loading = true;
-    },
-    prevPage: (state) => {
-      if (state.page > 1) {
-        state.page -= 1;
-        state.loading = true;
-      }
+    setCUData: (state, action) => {
+      state.vehicle =  {...state.vehicle, ...action.payload};
     },
     setLimit: (state, action: PayloadAction<number>) => {
       state.page = 1;
@@ -157,6 +178,9 @@ export const vehiclesSlice = createSlice({
       const { type, value } = action.payload;
       state.searchItems.type = type;
       state.searchItems.value = value;
+    },
+    sendData: (state) => {
+      state.loading = true;
     },
     search: (state) => {
       const { type, value } = state.searchItems;    
@@ -176,20 +200,29 @@ export const vehiclesSlice = createSlice({
     addItem: (state, action: PayloadAction<DataTypes>) => {
       state.items.Data.unshift(action.payload);
     },
-    replaceItem: (state, action: PayloadAction<{ _id: string; Data: Partial<DataTypes> }>) => {
-      const { _id, Data } = action.payload;
-      const index = state.items.Data.findIndex((item) => item._id === _id);
+    replaceItem: (state, action: PayloadAction<{ Data: Partial<DataTypes> & { Id: string } }>) => {
+      const Data  = action.payload.Data;
+      console.log("Data", Data);
+      const index = state.items.Data.findIndex((item) => item.Id === Data?.Id);
       if (index !== -1) {
         state.items.Data[index] = { ...state.items.Data[index], ...Data };
       }
     },
     deleteItem: (state, action: PayloadAction<string>) => {
       const idsToRemove = action.payload;
-      state.items.Data = state.items.Data.filter((item) => item._id !== idsToRemove);
+      state.items.Data = state.items.Data.filter((item) => item.Id !== idsToRemove);
     },
-    setPage: (state, action: PayloadAction<number>) => {
-      state.page = action.payload;
-      state.loading = true;
+    clearVehicle: (state) => {
+      state.vehicle = vehicle;
+      state.vehicleId = null;
+      state.showModel = !state.showModel;
+  },
+  clearOneData: (state) => {
+    state.vehicle = vehicle;
+  },
+    toggleModel: (state,action) => { 
+      state.showModel = !state.showModel;
+      if (action.payload) state.vehicleId = action.payload;
     }
   }
 });
@@ -198,14 +231,19 @@ export const {
   setDataEmpty,
   addItem,
   setSearch,
+  toggleModel,
+  clearVehicle,
+  clearOneData,
   replaceItem,
+  setCUData,
   search,
-  setPage,
+  setInquiry,
+  fetchInquiry,
+  sendData,
   fetchDataRequest,
   fetchDataFailed,
+  fetchOneData,
   setData,
-  nextPage,
-  prevPage,
   setLimit,
   deleteItem
 } = vehiclesSlice.actions;

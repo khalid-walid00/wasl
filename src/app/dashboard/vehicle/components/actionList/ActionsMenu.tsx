@@ -7,17 +7,16 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteProducts from "../../deleteMany";
 import DeleteOne from "../../delete";
+import { toggleModel } from "../../vehicle.slice";
 
 interface Props {
   item?: any;
 }
 function ActionList({ item }: Props) {
-  const { user } = useSelector((state: any) => state.config);
-  const subdomain = user?.defaultApp?.subdomain;
-
+const dispatch = useDispatch();
   return (
     <div className="relative flex justify-center items-center  text-black gap-2">
       <Dropdown className=" p-0  min-w-40">
@@ -40,9 +39,9 @@ function ActionList({ item }: Props) {
 
         <DropdownMenu className="shadow-lg rounded-lg ">
           <DropdownItem className=" flex">
-            <Link
-              href={`/${subdomain}/products/${item?.id}`}
-              className="flex text-xs items-center  gap-1"
+            <button
+                onClick={() => dispatch(toggleModel(item.Id))}
+              className="flex text-xs items-center  w-full gap-1"
             >
               <Image
                 width={16}
@@ -52,11 +51,11 @@ function ActionList({ item }: Props) {
                 alt="icon"
               />
               <span className="group-hover:text-black">تعديل</span>
-            </Link>
+            </button>
           </DropdownItem>
 
           <DropdownItem className=" flex">
-            <DeleteOne _id={item.id} />
+            <DeleteOne _id={item.Id} />
           </DropdownItem>
         </DropdownMenu>
         

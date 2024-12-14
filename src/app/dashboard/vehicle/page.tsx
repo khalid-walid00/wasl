@@ -4,9 +4,9 @@ import HeadTable from "~/common/components/molecules/headTable";
 import Table from "~/common/components/molecules/table";
 import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
-import CreateVehicle from "./create/page";
+import CUVehicle from "./CUVehicle/index";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, nextPage, prevPage, setLimit } from "./vehicle.slice";
+import { fetchDataRequest } from "./vehicle.slice";
 
 function Page() {
   const dispatch = useDispatch();
@@ -101,7 +101,7 @@ function Page() {
         limit={10}
       />
     </div>
-    <CreateVehicle/>
+    <CUVehicle/>
   </div>
   );
 }

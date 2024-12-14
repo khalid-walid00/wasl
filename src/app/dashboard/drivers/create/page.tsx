@@ -23,7 +23,7 @@ function CreateDriver() {
         vehicleType: [
             { label: "سيارة", value: "car" },
             { label: "دراجة نارية", value: "motorcycle" },
-            { label: "��احنة", value: "truck" },
+            { label: "شاحنة", value: "truck" },
             { label: "حافلة", value: "bus" },
             { label: "سيارة كهربائية", value: "electric_car" },
             { label: "سيارة رياضية", value: "sports_car" }

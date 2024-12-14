@@ -28,7 +28,7 @@ const SideAction: React.FC<SideActionProps> = ({
             <ClipLoader color="#36d7b7" size={40} />
           </div>
         ) : (
-          <div className="pt-10 px-8 flex flex-col gap-10">
+          <div className="pt-10 pb-4 px-4 flex flex-col gap-10">
             <div className={`modalHexad flex  items-center flex-row  gap-1 text-2xl font-bold w-full  `}>
               <button className=" w-[40px] h-[40px] rounded-full flex items-center justify-center bg-mainColor" onClick={toggleModelHandler} aria-label="Back">
                  <IoArrowBackSharp className="text-white" size={24} /> 
