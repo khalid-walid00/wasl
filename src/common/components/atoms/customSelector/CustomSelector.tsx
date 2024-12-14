@@ -4,11 +4,11 @@ import { Tooltip } from "@nextui-org/react";
 
 interface Option {
   label: string;
-  value: string;
+  value: any;
 }
 
 interface TooltipOption {
-  id: string;
+  id: any;
   tooltipContent: string; 
 }
 
@@ -37,7 +37,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
   bgArrow = '#008ffb',
   isLoading = false,
   isMulti = false,
-  tooltipOptions = [], // التعامل مع خيارات التنبيه
+  tooltipOptions = [], 
 }) => {
   const selectedValue = value
     ? options.find(option => option.value === value) || null

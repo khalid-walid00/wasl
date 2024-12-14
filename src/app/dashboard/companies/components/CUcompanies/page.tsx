@@ -38,7 +38,6 @@ const CUCompaniesComponent = ({ _id }: any) => {
   const handeleClearData = (e: any) => {
     dispatch(clearOneData());
   }
-
   return (
     <div className="bg-transparent py-[18px] flex flex-col gap-10">
       <HeadTable title="Create New Company" description="Create a new company" />
@@ -63,9 +62,7 @@ const CUCompaniesComponent = ({ _id }: any) => {
                 <DateOfBirthGregorian />
               </>
                 :
-                <>
             <DateOfBirthHijri />
-                </>
             }
           </div>
           <div className="flex flex-col w-5/12 gap-6">

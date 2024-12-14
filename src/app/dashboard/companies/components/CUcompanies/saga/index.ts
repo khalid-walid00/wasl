@@ -1,10 +1,8 @@
 import { sendDataSaga } from "./sendData";
-import { fetchInquiryIndividual } from "./fetchInquiryCompany.Saga";
-import { fetchInquiryCompany } from "./fetchInquiryIndividual.Saga";
+import { fetchInquiry } from "./fetchInquirySaga";
 import { fetchActivity } from "./fetchActivity.Saga";
 export {
   sendDataSaga,
-  fetchInquiryIndividual,
-  fetchInquiryCompany,
+  fetchInquiry,
   fetchActivity
 }

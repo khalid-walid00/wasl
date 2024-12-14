@@ -5,7 +5,9 @@ import ActionList from "./components/actionList/ActionsMenu";
 import ComapnySearch from "./components/header";
 import HeadTable from "~/common/components/molecules/headTable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest,setLimit } from "./companies.slice";
+import { fetchDataRequest,search,setLimit, setSearch, setSelectedRowId } from "./companies.slice";
+import TableModel from "./components/tableModel";
+import InquiryModel from "./components/inquiryModel";
 
 function Page() {
   const {items:{Data},limit,itemsSearch} = useSelector((state: any) => state.companiesSlice);
@@ -13,34 +15,6 @@ function Page() {
 
  const columns = useMemo(
   () => [
-    {
-      Header: 'Id',
-      accessor: 'Id',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.Id}</p>;
-      },
-    },
-    {
-      Header: 'Wasl Id',
-      accessor: 'WaslId',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.WaslId}</p>;
-      },
-    },
-    {
-      Header: 'Is Deleted From Wasl',
-      accessor: 'IsDeletedFromWasl',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.IsDeletedFromWasl ? 'Yes' : 'No'}</p>;
-      },
-    },
-    {
-      Header: 'Created Date',
-      accessor: 'CreatedDate',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.CreatedDate ? new Date(tableProps.row.original.CreatedDate).toLocaleString() : 'N/A'}</p>;
-      },
-    },
     {
       Header: 'Name',
       accessor: 'Name',
@@ -70,73 +44,18 @@ function Page() {
       },
     },
     {
-      Header: 'Created By',
-      accessor: 'CreatedBy',
+      Header: 'Is Deleted From Wasl',
+      accessor: 'IsDeletedFromWasl',
       Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.CreatedBy}</p>;
+        return <p>{tableProps.row.original?.IsDeletedFromWasl ? 'Yes' : 'No'}</p>;
       },
     },
+
     {
       Header: 'Identity Number',
       accessor: 'IdentityNumber',
       Cell: (tableProps: any) => {
         return <p>{tableProps.row.original?.IdentityNumber || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Commercial Record Number',
-      accessor: 'CommercialRecordNumber',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.CommercialRecordNumber || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Commercial Record Issue Date Hijri',
-      accessor: 'CommercialRecordIssueDateHijri',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.CommercialRecordIssueDateHijri || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Date of Birth Gregorian',
-      accessor: 'DateOfBirthGregorian',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.DateOfBirthGregorian || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Extension Number',
-      accessor: 'ExtensionNumber',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.ExtensionNumber || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Manager Name',
-      accessor: 'ManagerName',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.ManagerName || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Manager Phone Number',
-      accessor: 'ManagerPhoneNumber',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.ManagerPhoneNumber || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Manager Mobile Number',
-      accessor: 'ManagerMobileNumber',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.ManagerMobileNumber || 'N/A'}</p>;
-      },
-    },
-    {
-      Header: 'Uplevel Operation Company Id',
-      accessor: 'UplevelOperationCompanyId',
-      Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.UplevelOperationCompanyId || 'N/A'}</p>;
       },
     },
     {
@@ -150,10 +69,15 @@ function Page() {
 );
   useEffect(() => {
     const endpoint = "/operationCompany/all";
-    const params = { status: "active" };
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET",body: null }));
-  }, []);
+    dispatch(setSearch({ type: "Activity", value: "Active" }));
+    dispatch(search());
+    
 
+  }, []);
+  const handleSelectedRowId = (rowId:any) => {
+    dispatch(setSelectedRowId(rowId));
+  };
   return (
     <div className="bg-transparent py-[18px] flex flex-col gap-10">
       <HeadTable title="Companies" description="Company details and actions" />
@@ -161,11 +85,14 @@ function Page() {
         <Table2
           header={<ComapnySearch />}
           columns={columns}
+          handleRowClick={handleSelectedRowId}
           data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
           loading={false}
           limit={limit}
           setLimit={setLimit}
         />
+      <TableModel/>
+      <InquiryModel/>
       </div>
     </div>
   );

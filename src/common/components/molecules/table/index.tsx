@@ -5,8 +5,16 @@ import { LoadingScreen } from '../../templates/loadingSecreen';
 import { useTable } from 'react-table';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-
-const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) => {}}) => {
+interface TableProps {
+  columns: any;
+  data: any[];
+  header: React.ReactNode;
+  loading: boolean;
+  limit?: number;
+  setLimit?: (val: number) => void;
+  handleRowClick?: (id: string) => void; 
+}
+const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) => {},handleRowClick}: TableProps) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(limit);
 
@@ -42,11 +50,11 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
     }
   };
   
-  const handlePageSizeChange = (e) => {
+  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLimit = Number(e.target.value);
     setPageSize(newLimit);
-    setPageIndex(0); // إعادة تعيين الصفحة إلى الأولى
-    dispatch(setLimit(newLimit));
+    setPageIndex(0); 
+    dispatch(setLimit(newLimit) as any);
   };
   
   const pagination = () => (
@@ -100,9 +108,9 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
         ) : pageData.length > 0 ? (
           <table {...getTableProps()}>
             <thead>
-              {headerGroups.map((headerGroup, i) => (
+              {headerGroups.map((headerGroup: any, i: number) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={i}>
-                  {headerGroup.headers.map((column, j) => (
+                  {headerGroup.headers.map((column: any, j: number) => (
                     <th {...column.getHeaderProps()} key={j} className="text-nowrap text-lg">
                       {column.render('Header')}
                     </th>
@@ -111,11 +119,17 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
+              {rows.map((row:any, i: number) => {
+                console.log("row",row);
                 prepareRow(row);
                 return (
-                  <tr {...row.getRowProps()} key={i}>
-                    {row.cells.map((cell, j) => (
+                  <tr 
+                    onClick={() => handleRowClick ? handleRowClick(row.original.Id) : undefined}
+                    className='cursor-pointer' 
+                    {...row.getRowProps()} 
+                    key={i}
+                  >
+                    {row.cells.map((cell:any, j:number) => (
                       <td key={j} {...cell.getCellProps()} style={cell.column.width ? { width: cell.column.width } : {}}>
                         {cell.render('Cell')}
                       </td>

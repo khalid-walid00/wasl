@@ -18,7 +18,7 @@ function CommercialRecordIssueDateHijri() {
 
     return (
         <div className="flex flex-col gap-2">
-            <CustomLabel bold>Date Of Birth Hijri</CustomLabel>
+            <CustomLabel bold>Commercial Record Issue Date Hijri</CustomLabel>
             <div className="relative w-full border border-[#D7D7D7] rounded-lg">
                 <DatePicker
                     selected={CommercialRecordIssueDateHijri}

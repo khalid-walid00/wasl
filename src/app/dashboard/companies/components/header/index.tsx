@@ -1,80 +1,61 @@
 import Link from 'next/link';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '~/common/components/atoms/button';
 import CustomSelector from '~/common/components/atoms/customSelector/CustomSelector';
 import CustomInput from '~/common/components/atoms/input';
 import { search, setSearch } from '../../companies.slice';
+import { useSearch } from '~/features/search';
+import { statuses, tooltipOptions } from '../statusOptions';
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 function ComapnyHeader() {
   const dispatch = useDispatch();
-  const { searchitems } = useSelector((state: any) => state.companiesSlice);
-  const statuses = [
-  {
-    value: "Active", label: "Active"
-  },
-  {
-    value: "Inactive", label: "Inactive"
-  },
-  {
-    value: "delete", label: "delete"
-  },
-  ]
-  const tooltipOptions = [
-    { id: "Active", tooltipContent: "الشركات الموجوده في wasl" },
-    { id: "Inactive", tooltipContent: "الشركات الغير موجوده في wasl" },
-    { id: "delete", tooltipContent: "الشركات المحذوفه من wasl فقط" },
-  ];
-  
+  const { searchItems, handleSearch } = useSearch('companiesSlice', setSearch);
 
-  const HandelSearchByName = (value: string, type: string) => {
-    let finalValue;
-    if ( value === "All" && type ==="Activity") finalValue = "";
-    else finalValue = value;
-     dispatch(setSearch({ type, value:finalValue}));
-  }
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
-      <div className=" flex gap-3 flex-col sm:flex-row">
-        <div className=" grid md:grid-cols-4  grid-cols-2  gap-2 w-full sm:w-11/12 ">
-          <CustomInput 
-            value={searchitems.type === "Name" ? searchitems.value : ""} 
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => HandelSearchByName(e.target.value, "Name")}
-            placeholder="Account Name" 
-            className='bg-[--linerPrimary]' 
-          />
-          <CustomInput
-            value={searchitems.type === "IdentityNumber" ? searchitems.value : ""} 
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => HandelSearchByName(e.target.value, "IdentityNumber")}
-          placeholder="Identity Number" className='bg-[--linerPrimary]' />
-          <CustomInput
-            value={searchitems.type === "CommercialRecordNumber" ? searchitems.value : ""} 
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => HandelSearchByName(e.target.value, "CommercialRecordNumber")}
-           placeholder='CR Number' className='bg-[--linerPrimary]' />
-            </div>     
-        <div className="   w-full sm:w-2/12">
-          <Button onClick={() => dispatch(search())}>Search</Button>
-        </div>
+    <div className=" flex gap-3 flex-col sm:flex-row">
+      <div className="grid md:grid-cols-4 grid-cols-2 gap-2 w-full sm:w-11/12">
+        <CustomInput
+          value={searchItems.type === "Name" ? searchItems.value : ""}
+          onChange={(e) => handleSearch(e.target.value, "Name")}
+          placeholder="Account Name"
+          className="bg-[--linerPrimary]"
+        />
+        <CustomInput
+          value={searchItems.type === "IdentityNumber" ? searchItems.value : ""}
+          onChange={(e) => handleSearch(e.target.value, "IdentityNumber")}
+          placeholder="Identity Number"
+          className="bg-[--linerPrimary]"
+        />
+        <CustomInput
+          value={searchItems.type === "CommercialRecordNumber" ? searchItems.value : ""}
+          onChange={(e) => handleSearch(e.target.value, "CommercialRecordNumber")}
+          placeholder="CR Number"
+          className="bg-[--linerPrimary]"
+        />
       </div>
-      <div className=" flex justify-between">
-        <div className=" sm:w-2/12">
-          <CustomSelector
-            value={searchitems.type === "Activity" ? searchitems.value : ""}
-            placeholder="Activity"
-            options={statuses}
-            tooltipOptions={tooltipOptions}
-            onChange={(e: any) => HandelSearchByName(e, "Activity")}
-          />
-        </div>
-        <Link href={"/dashboard/companies/create"} className=" text-background bg-mainColor  h-[40px]   flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2 ">
-          add company
-          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 19 20" fill="none">
-            <path d="M12.6875 9.99948H9.5M9.5 9.99948H6.3125M9.5 9.99948V13.187M9.5 9.99948L9.5 6.81198M18 10C18 14.6944 14.1944 18.5 9.5 18.5C4.80558 18.5 1 14.6944 1 10C1 5.30558 4.80558 1.5 9.5 1.5C14.1944 1.5 18 5.30558 18 10Z" stroke="white" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </Link>
-
+      <div className="w-full sm:w-2/12">
+        <Button onClick={() => dispatch(search())}>Search</Button>
       </div>
     </div>
+    <div className="flex justify-between">
+      <div className="sm:w-2/12">
+        <CustomSelector
+          value={["Activity", "IsDeletedFromWasl"].includes(searchItems.type) ? searchItems.value : ""}
+          placeholder="Active"
+          options={statuses}
+          tooltipOptions={tooltipOptions}
+          onChange={(e) => handleSearch(e, e == "false" ? "IsDeletedFromWasl" : "Activity")}
+        />
+      </div>
+      <Link href="/dashboard/companies/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">
+        add company
+        <IoIosAddCircleOutline size={20}/>
+      </Link>
+    </div>
+  </div>
   );
 }
 

@@ -1,11 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { pagination } from "~/config/constant";
 import { CompanyData } from "./companies.slice.type";
-import { clear } from "console";
-import { Toast } from "~/utils/libraries";
 
 let url; if (typeof window !== 'undefined') { url = new URL(window.location.href); } else { url = new URL('http://localhost:3055') }
-const searchitems = {
+const searchItems = {
   type:"",
   value:"",
 }
@@ -29,10 +27,7 @@ const company : CompanyData = {
   Activity: "",
   UplevelOperationCompanyId: "",
 };
-interface PaginationType {
-  totalCount: number,
-  totalPages: number,
-}
+
 
 interface itemsTypes {
   Data: CompanyData[],
@@ -83,195 +78,6 @@ const items : itemsTypes = {
       ManagerMobileNumber: "0587123456",
       UplevelOperationCompanyId: "abcd1234efgh5678ijkl9101",
     },
-    {
-      Id: "4",
-      WaslId: "7012345678",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-07-17",
-      Name: "Innovative Designs",
-      EmailAddress: "contact@innovativedesigns.com",
-      PhoneNumber: "0398765432",
-      Activity: "Active",
-      CreatedBy: "Manager",
-      IdentityNumber: "7012345678",
-      DateOfBirthHijri: "1446-01-02",
-      CommercialRecordNumber: "9988776655",
-      CommercialRecordIssueDateHijri: "1442-11-19",
-      DateOfBirthGregorian: "1988-08-29",
-      ExtensionNumber: "300",
-      ManagerName: "Layla Al-Harbi",
-      ManagerPhoneNumber: "0598764321",
-      ManagerMobileNumber: "0598764321",
-      UplevelOperationCompanyId: "3456mnop7890qrst2345uvwx",
-    },
-    {
-      Id: "5",
-      WaslId: "5566778899",
-      IsDeletedFromWasl: true,
-      CreatedDate: "2022-02-01",
-      Name: "Eco World Enterprises",
-      EmailAddress: "support@ecoworld.com",
-      PhoneNumber: "0112233445",
-      Activity: "Inactive",
-      CreatedBy: "Admin",
-      IdentityNumber: "6677889900",
-      DateOfBirthHijri: "1442-11-30",
-      CommercialRecordNumber: "1122334455",
-      CommercialRecordIssueDateHijri: "1440-04-07",
-      DateOfBirthGregorian: "1994-09-19",
-      ExtensionNumber: "400",
-      ManagerName: "Ali Al-Shehri",
-      ManagerPhoneNumber: "0585544332",
-      ManagerMobileNumber: "0585544332",
-      UplevelOperationCompanyId: "5678abcd9101efgh2345ijkl",
-    },
-    {
-      Id: "6",
-      WaslId: "8899001122",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-12-05",
-      Name: "Creative Designs Inc.",
-      EmailAddress: "sales@creativedesigns.com",
-      PhoneNumber: "0777888999",
-      Activity: "Active",
-      CreatedBy: "Admin",
-      IdentityNumber: "2211334455",
-      DateOfBirthHijri: "1444-06-25",
-      CommercialRecordNumber: "5556667778",
-      CommercialRecordIssueDateHijri: "1441-08-15",
-      DateOfBirthGregorian: "1995-12-04",
-      ExtensionNumber: null,
-      ManagerName: "Mona Al-Juhani",
-      ManagerPhoneNumber: "0596677889",
-      ManagerMobileNumber: "0596677889",
-      UplevelOperationCompanyId: "2345mnop6789qrst0123abcd",
-    },
-    {
-      Id: "3",
-      WaslId: "1122334455",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-11-25",
-      Name: "Global Solutions Group",
-      EmailAddress: "info@globalsolutions.com",
-      PhoneNumber: "0212345678",
-      Activity: "Active",
-      CreatedBy: "User",
-      IdentityNumber: "1122334455",
-      DateOfBirthHijri: "1443-09-10",
-      CommercialRecordNumber: "1234567890",
-      CommercialRecordIssueDateHijri: "1441-03-01",
-      DateOfBirthGregorian: "1992-03-13",
-      ExtensionNumber: null,
-      ManagerName: "Sara Al-Mutairi",
-      ManagerPhoneNumber: "0587123456",
-      ManagerMobileNumber: "0587123456",
-      UplevelOperationCompanyId: "abcd1234efgh5678ijkl9101",
-    },
-    {
-      Id: "6",
-      WaslId: "8899001122",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-12-05",
-      Name: "Creative Designs Inc.",
-      EmailAddress: "sales@creativedesigns.com",
-      PhoneNumber: "0777888999",
-      Activity: "Active",
-      CreatedBy: "Admin",
-      IdentityNumber: "2211334455",
-      DateOfBirthHijri: "1444-06-25",
-      CommercialRecordNumber: "5556667778",
-      CommercialRecordIssueDateHijri: "1441-08-15",
-      DateOfBirthGregorian: "1995-12-04",
-      ExtensionNumber: null,
-      ManagerName: "Mona Al-Juhani",
-      ManagerPhoneNumber: "0596677889",
-      ManagerMobileNumber: "0596677889",
-      UplevelOperationCompanyId: "2345mnop6789qrst0123abcd",
-    },
-    {
-      Id: "3",
-      WaslId: "1122334455",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-11-25",
-      Name: "Global Solutions Group",
-      EmailAddress: "info@globalsolutions.com",
-      PhoneNumber: "0212345678",
-      Activity: "Active",
-      CreatedBy: "User",
-      IdentityNumber: "1122334455",
-      DateOfBirthHijri: "1443-09-10",
-      CommercialRecordNumber: "1234567890",
-      CommercialRecordIssueDateHijri: "1441-03-01",
-      DateOfBirthGregorian: "1992-03-13",
-      ExtensionNumber: null,
-      ManagerName: "Sara Al-Mutairi",
-      ManagerPhoneNumber: "0587123456",
-      ManagerMobileNumber: "0587123456",
-      UplevelOperationCompanyId: "abcd1234efgh5678ijkl9101",
-    },
-    {
-      Id: "4",
-      WaslId: "6677889900",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-07-17",
-      Name: "Innovative Designs",
-      EmailAddress: "contact@innovativedesigns.com",
-      PhoneNumber: "0398765432",
-      Activity: "Active",
-      CreatedBy: "Manager",
-      IdentityNumber: "5544332211",
-      DateOfBirthHijri: "1446-01-02",
-      CommercialRecordNumber: "9988776655",
-      CommercialRecordIssueDateHijri: "1442-11-19",
-      DateOfBirthGregorian: "1988-08-29",
-      ExtensionNumber: "300",
-      ManagerName: "Layla Al-Harbi",
-      ManagerPhoneNumber: "0598764321",
-      ManagerMobileNumber: "0598764321",
-      UplevelOperationCompanyId: "3456mnop7890qrst2345uvwx",
-    },
-    {
-      Id: "5",
-      WaslId: "5566778899",
-      IsDeletedFromWasl: true,
-      CreatedDate: "2022-02-01",
-      Name: "Eco World Enterprises",
-      EmailAddress: "support@ecoworld.com",
-      PhoneNumber: "0112233445",
-      Activity: "Inactive",
-      CreatedBy: "Admin",
-      IdentityNumber: "6677889900",
-      DateOfBirthHijri: "1442-11-30",
-      CommercialRecordNumber: "1122334455",
-      CommercialRecordIssueDateHijri: "1440-04-07",
-      DateOfBirthGregorian: "1994-09-19",
-      ExtensionNumber: "400",
-      ManagerName: "Ali Al-Shehri",
-      ManagerPhoneNumber: "0585544332",
-      ManagerMobileNumber: "0585544332",
-      UplevelOperationCompanyId: "5678abcd9101efgh2345ijkl",
-    },
-    {
-      Id: "6",
-      WaslId: "8899001122",
-      IsDeletedFromWasl: false,
-      CreatedDate: "2023-12-05",
-      Name: "Creative Designs Inc.",
-      EmailAddress: "sales@creativedesigns.com",
-      PhoneNumber: "0777888999",
-      Activity: "Active",
-      CreatedBy: "Admin",
-      IdentityNumber: "2211334455",
-      DateOfBirthHijri: "1444-06-25",
-      CommercialRecordNumber: "5556667778",
-      CommercialRecordIssueDateHijri: "1441-08-15",
-      DateOfBirthGregorian: "1995-12-04",
-      ExtensionNumber: null,
-      ManagerName: "Mona Al-Juhani",
-      ManagerPhoneNumber: "0596677889",
-      ManagerMobileNumber: "0596677889",
-      UplevelOperationCompanyId: "2345mnop6789qrst0123abcd",
-    }
   ],
   
   Message:"",
@@ -285,18 +91,15 @@ const initialState = {
   error: false,
   company,
   companyId:"",
-  searchitems,
-  inquiryIndividual: {},
+  searchItems,
+  inquiry: {},
+  inquiryLoading: false,
+  inquiryModel: false,
   ActivityLoading: false,
   Activity: [{ value: "Active", label: "Active" }, { value: "Inactive", label: "Inactive" }],
-  inquiryIndividualLoading: false,
-  inquiryCompanyLoading: false,
+  modalRow: false,
   page:  Number(url.searchParams.get("page") || pagination.defaultPage),
   limit: Number( url.searchParams.get("limit") || pagination.defaultLimit)  ,
-  pagination: {
-    totalCount: 0,
-    totalPages: 0,
-  },
 };
 
 
@@ -334,18 +137,13 @@ export const companiesSlice = createSlice({
       state.loading = true;
     },
 
-    fetchInquiryIndividual: (state) => {
-      state.inquiryIndividualLoading = true;
+    fetchInquiry: (state, action) => {
+      state.inquiryLoading = true;
     },
     
-    setInquiryIndividual: (state) => {
-      state.inquiryIndividualLoading = true;
-    },
-    fetchInquiryCompany: (state) => {
-      state.inquiryCompanyLoading = true;
-    },
-    setInquiryCompany: (state) => {
-      state.inquiryIndividualLoading = true;
+    setInquiry: (state, action) => {
+      state.inquiryLoading = true;
+      state.inquiry = action.payload;
     },
     fetchActivity: (state) => {
       state.ActivityLoading = true;
@@ -359,28 +157,25 @@ export const companiesSlice = createSlice({
     },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
-      state.searchitems.type = type;
-      state.searchitems.value = value;
+      console.log("type, value", type, value);
+      state.searchItems.type = type;
+      state.searchItems.value = value;
     },
     search: (state) => {
-      const { type, value } = state.searchitems;    
-      console.log("type, value", type, value);
+      const { type, value } = state.searchItems;    
       const company = state.items.Data.find((item: any) => {
-        if (value !== "") return item[type] && item[type].toString().includes(value); 
+         return  item[type]?.toString().includes(value); 
       });    
       if (company) {
         state.itemsSearch = [company];  
       } else {
         state.itemsSearch = []; 
-        Toast.fire({
-          icon: "error",
-          title: "Company not found",
-        });
       }
     },
     addItem: (state, action) => {
         state.items.Data.unshift(action.payload)
     },
+
     replaceItem: ( state , action ) => {
       const { Data } = state.items;
       const { payload } = action;
@@ -402,10 +197,18 @@ export const companiesSlice = createSlice({
       state.page = 1; 
       state.limit = action.payload;
       state.loading = true;
-    }, 
+    },
+    setSelectedRowId: (state, action) => {
+      if(action.payload) state.companyId = action.payload;
+      state.modalRow =  !state.modalRow
+    },
+    setInquiryModel: (state, action) => {
+      if(action.payload) state.company = action.payload;
+      state.inquiryModel =  !state.inquiryModel
+    },
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,fetchActivity,setActivity,
-  clearOneData,setCUData,setInquiryIndividual,sendData,setInquiryCompany,fetchInquiryCompany,setLimit
+export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,fetchActivity,setActivity,setSelectedRowId,
+  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setLimit,setInquiryModel
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

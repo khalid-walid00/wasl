@@ -7,16 +7,16 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import DeleteProducts from "../../deleteMany";
 import DeleteOne from "../../delete";
+import { BsDatabaseGear } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { setInquiryModel } from "../../companies.slice";
 
 interface Props {
   item?: any;
 }
 function ActionList({ item }: Props) {
-  const { user } = useSelector((state: any) => state.config);
-  const subdomain = user?.defaultApp?.subdomain;
+  const dispatch = useDispatch();
 
   return (
     <div className="relative flex justify-center items-center  text-black gap-2">
@@ -54,12 +54,17 @@ function ActionList({ item }: Props) {
               <span className="group-hover:text-black">Edit</span>
             </Link>
           </DropdownItem>
-
+          <DropdownItem className=" flex">
+            <button onClick={() => dispatch(setInquiryModel(item))} className="flex  w-full text-xs items-center  gap-1">
+              <BsDatabaseGear size={16} />
+              <span className="group-hover:text-black">inquiry</span>
+            </button>
+          </DropdownItem>
           <DropdownItem className=" flex">
             <DeleteOne _id={item.Id} />
           </DropdownItem>
         </DropdownMenu>
-        
+
       </Dropdown>
     </div>
   );
