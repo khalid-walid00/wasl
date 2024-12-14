@@ -102,7 +102,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             marginTop: '4px',
-            zIndex: 100,
+            zIndex: 101,
           }),
           menuList: (provided) => ({
             ...provided,
@@ -128,13 +128,9 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
         components={{
           Option: (props) => {
             const { data, innerRef, innerProps } = props;
-
-            // البحث عن الـ tooltipContent بناءً على الـ value (id)
             const tooltipContent = tooltipOptions.find(
               (tooltipOption) => tooltipOption.id === data.value
             )?.tooltipContent;
-
-            // العنصر الذي سيتم عرضه داخل الـ Tooltip
             const optionContent = (
               <div
                 style={{

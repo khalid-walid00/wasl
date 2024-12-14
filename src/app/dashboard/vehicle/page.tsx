@@ -10,7 +10,7 @@ import { fetchDataRequest, nextPage, prevPage, setLimit } from "./vehicle.slice"
 
 function Page() {
   const dispatch = useDispatch();
-  const {items:{Data}} = useSelector((state: any) => state.vehiclesSlice);
+  const {items:{Data},itemsSearch} = useSelector((state: any) => state.vehiclesSlice);
   
   useEffect(() => {
     const endpoint = "vehicles/all";
@@ -96,7 +96,7 @@ function Page() {
       <Table
         header={<VehicleHeader />}
         columns={columns}
-        data={Data ?? []}
+        data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
         loading={false}
         limit={10}
       />

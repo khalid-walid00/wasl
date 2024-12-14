@@ -60,33 +60,23 @@ function CreateVehicle() {
       toggleModelHandler={toggleModelHandler}
     >
       <div className="flex flex-col gap-y-4 min-h-screen">
-        <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>Vehicle Name</CustomLabel>
-          <CustomInput placeholder="Enter vehicle name" />
+        <div className="flex flex-col gap-2 items-end">
+          <CustomLabel bold>Sequence Number</CustomLabel>
+          <CustomInput placeholder="Enter Sequence Number" />
         </div>
 
-        <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>Vehicle Type</CustomLabel>
-          <CustomSelector
-            options={optionsData.vehicleType}
-            onChange={() => {}}
-            value={null}
-            placeholder="Select type"
-          />
+        <div className="flex flex-col gap-2 items-end">
+          <CustomLabel bold>Plate Type</CustomLabel>
+          <CustomInput placeholder="Enter Plate Type" />
         </div>
 
-        <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>Vehicle Status</CustomLabel>
-          <CustomSelector
-            options={optionsData.vehicleStatus}
-            onChange={() => {}}
-            value={null}
-            placeholder="Select status"
-          />
+        <div className="flex flex-col gap-2 items-end">
+          <CustomLabel bold>Imei Number</CustomLabel>
+          <CustomInput placeholder="Enter Imei Number" />
         </div>
 
-        <div className="flex flex-col gap-2 items-start">
-          <CustomLabel bold>Vehicle Model</CustomLabel>
+        <div className="flex flex-col gap-2 items-end">
+          <CustomLabel bold>Activity</CustomLabel>
           <CustomSelector
             options={optionsData.carModel}
             onChange={() => {}}
@@ -95,7 +85,7 @@ function CreateVehicle() {
           />
         </div>
 
-        <div className="flex flex-col gap-2 items-start">
+        <div className="flex flex-col gap-2 items-end">
           <CustomLabel bold>Fuel Type</CustomLabel>
           <CustomSelector
             options={optionsData.fuelType}
@@ -105,7 +95,7 @@ function CreateVehicle() {
           />
         </div>
 
-        <div className="flex flex-col gap-2 items-start">
+        <div className="flex flex-col gap-2 items-end">
           <CustomLabel bold>Gearbox Type</CustomLabel>
           <CustomSelector
             options={optionsData.gearBoxType}

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { pagination } from "~/config/constant";
+import { Toast } from "~/utils/libraries";
 
 let url;
 if (typeof window !== 'undefined') {
@@ -9,12 +10,14 @@ if (typeof window !== 'undefined') {
 }
 
 interface SearchItems {
-  title: string | null;
-  search: string | null;
-  status: string | null;
-  date: string | null;
-  sort: string | null;
+  type: string;
+  value: string;
 }
+
+const searchItems: SearchItems = {
+  type: '',
+  value: ''
+};
 
 interface DataTypes {
   _id: string;
@@ -42,14 +45,16 @@ interface PaginationType {
 
 interface ItemsTypes {
   Data: DataTypes[];
-  pagination: PaginationType;
+  Message: string;
+  StatusCode: boolean;
 }
 
 interface StateTypes {
   items: ItemsTypes;
   loading: boolean;
   error: boolean;
-  searchitems: SearchItems;
+  searchItems: SearchItems;
+  itemsSearch: DataTypes[];
   page: number;
   limit: number;
   pagination: PaginationType;
@@ -59,7 +64,7 @@ const items: ItemsTypes = {
   Data: [
     {
       _id: "1",
-      Account: 101,
+      Account: 999,
       VehicleNo: "Vehicle-1234",
       SequenceNumber: "1234",
       PlateNumber: "XYZ1234",
@@ -94,24 +99,17 @@ const items: ItemsTypes = {
       Actions: "Actions"
     }
   ],
-  pagination: {
-    totalCount: 0,
-    totalPages: 0
-  }
+    
+  Message:"",
+  StatusCode:false
 };
 
-// الحالة الابتدائية مع الأنواع
 const initialState: StateTypes = {
   items: items,
   loading: false,
   error: false,
-  searchitems: {
-    title: null,
-    search: null,
-    status: null,
-    date: null,
-    sort: null
-  },
+  searchItems,
+  itemsSearch: [],
   page: Number(url.searchParams.get("page") || pagination.defaultPage),
   limit: Number(url.searchParams.get("limit") || pagination.defaultLimit),
   pagination: {
@@ -155,12 +153,25 @@ export const vehiclesSlice = createSlice({
       state.limit = action.payload;
       state.loading = true;
     },
-    setSearch: (state, action: PayloadAction<Partial<SearchItems>>) => {
-      state.searchitems = { ...state.searchitems, ...action.payload };
+    setSearch: (state, action) => {
+      const { type, value } = action.payload;
+      state.searchItems.type = type;
+      state.searchItems.value = value;
     },
     search: (state) => {
-      state.page = 1;
-      state.loading = true;
+      const { type, value } = state.searchItems;    
+      const company = state.items.Data.find((item: any) => {
+        if (value !== "") return item[type] && item[type].toString().includes(value); 
+      });    
+      if (company) {
+        state.itemsSearch = [company];  
+      } else {
+        state.itemsSearch = []; 
+        Toast.fire({
+          icon: "error",
+          title: "Vehicle not found",
+        });
+      }
     },
     addItem: (state, action: PayloadAction<DataTypes>) => {
       state.items.Data.unshift(action.payload);
