@@ -9,16 +9,23 @@ import { search, setSearch } from '../../companies.slice';
 function ComapnyHeader() {
   const dispatch = useDispatch();
   const { searchitems } = useSelector((state: any) => state.companiesSlice);
-  const statuses = [{
-    value: "All", label: "All",
+  const statuses = [
+  {
+    value: "Active", label: "Active"
   },
   {
-    value: "Active", label: "Active",
+    value: "Inactive", label: "Inactive"
   },
   {
-    value: "Inactive", label: "Inactive",
+    value: "delete", label: "delete"
   },
   ]
+  const tooltipOptions = [
+    { id: "Active", tooltipContent: "الشركات الموجوده في wasl" },
+    { id: "Inactive", tooltipContent: "الشركات الغير موجوده في wasl" },
+    { id: "delete", tooltipContent: "الشركات المحذوفه من wasl فقط" },
+  ];
+  
 
   const HandelSearchByName = (value: string, type: string) => {
     let finalValue;
@@ -55,6 +62,7 @@ function ComapnyHeader() {
             value={searchitems.type === "Activity" ? searchitems.value : ""}
             placeholder="Activity"
             options={statuses}
+            tooltipOptions={tooltipOptions}
             onChange={(e: any) => HandelSearchByName(e, "Activity")}
           />
         </div>
