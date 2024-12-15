@@ -4,18 +4,10 @@ import React from 'react';
 import Button from '~/common/components/atoms/button';
 import CustomSelector from '~/common/components/atoms/customSelector/CustomSelector';
 import CustomInput from '~/common/components/atoms/input';
+import { statuses } from '../statusOptions';
 
 function DriverHeader() {
-  const statuses = [{
-    value: "all", label: "all",
-  },
-  {
-    value: "active", label: "active",
-  },
-  {
-    value: "inactive", label: "inactive",
-  },
-  ]
+
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
       <div className=" flex gap-3 flex-col sm:flex-row">

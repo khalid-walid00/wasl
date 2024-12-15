@@ -5,12 +5,12 @@ import ActionList from "./components/actionList/ActionsMenu";
 import ComapnySearch from "./components/header";
 import HeadTable from "~/common/components/molecules/headTable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest,search,setLimit, setSearch, setSelectedRowId } from "./companies.slice";
+import { fetchDataRequest,search, setSearch, setSelectedRowId } from "./companies.slice";
 import TableModel from "./components/tableModel";
 import InquiryModel from "./components/inquiryModel";
 
 function Page() {
-  const {items:{Data},limit,itemsSearch} = useSelector((state: any) => state.companiesSlice);
+  const {items:{Data},itemsSearch} = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
 
  const columns = useMemo(
@@ -88,8 +88,6 @@ function Page() {
           handleRowClick={handleSelectedRowId}
           data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
           loading={false}
-          limit={limit}
-          setLimit={setLimit}
         />
       <TableModel/>
       <InquiryModel/>

@@ -4,17 +4,19 @@ import HeadTable from "~/common/components/molecules/headTable";
 import Table from "~/common/components/molecules/table";
 import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
-import CUVehicle from "./CUVehicle/index";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest } from "./vehicle.slice";
+import { fetchDataRequest, setSearch,search, setSelectedRowId } from "./vehicle.slice";
+import TableModel from "./components/tableModel";
+import InquiryModel from "./components/inquiryModel";
 
 function Page() {
   const dispatch = useDispatch();
   const {items:{Data},itemsSearch} = useSelector((state: any) => state.vehiclesSlice);
-  
   useEffect(() => {
     const endpoint = "vehicles/all";
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
+    dispatch(setSearch({ type: "Activity", value: "Active" }));
+    dispatch(search());
   }, [dispatch]);
 
 
@@ -27,11 +29,6 @@ function Page() {
         Cell: (tableProps: any) => <p>{tableProps.row.original?.Account}</p>,
       },
       {
-        Header: 'Vehicle No.',
-        accessor: 'VehicleNo',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.VehicleNo}</p>,
-      },
-      {
         Header: 'Sequence Number',
         accessor: 'SequenceNumber',
         Cell: (tableProps: any) => <p>{tableProps.row.original?.SequenceNumber}</p>,
@@ -42,39 +39,9 @@ function Page() {
         Cell: (tableProps: any) => <p>{tableProps.row.original?.PlateNumber}</p>,
       },
       {
-        Header: 'Plate Type',
-        accessor: 'PlateType',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.PlateType}</p>,
-      },
-      {
-        Header: 'IMEI Number',
-        accessor: 'IMEINumber',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.IMEINumber}</p>,
-      },
-      {
-        Header: 'WASL Key',
-        accessor: 'WASLVehicleKey',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.WASLVehicleKey}</p>,
-      },
-      {
-        Header: 'Response',
-        accessor: 'Response',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.Response}</p>,
-      },
-      {
-        Header: 'Registration Date',
-        accessor: 'RegistrationDate',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.RegistrationDate}</p>,
-      },
-      {
         Header: 'Activity',
         accessor: 'Activity',
         Cell: (tableProps: any) => <p>{tableProps.row.original?.Activity}</p>,
-      },
-      {
-        Header: 'Reply',
-        accessor: 'Reply',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.Reply}</p>,
       },
       {
         Header: 'Actions',
@@ -87,7 +54,9 @@ function Page() {
   );
   
   
-
+  const handleSelectedRowId = (rowId:any) => {
+    dispatch(setSelectedRowId(rowId));
+  };
 
   return (
     <div className="bg-transparent py-[18px] flex flex-col gap-10">
@@ -96,12 +65,14 @@ function Page() {
       <Table
         header={<VehicleHeader />}
         columns={columns}
+        handleRowClick={handleSelectedRowId}
         data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
         loading={false}
         limit={10}
       />
     </div>
-    <CUVehicle/>
+    <TableModel/>
+    <InquiryModel/>
   </div>
   );
 }

@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { pagination } from "~/config/constant";
 import { CompanyData } from "./companies.slice.type";
 
-let url; if (typeof window !== 'undefined') { url = new URL(window.location.href); } else { url = new URL('http://localhost:3055') }
 const searchItems = {
   type:"",
   value:"",
@@ -59,6 +57,27 @@ const items : itemsTypes = {
     },
     {
       Id: "3",
+      WaslId: "7012345878",
+      IsDeletedFromWasl: true,
+      CreatedDate: "2024-05-10",
+      Name: "test  Innovations Ltd.",
+      EmailAddress: "contact@techinnovations.com",
+      PhoneNumber: "0987654321",
+      Activity: "Inactive",
+      CreatedBy: "Admin",
+      IdentityNumber: "7012345678",
+      DateOfBirthHijri: "1445-02-15",
+      CommercialRecordNumber: "5678901234",
+      CommercialRecordIssueDateHijri: "1440-07-09",
+      DateOfBirthGregorian: "1985-06-22",
+      ExtensionNumber: "500",
+      ManagerName: "Fahad Al-Farsi",
+      ManagerPhoneNumber: "0598765432",
+      ManagerMobileNumber: "0598765432",
+      UplevelOperationCompanyId: "1234abcd5678efgh91011ijk",
+    },
+    {
+      Id: "3",
       WaslId: "7012345678",
       IsDeletedFromWasl: false,
       CreatedDate: "2023-11-25",
@@ -95,11 +114,9 @@ const initialState = {
   inquiry: {},
   inquiryLoading: false,
   inquiryModel: false,
+  modalRow: false,
   ActivityLoading: false,
   Activity: [{ value: "Active", label: "Active" }, { value: "Inactive", label: "Inactive" }],
-  modalRow: false,
-  page:  Number(url.searchParams.get("page") || pagination.defaultPage),
-  limit: Number( url.searchParams.get("limit") || pagination.defaultLimit)  ,
 };
 
 
@@ -110,8 +127,6 @@ export const companiesSlice = createSlice({
   reducers: {
     setDataEmpty: (state) => {
       state.items = items;
-      state.page =  pagination.defaultPage;
-      state.limit = pagination.defaultLimit;
     },
     fetchDataRequest: (state, action) => {
       state.loading = true;
@@ -162,12 +177,12 @@ export const companiesSlice = createSlice({
       state.searchItems.value = value;
     },
     search: (state) => {
-      const { type, value } = state.searchItems;    
-      const company = state.items.Data.find((item: any) => {
-         return  item[type]?.toString().includes(value); 
-      });    
-      if (company) {
-        state.itemsSearch = [company];  
+      const { type, value } = state.searchItems;
+      if (value !== "") {
+        const matchingItems = state.items.Data.filter((item: any) => 
+          item[type] && item[type].toString().includes(value)
+        );
+        state.itemsSearch = matchingItems; 
       } else {
         state.itemsSearch = []; 
       }
@@ -193,11 +208,6 @@ export const companiesSlice = createSlice({
      const idsToRemove =action.payload
         state.items.Data = state.items.Data?.filter(item => item.Id !== idsToRemove);
     },
-    setLimit: (state, action) => {     
-      state.page = 1; 
-      state.limit = action.payload;
-      state.loading = true;
-    },
     setSelectedRowId: (state, action) => {
       if(action.payload) state.companyId = action.payload;
       state.modalRow =  !state.modalRow
@@ -209,6 +219,6 @@ export const companiesSlice = createSlice({
   }
 })
 export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,fetchActivity,setActivity,setSelectedRowId,
-  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setLimit,setInquiryModel
+  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

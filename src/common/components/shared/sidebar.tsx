@@ -13,6 +13,7 @@ import { IoCarSportOutline } from "react-icons/io5";
 import { GoGitPullRequest } from "react-icons/go";
 import Logout from "~/features/auth/logout";
 import { FiLogOut } from "react-icons/fi";
+import { LuHardDriveDownload } from "react-icons/lu";
 
 function Sidebar() {
   const { app } = useParams();
@@ -65,6 +66,16 @@ function Sidebar() {
           text: "Drivers",
           icon: <LiaBikingSolid size={22} className=" text-mainColor" />,
           href: `/dashboard/drivers`,
+        },
+      ],
+    },
+    {
+      title: "",
+      content: [
+        {
+          text: "Requests Log",
+          icon: <LuHardDriveDownload size={22} className=" text-mainColor" />,
+          href: `/dashboard/requestsLog`,
         },
       ],
     },

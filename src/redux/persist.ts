@@ -15,6 +15,10 @@ const persistConfig: any = {
   "forgetPassword",
   "vehiclesSlice",
   "driversSlice",
+  "requestsLogSlice"
+  ],
+  whitelist: [
+    
   ],
 };
 

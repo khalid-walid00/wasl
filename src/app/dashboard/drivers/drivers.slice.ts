@@ -1,41 +1,140 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { pagination } from "~/config/constant";
 
-let url; if (typeof window !== 'undefined') { url = new URL(window.location.href); } else { url = new URL('http://localhost:3055') }
-const searchitems = {
-  title: null,
-  search: null,
-  status: null,
-  date: null,
-  sort: null
+const searchItems = {
+  type: "",
+  value: "",
 }
 interface dataTypes {
-  _id: string,
+  driverId: number,
+  driverName: string,
+  driverNameArabic: string,
+  driverAssignedAsset: string,
+  licenseNumber: string,
+  licenseNumberArabic: string,
+  mobileNumber: string,
+  tagid: string,
+  licenseExpiry: string
 }
-interface PaginationType {
-  totalCount: number,
-  totalPages: number,
-}
+const driver: dataTypes = {
+  driverId: 0,
+  driverName: "",
+  driverNameArabic: "",
+  driverAssignedAsset: "",
+  licenseNumber: "",
+  licenseNumberArabic: "",
+  mobileNumber: "",
+  tagid: "",
+  licenseExpiry: "",
+};
 
 interface itemsTypes {
-  data: dataTypes[],
-  pagination: PaginationType;
+  Data: dataTypes[],
 }
-const items : itemsTypes = {
-  data: [],
-  pagination: {
-    totalCount: 0,
-    totalPages: 0,
-  },
+const items: itemsTypes = {
+  Data: [
+    {
+      driverId: 1,
+      driverName: "Ahmad Ali",
+      driverNameArabic: "أحمد علي",
+      driverAssignedAsset: "ABC123456",
+      licenseNumber: "AB12345",
+      licenseNumberArabic: "أ ب ١٢٣٤٥",
+      mobileNumber: "+201234567890",
+      tagid: "BMW X5",
+      licenseExpiry: "2025-12-31",
+    },
+    {
+      driverId: 2,
+      driverName: "Sara Mohammed",
+      driverNameArabic: "سارة محمد",
+      driverAssignedAsset: "XYZ987654",
+      licenseNumber: "XY98765",
+      licenseNumberArabic: "إكس واي ٩٨٧٦٥",
+      mobileNumber: "+202345678901",
+      tagid: "Toyota Camry",
+      licenseExpiry: "2026-07-15",
+    },
+    {
+      driverId: 3,
+      driverName: "Mohamed Hassan",
+      driverNameArabic: "محمد حسن",
+      driverAssignedAsset: "LMN456789",
+      licenseNumber: "LM45678",
+      licenseNumberArabic: "إل إم ٤٥٦٧٨",
+      mobileNumber: "+203456789012",
+      tagid: "Honda Accord",
+      licenseExpiry: "2024-03-10",
+    },
+    {
+      driverId: 4,
+      driverName: "Ali Ahmed",
+      driverNameArabic: "علي أحمد",
+      driverAssignedAsset: "DEF345678",
+      licenseNumber: "DEF34567",
+      licenseNumberArabic: "دي إف ٣٤٥٦٧",
+      mobileNumber: "+204567890123",
+      tagid: "Mazda 3",
+      licenseExpiry: "2025-08-22",
+    },
+    {
+      driverId: 5,
+      driverName: "Mona Khaled",
+      driverNameArabic: "مونا خالد",
+      driverAssignedAsset: "OPQ789123",
+      licenseNumber: "OP78912",
+      licenseNumberArabic: "أو بي ٧٨٩١٢",
+      mobileNumber: "+205678901234",
+      tagid: "Nissan Altima",
+      licenseExpiry: "2027-01-01",
+    },
+    {
+      driverId: 6,
+      driverName: "Omar Farouk",
+      driverNameArabic: "عمر فاروق",
+      driverAssignedAsset: "JKL234567",
+      licenseNumber: "JK23456",
+      licenseNumberArabic: "جي كيه ٢٣٤٥٦",
+      mobileNumber: "+206789012345",
+      tagid: "Chevrolet Malibu",
+      licenseExpiry: "2024-09-30",
+    },
+    {
+      driverId: 7,
+      driverName: "Fatima Zaynab",
+      driverNameArabic: "فاطمة زينب",
+      driverAssignedAsset: "PQR567890",
+      licenseNumber: "PQ56789",
+      licenseNumberArabic: "بي كي ٥٦٧٨٩",
+      mobileNumber: "+207890123456",
+      tagid: "Ford Mustang",
+      licenseExpiry: "2026-02-14",
+    },
+    {
+      driverId: 8,
+      driverName: "Khaled Mahmoud",
+      driverNameArabic: "خالد محمود",
+      driverAssignedAsset: "UVW890123",
+      licenseNumber: "UV89012",
+      licenseNumberArabic: "يو في ٨٩٠١٢",
+      mobileNumber: "+208901234567",
+      tagid: "Audi A4",
+      licenseExpiry: "2025-11-25",
+    }
+  ],
 }
 
 const initialState = {
   items: items,
+  driver,
+  driverId: null as string | null,
   loading: false,
   error: false,
-  searchitems,
-  page:  Number(url.searchParams.get("page") || pagination.defaultPage),
-  limit: Number( url.searchParams.get("limit") || pagination.defaultLimit)  ,
+  searchItems,
+  itemsSearch: [] as any,
+  inquiry: {},
+  inquiryLoading: false,
+  inquiryModel: false,
+  modalRow: false,
   pagination: {
     totalCount: 0,
     totalPages: 0,
@@ -50,8 +149,6 @@ export const driversSlice = createSlice({
   reducers: {
     setDataEmpty: (state) => {
       state.items = items;
-      state.page =  pagination.defaultPage;
-      state.limit = pagination.defaultLimit;
     },
     fetchDataRequest: (state, action) => {
       state.loading = true;
@@ -59,60 +156,78 @@ export const driversSlice = createSlice({
     fetchDataFailed: (state) => {
       state.error = true;
     },
+    fetchOneData: (state, action) => {
+      state.driverId = action.payload;
+      const driver = state.items?.Data.find((item) => item.driverId === action.payload);
+       if (driver) {
+        state.driver = driver;
+      }
+    },
     setData: (state, action) => {
       state.items = action.payload;
       state.loading = false;
     },
-    nextPage: (state) => {
-      state.page += 1;
+    sendData: (state) => {
       state.loading = true;
     },
-    prevPage: (state) => {
-      if (state.page > 1) {
-        state.page -= 1;
-        state.loading = true;
-      }
-    },
-    setLimit: (state, action) => {     
-      state.page = 1; 
-      state.limit = action.payload;
-      state.loading = true;
-    }, 
-    setSearch: (state,action) => {
-      state.searchitems = {...state.searchitems, ...action.payload};
+    setSearch: (state, action) => {
+      const { type, value } = action.payload;
+      console.log("type, value", type, value);
+      state.searchItems.type = type;
+      state.searchItems.value = value;
     },
     search: (state) => {
-      state.page = 1;
-      state.loading = true;
+      const { type, value } = state.searchItems;
+      if (value !== "") {
+        const matchingItems = state.items.Data.filter((item: any) =>
+          item[type] && item[type].toString().includes(value)
+        );
+        state.itemsSearch = matchingItems;
+      } else {
+        state.itemsSearch = [];
+      }
     },
     addItem: (state, action) => {
-    
-        state.items.data.unshift(action.payload)
-      
+
+      state.items.Data.unshift(action.payload)
+
     },
-    replaceItem: ( state , action ) => {
-      const { data } = state.items;
+    replaceItem: (state, action) => {
+      const { Data } = state.items;
       const { payload } = action;
-    
-      const index = data.findIndex((item:any ) => item._id === payload._id);
-    
+
+      const index = Data.findIndex((item: any) => item._id === payload._id);
+
       if (index !== -1) {
-        state.items.data[index] = {
-          ...state.items.data[index],
-          ...payload.data 
+        state.items.Data[index] = {
+          ...state.items.Data[index],
+          ...payload.Data
         };
       }
-    }, 
-    deleteItem: (state, action) => {
-     const idsToRemove =action.payload
-        state.items.data = state.items.data?.filter(item => item._id !== idsToRemove);
     },
-    setPage:(state,action)=>{
-      state.page = +action.payload; 
-      state.loading = true;
+    deleteItem: (state, action) => {
+      const idsToRemove = action.payload
+      state.items.Data = state.items.Data?.filter(item => item.driverId !== idsToRemove);
+    },
+    clearOneData: (state) => {
+      state.driver = driver;
+    },
+    setSelectedRowId: (state, action) => {
+      if (action.payload) state.driverId = action.payload;
+      state.modalRow = !state.modalRow
+      if (!state.modalRow) state.driverId = null
+    },
+    setInquiryModel: (state, action) => {
+      if (action.payload) state.driver = action.payload;
+      state.inquiryModel = !state.inquiryModel
     },
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search , setPage
-  , fetchDataRequest, fetchDataFailed, setData , nextPage , prevPage, setLimit ,deleteItem } = driversSlice.actions;
+export const { setDataEmpty, addItem, 
+  setSearch, replaceItem, search,
+   setInquiryModel, setSelectedRowId,sendData,
+   fetchDataRequest, fetchDataFailed,
+   clearOneData,fetchOneData,
+   setData,
+    deleteItem } = driversSlice.actions;
 export default driversSlice.reducer;

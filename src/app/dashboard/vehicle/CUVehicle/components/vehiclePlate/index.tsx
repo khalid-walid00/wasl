@@ -28,7 +28,7 @@ function VehiclePlate() {
       <CustomLabel bold>Vehicle Plate</CustomLabel>
       <div className="  grid grid-cols-10 gap-2">
         <div className=" flex flex-col col-span-7  gap-1">
-          <span className=" text-gray-600">Letter</span>
+          <span className=" text-gray-600  text-center">Letter</span>
           <div className=" grid grid-cols-3 gap-2">
             <CustomInput value={PlateRightLetter}  style={{textAlign:"center"}} onChange={handlePlateRightLetterChange} maxLength={1} placeholder="Right" />
             <CustomInput value={PlateMiddleLetter}  style={{textAlign:"center"}} onChange={handlePlateMiddleLetterChange} maxLength={1} placeholder="Middle" />
@@ -36,7 +36,7 @@ function VehiclePlate() {
           </div>
         </div>
         <div className=" flex flex-col  col-span-3 gap-1">
-          <span className=" text-gray-600">Number</span>
+          <span className=" text-gray-600 text-center">Number</span>
           <CustomInput value={PlateNumber} style={{textAlign:"center"}} maxLength={4} onChange={handleVehiclePlateNumberChange} placeholder="Number" />
         </div>
       </div>

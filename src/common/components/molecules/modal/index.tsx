@@ -8,16 +8,20 @@ import {
   } from "@nextui-org/react";
   import { ReactNode } from "react";
   
+  type ModalSize = "2xl" | "md" | "xs" | "sm" | "lg" | "xl" | "3xl" | "4xl" | "5xl" | "full" | undefined;
+  
   type CustomModalProps = {
     children: ReactNode; 
     title: string;
     isOpen: boolean; 
     onOpenChange: (open: boolean) => void; 
+    size?: ModalSize;
   };
   
   export default function CustomModal({
     children,
     title,
+    size = "md",
     isOpen,
     onOpenChange,
   }: CustomModalProps) {
@@ -31,7 +35,7 @@ import {
   
     return (
       <>
-        <Modal classNames={
+        <Modal size={size} classNames={
           {
             backdrop: 'z-[999]',
             wrapper:"z-[10000]"

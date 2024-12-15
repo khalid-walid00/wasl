@@ -1,5 +1,5 @@
 import { call, put, select } from "redux-saga/effects";
-import { validateCompanyData } from "../CUDriver.validation";
+import { validateDriverData } from "../CUDriver.validation";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { Toast } from "~/utils/libraries";
 import { setRedirectTo } from "~/app/appSlice";
@@ -15,7 +15,7 @@ let endpoint = `operationCompany`;
    if (companyId)  endpoint = `operationCompany`
 
   try {
-    const result = yield call(validateCompanyData, company);
+    const result = yield call(validateDriverData, company);
     console.log("result", result);
     console.log("variable", company);
  

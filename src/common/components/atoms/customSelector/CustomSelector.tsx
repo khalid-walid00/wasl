@@ -122,6 +122,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
         onChange={(selectedOption: any) =>
           onChange(selectedOption ? selectedOption.value : null)
         }
+         menuPlacement="auto"
         placeholder={placeholder}
         className="w-full h-full"
         isMulti={isMulti}

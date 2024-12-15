@@ -34,6 +34,7 @@
     "handlebars": "^4.7.8",
     "html-react-parser": "^5.1.12",
     "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
@@ -77,6 +78,7 @@
   "devDependencies": {
     "@types/cookie": "^0.6.0",
     "@types/js-cookie": "^3.0.6",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20",
     "@types/react": "^18",

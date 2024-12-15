@@ -35,7 +35,7 @@ export const fetchDataFromApi = async (
   }
 
   const requestBody = body ? JSON.stringify(body) : null;
-  const url = new URL(`http://192.99.33.197:8081/api/v1${endpoint}`);
+  const url = new URL(`http://212.102.11.66:22/api/v1${endpoint}`);
 
   if (params) {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));

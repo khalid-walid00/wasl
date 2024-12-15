@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { pagination } from "~/config/constant";
 import { Toast } from "~/utils/libraries";
 
 let url;
@@ -11,17 +10,17 @@ if (typeof window !== 'undefined') {
 
 interface SearchItems {
   type: string;
-  value: string;
+  value: string | null;
 }
 
 const searchItems: SearchItems = {
   type: '',
-  value: ''
+  value: null
 };
 
 interface DataTypes {
   Id: string;
-  Account: number;
+  Account: number | null;
   VehicleNo: string;
   SequenceNumber: string;
   PlateNumber: string;
@@ -45,7 +44,7 @@ interface ItemsTypes {
 }
 const vehicle: DataTypes | null = {
   Id: "",
-  Account:66 ,
+  Account:null ,
   VehicleNo: "",
   SequenceNumber: "",
   PlateNumber: "",
@@ -71,8 +70,10 @@ interface StateTypes {
   vehicle: DataTypes | null;
   vehicleId: string | null;
   showModel: boolean;
-  page: number;
-  limit: number;
+  modalRow: boolean;
+  
+  inquiryModel: boolean;
+  ActivityLoading: boolean;
 }
 
 const items: ItemsTypes = {
@@ -86,6 +87,23 @@ const items: ItemsTypes = {
       PlateRightLetter: "X",
       PlateMiddleLetter: "Y",
       PlateType: 2,
+      PlateLeftLetter: "Z",
+      IMEINumber: "23456789",
+      WASLVehicleKey: "",
+      Response: "Approved",
+      RegistrationDate: "2024-11-20",
+      Activity: "Active",
+      Reply: "Success",
+    },
+    {
+      Id: "1",
+      Account: 888,
+      VehicleNo: "Vehicle-5747",
+      SequenceNumber: "1234",
+      PlateNumber: "1234",
+      PlateRightLetter: "X",
+      PlateMiddleLetter: "Y",
+      PlateType: 6,
       PlateLeftLetter: "Z",
       IMEINumber: "23456789",
       WASLVehicleKey: "WASL123456",
@@ -128,9 +146,9 @@ const initialState: StateTypes = {
   itemsSearch: [],
   inquiryLoading: false,
   inquiry: [],
-  page: Number(url.searchParams.get("page") || pagination.defaultPage),
-  limit: Number(url.searchParams.get("limit") || pagination.defaultLimit),
-
+  inquiryModel: false,
+  modalRow: false,
+  ActivityLoading: false,
 };
 
 export const vehiclesSlice = createSlice({
@@ -139,8 +157,6 @@ export const vehiclesSlice = createSlice({
   reducers: {
     setDataEmpty: (state) => {
       state.items = items;
-      state.page = pagination.defaultPage;
-      state.limit = pagination.defaultLimit;
     },
     fetchDataRequest: (state, action) => {
       state.loading = true;
@@ -155,7 +171,7 @@ export const vehiclesSlice = createSlice({
         state.vehicle = vehicle;
       }
     },
-    fetchInquiry: (state) => {
+    fetchInquiry: (state, action) => {
       state.inquiryLoading = true;
     },
     
@@ -169,11 +185,6 @@ export const vehiclesSlice = createSlice({
     setCUData: (state, action) => {
       state.vehicle =  {...state.vehicle, ...action.payload};
     },
-    setLimit: (state, action: PayloadAction<number>) => {
-      state.page = 1;
-      state.limit = action.payload;
-      state.loading = true;
-    },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
       state.searchItems.type = type;
@@ -183,18 +194,15 @@ export const vehiclesSlice = createSlice({
       state.loading = true;
     },
     search: (state) => {
-      const { type, value } = state.searchItems;    
-      const company = state.items.Data.find((item: any) => {
-        if (value !== "") return item[type] && item[type].toString().includes(value); 
-      });    
-      if (company) {
-        state.itemsSearch = [company];  
+      const { type, value } = state.searchItems;
+      if (value !== null) {
+        const matchingItems = state.items.Data.filter((item: any) => 
+          item[type] && item[type].toString().includes(value)
+        );
+        console.log("matchingItems", matchingItems);
+        state.itemsSearch = matchingItems;
       } else {
-        state.itemsSearch = []; 
-        Toast.fire({
-          icon: "error",
-          title: "Vehicle not found",
-        });
+        state.itemsSearch = [];
       }
     },
     addItem: (state, action: PayloadAction<DataTypes>) => {
@@ -222,7 +230,16 @@ export const vehiclesSlice = createSlice({
     toggleModel: (state,action) => { 
       state.showModel = !state.showModel;
       if (action.payload) state.vehicleId = action.payload;
-    }
+    },
+    setSelectedRowId: (state, action) => {
+      if(action.payload ) state.vehicleId = action.payload;
+      state.modalRow =  !state.modalRow
+      if(!state.modalRow) state.vehicleId=null
+    },
+    setInquiryModel: (state, action) => {
+      if(action.payload) state.inquiry = action.payload;
+      state.inquiryModel =  !state.inquiryModel
+    },
   }
 });
 
@@ -243,8 +260,9 @@ export const {
   fetchDataFailed,
   fetchOneData,
   setData,
-  setLimit,
-  deleteItem
+  deleteItem,
+  setSelectedRowId,
+  setInquiryModel
 } = vehiclesSlice.actions;
 
 export default vehiclesSlice.reducer;

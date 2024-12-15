@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DateTime } from "luxon";
-import { pagination } from "~/config/constant";
 
 
 interface dataTypes {
@@ -36,8 +35,6 @@ const initialState : any  = {
     startDate: DateTime.now().minus({weeks: 1}).toISO(),
     endDate: DateTime.now().toISO(),
   },
-  page: pagination.defaultPage,
-  limit: pagination.defaultLimit,
   pagination: {
     totalCount: 0,
     totalPages: 0,
@@ -50,8 +47,6 @@ export const analysisReducer = createSlice({
   reducers: {
     setDataEmpty: (state) => {
       state.analysis = analysis;
-      state.page =  pagination.defaultPage;
-      state.limit = pagination.defaultLimit;
     },
     fetchData: (state) => {
       state.loading = true;

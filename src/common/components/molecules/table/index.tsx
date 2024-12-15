@@ -4,6 +4,7 @@ import './style.css';
 import { LoadingScreen } from '../../templates/loadingSecreen';
 import { useTable } from 'react-table';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import CustomSelector from '../../atoms/customSelector/CustomSelector';
 
 interface TableProps {
   columns: any;
@@ -14,13 +15,10 @@ interface TableProps {
   setLimit?: (val: number) => void;
   handleRowClick?: (id: string) => void; 
 }
-const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) => {},handleRowClick}: TableProps) => {
+const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: TableProps) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(limit);
 
-  const dispatch = useDispatch();
-
-  // بيانات الصفحة الحالية
   const pageData = useMemo(() => {
     const startIndex = pageIndex * pageSize;
     return data.slice(startIndex, startIndex + pageSize);
@@ -29,11 +27,11 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,  // استخدم rows بدلاً من data في التحضير
+    rows,  
     prepareRow,
   } = useTable({
     columns,
-    data: pageData, // استخدام البيانات الخاصة بالصفحة الحالية فقط
+    data: pageData, 
   });
   
   const pageCount = Math.ceil(data.length / pageSize);
@@ -50,19 +48,41 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
     }
   };
   
-  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLimit = Number(e.target.value);
+  const handlePageSizeChange = (e:any) => {
+    const newLimit = Number(e) || 10;
     setPageSize(newLimit);
     setPageIndex(0); 
-    dispatch(setLimit(newLimit) as any);
   };
-  
+  const optionsLimit = [{
+    label: '10',
+    value: '10',
+  }, {
+    label: '20',
+    value: '20',
+  },
+  {
+    label: '30',
+    value: '30',
+  },
+  {
+    label: '40',
+    value: '40',
+  },
+  {
+    label: '50',
+    value: '50',
+  },
+  {
+    label: '100',
+    value: '100',
+  }
+];
   const pagination = () => (
-    <div className=" w-full flex sm:flex-row flex-col gap-y-3 justify-between">
+    <div className=" w-full flex sm:flex-row items-center flex-col gap-y-3 justify-between">
      <div className=" flex gap-6 items-center ">
       <div className=" flex items-center gap-4">
       <button
-        className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)]  w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
+        className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)]  cursor-pointer w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
         onClick={handlePrevPage}
         disabled={loading || pageIndex === 0}
       >
@@ -70,7 +90,7 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
       
       </button>
       <button
-        className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)]  w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
+        className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)] cursor-pointer w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
         onClick={handleNextPage}
         disabled={loading || pageIndex >= pageCount - 1}
       >
@@ -84,17 +104,12 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
       </div>
       <div className="">
 
-      <select
-        className="btn_sec"
-        value={pageSize}
-        onChange={handlePageSizeChange}
-      >
-        {[10, 20, 30, 40, 50, 100].map((size) => (
-          <option key={size} value={size}>
-            {size}
-          </option>
-        ))}
-      </select>
+      <CustomSelector
+      options={optionsLimit}
+    value={pageSize.toString() || '10'}
+  onChange={(key: any) => handlePageSizeChange(Number(key))}
+>
+</CustomSelector>
       </div>
     </div>
   );
@@ -102,7 +117,7 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
   return (
     <div className="flex-col flex gap-5 bg-white border-1 rounded-lg border-gray-300">
       <div className="w-full">{header}</div>
-      <div className="overflow-auto min-h-screen table-scroll" dir="ltr">
+      <div className={`overflow-auto min-h-screen table-scroll ${data.length > 0 ? "" : "flex items-center justify-center" } `} dir="ltr">
         {loading ? (
           <LoadingScreen />
         ) : pageData.length > 0 ? (
@@ -141,11 +156,11 @@ const Table = ({ columns, data, header, loading, limit = 10, setLimit = (val) =>
           </table>
         ) : (
           <tr>
-            <td colSpan={columns.length} className="text-center py-4">Empty</td>
+            <td colSpan={columns.length} className="text-center py-4 flex items-center justify-center">Empty</td>
           </tr>
         )}
       </div>
-      <div className="p-10 flex justify-between">{!loading && pagination()}</div>
+      <div className="px-10 py-2 flex justify-between  border-t">{!loading && pagination()}</div>
     </div>
   );
   
