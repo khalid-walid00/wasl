@@ -106,7 +106,6 @@
 
 .token.token.string {
     text-wrap: wrap;
-    width: 100%;
     overflow-wrap: anywhere;
-    display: block;
+    display: inline;
 }
