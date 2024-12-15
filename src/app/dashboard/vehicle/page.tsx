@@ -5,7 +5,7 @@ import Table from "~/common/components/molecules/table";
 import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, setSearch,search, setSelectedRowId } from "./vehicle.slice";
+import { fetchDataRequest, setSearch,search, setSelectedRowId, setFilter } from "./vehicle.slice";
 import TableModel from "./components/tableModel";
 import InquiryModel from "./components/inquiryModel";
 
@@ -15,8 +15,7 @@ function Page() {
   useEffect(() => {
     const endpoint = "vehicles/all";
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
-    dispatch(setSearch({ type: "Activity", value: "Active" }));
-    dispatch(search());
+    dispatch(setFilter("Active"));
   }, [dispatch]);
 
 

@@ -2,11 +2,11 @@
 export const statuses= [
   { value: "Active", label: "Active" },
   { value: "Inactive", label: "Inactive" },
-  { value: "false", label: "delete" },
+  { value: "Delete", label: "delete" },
 ];
 
 export const tooltipOptions = [
   { id: "Active", tooltipContent: "المركبات الموجوده في wasl" },
   { id: "Inactive", tooltipContent: "المركبات الغير موجوده في wasl" },
-  { id: "false", tooltipContent: "المركبات المحذوفه من wasl فقط" },
+  { id: "Delete", tooltipContent: "المركبات المحذوفه من wasl فقط" },
 ];

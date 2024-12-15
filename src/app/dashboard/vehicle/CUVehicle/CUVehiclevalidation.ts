@@ -35,7 +35,7 @@ const vehicleSchema = Yup.object({
 
   IMEINumber: Yup.string()
     .required("IMEI number is required.")
-    .matches(/^\d+$/, "IMEI number must only contain numbers."),
+    .matches(/^\d{14,}$/, "IMEI number must only contain numbers."),
     
     Activity: Yup.string()
       .required("Activity status is required.")

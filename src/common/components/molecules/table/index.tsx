@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import './style.css';
@@ -135,7 +136,6 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
             </thead>
             <tbody {...getTableBodyProps()}>
               {rows.map((row:any, i: number) => {
-                console.log("row",row);
                 prepareRow(row);
                 return (
                   <tr 

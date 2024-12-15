@@ -7,7 +7,7 @@ import { statusOptions } from "./components/statusOptions";
 import Table from "~/common/components/molecules/table";
 import HeadTable from "~/common/components/molecules/headTable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, setSelectedRowId } from "./drivers.slice";
+import { fetchDataRequest, setFilter, setSelectedRowId } from "./drivers.slice";
 
 function Page() {
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ function Page() {
   useEffect(() => {
     const endpoint = "drivers/all";
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
+    dispatch(setFilter("Active"));
   }, [dispatch]);
 
 

@@ -1,38 +1,39 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
-import { setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
 import CustomSelector from "~/common/components/atoms/customSelector/CustomSelector";
+import { useEffect } from "react";
+import { fetchActivity } from "~/app/appSlice";
+import { setCUData } from "../../../vehicle.slice";
 
-function Activity() {
+
+function DriverActivity() {
   const {vehicle:{Activity}} = useSelector((state: any) => state.vehiclesSlice);
+ const {Activity:optionsActivity, ActivityLoading} = useSelector((state: any) => state.config);
+      
+    const dispatch = useDispatch();
+    const ActivityChange = (e: any) => {
+        dispatch(setCUData({ Activity: e }));
+    };
+   useEffect(() => {
+       dispatch(fetchActivity()); 
+   },[])
 
-  const dispatch = useDispatch();
-  const handleActivityChange = (e: any) => {
-    dispatch(setCUData({ Activity: e }));
-  };
-   const options =[{
-    value: "Active", label: "Active"
-  },{
-    value: "Inactive", label: "Inactive"
-  }]
-  const tooltipOptions = [
-    { id: "Active", tooltipContent: "وصف" },
-    { id: "Inactive", tooltipContent: "وصف" },
-  ];
-  return (
-    <div className="flex flex-col gap-2 items-end">
-    <CustomLabel bold>Activity</CustomLabel>
-    <CustomSelector
-      options={options}
-      onChange={handleActivityChange}
-      value={Activity}
-      tooltipOptions={tooltipOptions}
-      placeholder="Select Operation CompanyId"
-    />
-  </div>
+    return (
+        <div className="flex flex-col gap-2">
+        <CustomLabel bold>Activity</CustomLabel>
+        <div className=" h-[40px]">
 
-  );
+        <CustomSelector
+            value={Activity}
+            options={optionsActivity}
+            onChange={ActivityChange}
+            placeholder={"Select Type"}
+            isLoading={ActivityLoading}
+            />
+            </div>
+    </div>
+    );
 }
 
-export default Activity;
+export default DriverActivity;

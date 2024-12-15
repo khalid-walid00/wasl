@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomSelector from "~/common/components/atoms/customSelector/CustomSelector";
 import { setCUData } from "~/app/dashboard/companies/companies.slice";
+import { useEffect } from "react";
+import { fetchActivity } from "~/app/appSlice";
 
-type Option = {
-    label: string;
-    value: string;
-};
 
 function CompanyActivity() {
- const {company :{Activity},Activity:optionsActivity} = useSelector((state: any) => state.companiesSlice);
-
+ const {company :{Activity}} = useSelector((state: any) => state.companiesSlice);
+ const {Activity:optionsActivity, ActivityLoading} = useSelector((state: any) => state.config);
+      
     const dispatch = useDispatch();
     const ActivityChange = (e: any) => {
         dispatch(setCUData({ Activity: e }));
     };
+   useEffect(() => {
+       dispatch(fetchActivity()); 
+   },[])
 
     return (
         <div className="flex flex-col gap-2">
@@ -27,7 +29,7 @@ function CompanyActivity() {
             options={optionsActivity}
             onChange={ActivityChange}
             placeholder={"Select Type"}
-            isLoading={false}
+            isLoading={ActivityLoading}
             />
             </div>
     </div>

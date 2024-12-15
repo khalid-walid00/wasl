@@ -103,3 +103,10 @@
     text-overflow: ellipsis;
   }
 }
+
+.token.token.string {
+    text-wrap: wrap;
+    width: 100%;
+    overflow-wrap: anywhere;
+    display: block;
+}

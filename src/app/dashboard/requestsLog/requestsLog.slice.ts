@@ -82,7 +82,7 @@ const items: ItemsTypes = {
         imeiNumber: "135320135199367",
         activity: "DEFAULT"
       },
-      ResponseBody: "{\"resultCode\":\"vehicle_not_found\",\"success\":false}",
+      ResponseBody: "{\"resultCode\":\"vehicle_not_found\",\"success\":false}cccccccccccccccccccccccccccccccccc",
       StatusCode: 400,
       Error: "Error: vehicle_not_found",
       RequestTime: "2024-12-14T10:55:11.961Z",

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '~/common/components/atoms/button';
 import CustomSelector from '~/common/components/atoms/customSelector/CustomSelector';
 import CustomInput from '~/common/components/atoms/input';
-import { search, setSearch, toggleModel } from '../../vehicle.slice';
+import { search, setFilter, setSearch, toggleModel } from '../../vehicle.slice';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import Link from 'next/link';
 import { useSearch } from '~/features/search';
@@ -12,7 +12,8 @@ import { tooltipOptions, statuses } from '../statusOptions';
 function VehicleHeader() {
   const dispatch = useDispatch();
   const { searchItems, handleSearch } = useSearch('vehiclesSlice', setSearch);
-  console.log("searchItems", searchItems);
+  const {filter} = useSelector((state: any) => state.vehiclesSlice);
+
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
       <div className=" flex gap-3 flex-col sm:flex-row">
@@ -40,13 +41,13 @@ function VehicleHeader() {
       </div>
       <div className=" flex justify-between">
         <div className="">
-          <CustomSelector
-            value={["Activity", "IsDeletedFromWasl"].includes(searchItems.type) ? searchItems.value : ""}
-            placeholder="Active"
-            options={statuses}
-            tooltipOptions={tooltipOptions}
-            onChange={(e) => handleSearch(e, e == "" ? "IsDeletedFromWasl" : "Activity")}
-          />
+        <CustomSelector
+          value={filter}
+          placeholder="Active"
+          options={statuses}
+          tooltipOptions={tooltipOptions}
+          onChange={(e) => dispatch(setFilter(e))}
+        />
         </div>
 
         <Link href="/dashboard/vehicle/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">

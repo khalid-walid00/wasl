@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '~/common/components/atoms/button';
 import CustomSelector from '~/common/components/atoms/customSelector/CustomSelector';
 import CustomInput from '~/common/components/atoms/input';
-import { search, setSearch } from '../../companies.slice';
+import { search, setFilter, setSearch } from '../../companies.slice';
 import { useSearch } from '~/features/search';
 import { statuses, tooltipOptions } from '../statusOptions';
 import { IoIosAddCircleOutline } from "react-icons/io";
@@ -12,6 +12,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 function ComapnyHeader() {
   const dispatch = useDispatch();
   const { searchItems, handleSearch } = useSearch('companiesSlice', setSearch);
+  const {filter} = useSelector((state: any) => state.companiesSlice);
 
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
@@ -42,12 +43,12 @@ function ComapnyHeader() {
     </div>
     <div className="flex justify-between">
       <div className="sm:w-2/12">
-        <CustomSelector
-          value={["Activity", "IsDeletedFromWasl"].includes(searchItems.type) ? searchItems.value : ""}
+      <CustomSelector
+          value={filter}
           placeholder="Active"
           options={statuses}
           tooltipOptions={tooltipOptions}
-          onChange={(e) => handleSearch(e, e == "false" ? "IsDeletedFromWasl" : "Activity")}
+          onChange={(e) => dispatch(setFilter(e))}
         />
       </div>
       <Link href="/dashboard/companies/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">

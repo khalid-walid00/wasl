@@ -9,6 +9,8 @@ const initialState = {
   showBuilder: true,
   user: {},
   redirectTo: null as string | null,
+  ActivityLoading: false,
+  Activity: [{ value: "Active", label: "Active" }, { value: "Inactive", label: "Inactive" }],
 }
 
 export const reducer = createSlice({
@@ -44,8 +46,16 @@ export const reducer = createSlice({
     resetRedirect(state) {
       state.redirectTo = null;
     },
+    fetchActivity: (state) => {
+      state.ActivityLoading = true;
+    },
+    setActivity: (state, action) => {
+      state.ActivityLoading = false;
+      state.Activity = action.payload;
+    },
   },
 });
 
-export const { setLoading, mainToggle, setUser, appLoad, toggleSideBar,toggleBuilder, setRedirectTo, resetRedirect } = reducer.actions;
+export const { setLoading, mainToggle, setUser, appLoad, fetchActivity, setActivity,
+   toggleSideBar,toggleBuilder, setRedirectTo, resetRedirect } = reducer.actions;
 export const configuerStore = reducer.reducer

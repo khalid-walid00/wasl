@@ -35,7 +35,7 @@ import {
   
     return (
       <>
-        <Modal size={size} classNames={
+        <Modal  scrollBehavior={"outside"}size={size} classNames={
           {
             backdrop: 'z-[999]',
             wrapper:"z-[10000]"

@@ -5,7 +5,7 @@ import ActionList from "./components/actionList/ActionsMenu";
 import ComapnySearch from "./components/header";
 import HeadTable from "~/common/components/molecules/headTable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest,search, setSearch, setSelectedRowId } from "./companies.slice";
+import { fetchDataRequest,search, setFilter, setSearch, setSelectedRowId } from "./companies.slice";
 import TableModel from "./components/tableModel";
 import InquiryModel from "./components/inquiryModel";
 
@@ -44,10 +44,10 @@ function Page() {
       },
     },
     {
-      Header: 'Is Deleted From Wasl',
-      accessor: 'IsDeletedFromWasl',
+      Header: 'Wasl Id',
+      accessor: 'Wasl Id',
       Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.IsDeletedFromWasl ? 'Yes' : 'No'}</p>;
+        return <p>{tableProps.row.original?.WaslId}</p>;
       },
     },
 
@@ -70,8 +70,8 @@ function Page() {
   useEffect(() => {
     const endpoint = "/operationCompany/all";
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET",body: null }));
-    dispatch(setSearch({ type: "Activity", value: "Active" }));
-    dispatch(search());
+    dispatch(setFilter("Active"));
+
     
 
   }, []);

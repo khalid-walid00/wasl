@@ -13,10 +13,9 @@ function Page() {
   const { items: { Data }, itemsSearch } = useSelector((state: any) => state.requestsLogSlice);
 
   useEffect(() => {
-    const endpoint = "vehicles/all";
+    const endpoint = "/requestLog/all";
     dispatch(fetchDataRequest({ endpoint, params: null, method: "GET" }));
-    dispatch(setSearch({ type: "Activity", value: "Active" }));
-    dispatch(search());
+
   }, [dispatch]);
 
   const columns = useMemo(

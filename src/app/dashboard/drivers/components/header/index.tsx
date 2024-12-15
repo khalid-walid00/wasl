@@ -4,30 +4,45 @@ import React from 'react';
 import Button from '~/common/components/atoms/button';
 import CustomSelector from '~/common/components/atoms/customSelector/CustomSelector';
 import CustomInput from '~/common/components/atoms/input';
-import { statuses } from '../statusOptions';
+import { statuses, tooltipOptions } from '../statusOptions';
+import { search, setFilter, setSearch } from '../../drivers.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearch } from '~/features/search';
 
 function DriverHeader() {
-
+  const dispatch =useDispatch()
+  const { searchItems, handleSearch } = useSearch('driversSlice', setSearch);
+  const { filter } = useSelector((state: any) => state.driversSlice);
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
       <div className=" flex gap-3 flex-col sm:flex-row">
         <div className=" grid md:grid-cols-4  grid-cols-2  gap-2 w-full sm:w-11/12 ">
-          <CustomInput placeholder="Account Name" className='bg-[--linerPrimary]' />
-          <CustomInput placeholder="Mobile Number" className='bg-[--linerPrimary]' />
-          <CustomInput placeholder='Driver Name' className='bg-[--linerPrimary]' />
+          <CustomInput
+            value={searchItems.type === "driverName" ? searchItems.value : ""}
+            onChange={(e) => handleSearch(e.target.value, "driverName")}
+            placeholder="Account Name" className='bg-[--linerPrimary]' />
+          <CustomInput
+            value={searchItems.type === "mobileNumber" ? searchItems.value : ""}
+            onChange={(e) => handleSearch(e.target.value, "mobileNumber")}
+            placeholder="Mobile Number" className='bg-[--linerPrimary]' />
+          <CustomInput
+            value={searchItems.type === "driverNameArabic" ? searchItems.value : ""}
+            onChange={(e) => handleSearch(e.target.value, "driverNameArabic")}
+            placeholder='driver Name Arabic' className='bg-[--linerPrimary]' />
 
-            </div>     
+        </div>
         <div className="   w-full sm:w-2/12">
-          <Button>Search</Button>
+          <Button onClick={() => dispatch(search())}>Search</Button>
         </div>
       </div>
       <div className=" flex justify-between">
         <div className="">
           <CustomSelector
-            value={null}
-            placeholder="driver status"
+            value={filter}
+            placeholder="Active"
             options={statuses}
-            onChange={() => { }}
+            tooltipOptions={tooltipOptions}
+            onChange={(e) => dispatch(setFilter(e))}
           />
         </div>
         <Link href={"/dashboard/drivers/create"} className=" text-background bg-mainColor  h-[40px]   flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2 " >

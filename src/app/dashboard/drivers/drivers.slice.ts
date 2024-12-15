@@ -9,6 +9,8 @@ interface dataTypes {
   driverName: string,
   driverNameArabic: string,
   driverAssignedAsset: string,
+  WaslId: string,
+  IsDeletedFromWasl:boolean,
   licenseNumber: string,
   licenseNumberArabic: string,
   mobileNumber: string,
@@ -21,6 +23,8 @@ const driver: dataTypes = {
   driverNameArabic: "",
   driverAssignedAsset: "",
   licenseNumber: "",
+  IsDeletedFromWasl:false,
+  WaslId:"",
   licenseNumberArabic: "",
   mobileNumber: "",
   tagid: "",
@@ -35,6 +39,8 @@ const items: itemsTypes = {
     {
       driverId: 1,
       driverName: "Ahmad Ali",
+      IsDeletedFromWasl:false,
+      WaslId:"",
       driverNameArabic: "أحمد علي",
       driverAssignedAsset: "ABC123456",
       licenseNumber: "AB12345",
@@ -48,6 +54,8 @@ const items: itemsTypes = {
       driverName: "Sara Mohammed",
       driverNameArabic: "سارة محمد",
       driverAssignedAsset: "XYZ987654",
+      IsDeletedFromWasl:true,
+      WaslId:"",
       licenseNumber: "XY98765",
       licenseNumberArabic: "إكس واي ٩٨٧٦٥",
       mobileNumber: "+202345678901",
@@ -60,6 +68,8 @@ const items: itemsTypes = {
       driverNameArabic: "محمد حسن",
       driverAssignedAsset: "LMN456789",
       licenseNumber: "LM45678",
+      IsDeletedFromWasl:true,
+      WaslId:"453543453",
       licenseNumberArabic: "إل إم ٤٥٦٧٨",
       mobileNumber: "+203456789012",
       tagid: "Honda Accord",
@@ -71,6 +81,8 @@ const items: itemsTypes = {
       driverNameArabic: "علي أحمد",
       driverAssignedAsset: "DEF345678",
       licenseNumber: "DEF34567",
+      IsDeletedFromWasl:false,
+      WaslId:"4535434345",
       licenseNumberArabic: "دي إف ٣٤٥٦٧",
       mobileNumber: "+204567890123",
       tagid: "Mazda 3",
@@ -81,6 +93,8 @@ const items: itemsTypes = {
       driverName: "Mona Khaled",
       driverNameArabic: "مونا خالد",
       driverAssignedAsset: "OPQ789123",
+      IsDeletedFromWasl:true,
+      WaslId:"",
       licenseNumber: "OP78912",
       licenseNumberArabic: "أو بي ٧٨٩١٢",
       mobileNumber: "+205678901234",
@@ -92,6 +106,8 @@ const items: itemsTypes = {
       driverName: "Omar Farouk",
       driverNameArabic: "عمر فاروق",
       driverAssignedAsset: "JKL234567",
+      IsDeletedFromWasl:false,
+      WaslId:"785275",
       licenseNumber: "JK23456",
       licenseNumberArabic: "جي كيه ٢٣٤٥٦",
       mobileNumber: "+206789012345",
@@ -104,6 +120,8 @@ const items: itemsTypes = {
       driverNameArabic: "فاطمة زينب",
       driverAssignedAsset: "PQR567890",
       licenseNumber: "PQ56789",
+      IsDeletedFromWasl:false,
+      WaslId:"",
       licenseNumberArabic: "بي كي ٥٦٧٨٩",
       mobileNumber: "+207890123456",
       tagid: "Ford Mustang",
@@ -113,6 +131,8 @@ const items: itemsTypes = {
       driverId: 8,
       driverName: "Khaled Mahmoud",
       driverNameArabic: "خالد محمود",
+      IsDeletedFromWasl:false,
+      WaslId:"696986",
       driverAssignedAsset: "UVW890123",
       licenseNumber: "UV89012",
       licenseNumberArabic: "يو في ٨٩٠١٢",
@@ -130,6 +150,7 @@ const initialState = {
   loading: false,
   error: false,
   searchItems,
+  filter: "",
   itemsSearch: [] as any,
   inquiry: {},
   inquiryLoading: false,
@@ -172,7 +193,7 @@ export const driversSlice = createSlice({
     },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
-      console.log("type, value", type, value);
+      console.log(type, value);
       state.searchItems.type = type;
       state.searchItems.value = value;
     },
@@ -182,6 +203,7 @@ export const driversSlice = createSlice({
         const matchingItems = state.items.Data.filter((item: any) =>
           item[type] && item[type].toString().includes(value)
         );
+        console.log(matchingItems);
         state.itemsSearch = matchingItems;
       } else {
         state.itemsSearch = [];
@@ -212,6 +234,26 @@ export const driversSlice = createSlice({
     clearOneData: (state) => {
       state.driver = driver;
     },
+    setFilter:(state, action) => {
+      const  value  = action.payload;
+      state.filter = value; 
+      let filterValue = { WaslId: true, IsDeletedFromWasl: false };
+    
+      if (value === "Inactive") {
+        filterValue = { WaslId: false, IsDeletedFromWasl: false };
+      }
+    
+      if (value === "Delete") {
+        filterValue = { WaslId: false, IsDeletedFromWasl: true };
+      }
+    
+      if (value === " Active") {
+        filterValue = { WaslId: true, IsDeletedFromWasl: false };
+      }
+      state.itemsSearch = state.items.Data.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl
+    
+    )
+    },
     setSelectedRowId: (state, action) => {
       if (action.payload) state.driverId = action.payload;
       state.modalRow = !state.modalRow
@@ -228,6 +270,7 @@ export const { setDataEmpty, addItem,
    setInquiryModel, setSelectedRowId,sendData,
    fetchDataRequest, fetchDataFailed,
    clearOneData,fetchOneData,
+   setFilter,
    setData,
     deleteItem } = driversSlice.actions;
 export default driversSlice.reducer;

@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { setData, fetchDataFailed } from "./requestsLog.slice"
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
+import { fetchDataFailed,setData } from "../requestsLog/requestsLog.slice";
 
 function* fetchDataSaga(action: any): Generator<any, void, any> {
   try {

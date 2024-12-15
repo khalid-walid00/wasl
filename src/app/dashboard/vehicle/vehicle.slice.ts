@@ -26,6 +26,8 @@ interface DataTypes {
   PlateNumber: string;
   PlateRightLetter: string;
   PlateMiddleLetter: string;
+  WaslId: string | null;
+  IsDeletedFromWasl: boolean;
   PlateLeftLetter: string;
   PlateType: number | null;
   IMEINumber: string;
@@ -46,6 +48,8 @@ const vehicle: DataTypes | null = {
   Id: "",
   Account:null ,
   VehicleNo: "",
+  WaslId: null,
+  IsDeletedFromWasl: false,
   SequenceNumber: "",
   PlateNumber: "",
   PlateRightLetter: "",
@@ -67,11 +71,11 @@ interface StateTypes {
   itemsSearch: DataTypes[];
   inquiryLoading: boolean;
   inquiry: any;
+  filter: string;
   vehicle: DataTypes | null;
   vehicleId: string | null;
   showModel: boolean;
   modalRow: boolean;
-  
   inquiryModel: boolean;
   ActivityLoading: boolean;
 }
@@ -84,6 +88,8 @@ const items: ItemsTypes = {
       VehicleNo: "Vehicle-1234",
       SequenceNumber: "1234",
       PlateNumber: "1234",
+      IsDeletedFromWasl: false,
+      WaslId : "45254242",
       PlateRightLetter: "X",
       PlateMiddleLetter: "Y",
       PlateType: 2,
@@ -96,12 +102,14 @@ const items: ItemsTypes = {
       Reply: "Success",
     },
     {
-      Id: "1",
+      Id: "3",
       Account: 888,
       VehicleNo: "Vehicle-5747",
       SequenceNumber: "1234",
       PlateNumber: "1234",
       PlateRightLetter: "X",
+      IsDeletedFromWasl: false,
+      WaslId : "",
       PlateMiddleLetter: "Y",
       PlateType: 6,
       PlateLeftLetter: "Z",
@@ -121,6 +129,8 @@ const items: ItemsTypes = {
       PlateRightLetter: "j",
       PlateMiddleLetter: "b",
       PlateType: 1,
+      IsDeletedFromWasl: true,
+      WaslId : "",
       PlateLeftLetter: "C",
       IMEINumber: "9885437545345",
       WASLVehicleKey: "WASL654321",
@@ -142,6 +152,7 @@ const initialState: StateTypes = {
   showModel: false,
   searchItems,
   vehicle,
+  filter:'' ,
   vehicleId: null,
   itemsSearch: [],
   inquiryLoading: false,
@@ -192,6 +203,25 @@ export const vehiclesSlice = createSlice({
     },
     sendData: (state) => {
       state.loading = true;
+    },
+    setFilter:(state, action) => {
+      const  value  = action.payload;
+      state.filter = value; 
+      let filterValue = { WaslId: true, IsDeletedFromWasl: false };
+    
+      if (value === "Inactive") {
+        filterValue = { WaslId: false, IsDeletedFromWasl: false };
+      }
+    
+      if (value === "Delete") {
+        filterValue = { WaslId: false, IsDeletedFromWasl: true };
+      }
+    
+      if (value === " Active") {
+        filterValue = { WaslId: true, IsDeletedFromWasl: false };
+      }
+      state.itemsSearch = state.items.Data.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl
+    )
     },
     search: (state) => {
       const { type, value } = state.searchItems;
@@ -260,6 +290,7 @@ export const {
   fetchDataFailed,
   fetchOneData,
   setData,
+  setFilter,
   deleteItem,
   setSelectedRowId,
   setInquiryModel

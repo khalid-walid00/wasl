@@ -35,17 +35,7 @@ function VehicleHeader() {
           <Button onClick={() => dispatch(search())}>Search</Button>
         </div>
       </div>
-      <div className=" flex justify-between">
-        <div className="">
-          <CustomSelector
-            value={["Activity", "WASLVehicleKey"].includes(searchItems.type) ? searchItems.value : ""}
-            placeholder="Active"
-            options={statuses}
-            tooltipOptions={tooltipOptions}
-            onChange={(e) => handleSearch(e, e == "" ? "WASLVehicleKey" : "Activity")}
-          />
-        </div>
-      </div>
+     
     </div>
   );
 }

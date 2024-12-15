@@ -36,13 +36,13 @@ const items : itemsTypes = {
    Data: [
     {
       Id: "2",
-      WaslId: "7012345678",
+      WaslId: "",
       IsDeletedFromWasl: true,
       CreatedDate: "2024-05-10",
       Name: "Tech Innovations Ltd.",
       EmailAddress: "contact@techinnovations.com",
       PhoneNumber: "0987654321",
-      Activity: "Inactive",
+      Activity: "DefAULT2",
       CreatedBy: "Admin",
       IdentityNumber: "7012345678",
       DateOfBirthHijri: "1445-02-15",
@@ -63,7 +63,7 @@ const items : itemsTypes = {
       Name: "test  Innovations Ltd.",
       EmailAddress: "contact@techinnovations.com",
       PhoneNumber: "0987654321",
-      Activity: "Inactive",
+      Activity: "DefAULT",
       CreatedBy: "Admin",
       IdentityNumber: "7012345678",
       DateOfBirthHijri: "1445-02-15",
@@ -84,7 +84,7 @@ const items : itemsTypes = {
       Name: "Global Solutions Group",
       EmailAddress: "info@globalsolutions.com",
       PhoneNumber: "0212345678",
-      Activity: "Active",
+      Activity: "DefAULT",
       CreatedBy: "User",
       IdentityNumber: "7012345678",
       DateOfBirthHijri: "1443-09-10",
@@ -110,13 +110,12 @@ const initialState = {
   error: false,
   company,
   companyId:"",
+  filter:'' ,
   searchItems,
   inquiry: {},
   inquiryLoading: false,
   inquiryModel: false,
   modalRow: false,
-  ActivityLoading: false,
-  Activity: [{ value: "Active", label: "Active" }, { value: "Inactive", label: "Inactive" }],
 };
 
 
@@ -160,26 +159,38 @@ export const companiesSlice = createSlice({
       state.inquiryLoading = true;
       state.inquiry = action.payload;
     },
-    fetchActivity: (state) => {
-      state.ActivityLoading = true;
-    },
-    setActivity: (state, action) => {
-      state.ActivityLoading = false;
-      state.Activity = action.payload;
-    },
     clearOneData: (state) => {
       state.company = company;
     },
+    setFilter:(state, action) => {
+      const  value  = action.payload;
+      state.filter = value; 
+      let filterValue = { WaslId: true, IsDeletedFromWasl: false };
+    
+      if (value === "Inactive") {
+        filterValue = { WaslId: false, IsDeletedFromWasl: false };
+      }
+    
+      if (value === "Delete") {
+        filterValue = { WaslId: false, IsDeletedFromWasl: true };
+      }
+    
+      if (value === " Active") {
+        filterValue = { WaslId: true, IsDeletedFromWasl: false };
+      }
+      state.itemsSearch = state.items.Data.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl
+    
+    )
+    },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
-      console.log("type, value", type, value);
       state.searchItems.type = type;
       state.searchItems.value = value;
     },
     search: (state) => {
       const { type, value } = state.searchItems;
       if (value !== "") {
-        const matchingItems = state.items.Data.filter((item: any) => 
+        const matchingItems = state.items.Data?.filter((item: any) => 
           item[type] && item[type].toString().includes(value)
         );
         state.itemsSearch = matchingItems; 
@@ -218,7 +229,7 @@ export const companiesSlice = createSlice({
     },
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,fetchActivity,setActivity,setSelectedRowId,
+export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,
   clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;
