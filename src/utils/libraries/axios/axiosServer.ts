@@ -1,5 +1,6 @@
 "use server";
-import { cookies } from 'next/headers'
+import axios from 'axios';
+import { cookies } from 'next/headers';
 import { cookiesValues } from '~/config/constant';
 
 class CustomError extends Error {
@@ -19,49 +20,47 @@ export const fetchDataFromApi = async (
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body: any = null
 ) => {
-  const cookieStore = await cookies()
-  const token = cookieStore.get(cookiesValues.GlobalToken)?.value
-
-  const headers: HeadersInit = {
-    Accept: "application/json, text/plain, */*",
-  };
-
-  if (method !== "GET" && body) {
-    headers["Content-Type"] = "application/json";
-  }
-
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  const requestBody = body ? JSON.stringify(body) : null;
-  const url = new URL(`http://212.102.11.66:22/api/v1${endpoint}`);
-
-  if (params) {
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-  }
   try {
-    const response = await fetch(url.toString(), {
+    const cookieStore = await cookies();
+    const token = cookieStore.get(cookiesValues.GlobalToken)?.value;
+
+    const headers: Record<string, string> = {
+      Accept: "application/json, text/plain, */*",
+    };
+
+    if (method !== "GET" && body) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const url = `http://212.102.11.66:22/api/v1${endpoint}`;
+
+    const config = {
       method,
+      url,
       headers,
-      body: requestBody,
-      ...(method === "GET" && { body: null })
-    });
-    
-    if (response.status===404) {
-      throw new CustomError(response.status, response.statusText);
- 
-      }
-    const responseData = await response.json();
-    return responseData;
-  } catch (error:any) {
+      params,
+      data: body,
+    };
+
+    const response = await axios(config);
+
+    console.log("response", response.data);
+    return response.data;
+  } catch (error: any) {
     console.error("Fetch Error:", error);
-    return {
-      StatusCode: error.StatusCode,
-      Message: error.message
-       }; 
+
+    if (error.response) {
+      throw new CustomError(error.response.status, error.response.statusText);
+    } else if (error.request) {
+      throw new CustomError(500, "No response from server");
+    } else {
+      throw new CustomError(500, error.message);
+    }
   }
 };
 
 export default fetchDataFromApi;
-
