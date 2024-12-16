@@ -9,7 +9,8 @@ function* fetchDataSaga(action: any): Generator<any, void, any> {
     console.log("response", response);
     yield put(setData(response));
   } catch (error: any) {
-    yield put(fetchDataFailed(error.message));
+    console.log("error", error);
+    yield put(fetchDataFailed());
   }
 }
 

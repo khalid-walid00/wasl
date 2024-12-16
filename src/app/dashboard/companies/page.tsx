@@ -10,7 +10,7 @@ import TableModel from "./components/tableModel";
 import InquiryModel from "./components/inquiryModel";
 
 function Page() {
-  const {items:{Data},itemsSearch} = useSelector((state: any) => state.companiesSlice);
+  const {items:{Data},itemsSearch,loading} = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
 
  const columns = useMemo(
@@ -87,7 +87,7 @@ function Page() {
           columns={columns}
           handleRowClick={handleSelectedRowId}
           data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
-          loading={false}
+          loading={loading}
         />
       <TableModel/>
       <InquiryModel/>

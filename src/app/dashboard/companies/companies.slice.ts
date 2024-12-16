@@ -133,6 +133,7 @@ export const companiesSlice = createSlice({
     fetchDataFailed: (state) => {
       state.error = true;
     },
+
     setData: (state, action) => {
       state.items = action.payload;
       state.loading = false;
