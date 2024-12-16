@@ -8,7 +8,7 @@ export function* fetchInquiry(action: any): Generator<any, void, any> {
     const { method,endpoint } = action.payload;
     console.log(endpoint, method);
     const response = yield call(fetchDataFromApi, endpoint, null, method, null);
-    console.log("response", response);
+    console.log("responsefetchInquiry", response);
     yield put(setInquiry(response.Data));
   } catch (error: any) {
     Toast.fire({

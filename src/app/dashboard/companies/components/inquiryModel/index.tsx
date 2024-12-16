@@ -16,8 +16,8 @@ function InquiryModel() {
     }
     useEffect(() => {
         dispatch(fetchInquiry({ method: "GET", endpoint }));
-    }, [dispatch]);
-
+    }, [dispatch,company]);
+console.log(inquiry);
     return (
         <CustomModal isOpen={inquiryModel} onOpenChange={() => dispatch(setInquiryModel(null))} title="Inquiry">
             <div className="flex flex-col gap-3">
