@@ -44,7 +44,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
     : null;
 
   return (
-    <div className="flex flex-col w-full p-0 m-0">
+    <div className="flex flex-col w-full p-0 m-0 h-full">
       {label && <label className={`font-normal ${className}`}>{label}</label>}
       <Select
         isLoading={isLoading}

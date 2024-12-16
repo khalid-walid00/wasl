@@ -13,43 +13,43 @@ function TableModel() {
                 {
                     Data?.filter((item: any) => item.Id === companyId)?.map((item: any, index: number) => (
                         <div key={index} className=" grid grid-cols-2 gap-3">
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Wasl Id</CustomLabel>
                                 {item.WaslId || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Created Date</CustomLabel>
                                 {item.CreatedDate || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Created By</CustomLabel>
                                 {item.CreatedBy || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>CR Number</CustomLabel>
                                 {item.CommercialRecordNumber || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>CRI Date Hijri</CustomLabel>
                                 {item.CommercialRecordIssueDateHijri || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Date of Birth Gregorian</CustomLabel>
                                 {item.DateOfBirthGregorian || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Extension Number</CustomLabel>
                                 {item.ExtensionNumber || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Manager Name</CustomLabel>
                                 {item.ManagerName || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Manager Phone Number</CustomLabel>
                                 {item.ManagerPhoneNumber || 'N/A'}
                             </div>
-                            <div className="flex flex-col gap-1 items-end">
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Manager Mobile Number</CustomLabel>
                                 {item.ManagerMobileNumber || 'N/A'}
                             </div>

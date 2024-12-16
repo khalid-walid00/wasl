@@ -10,7 +10,7 @@ import { fetchActivity } from "~/app/appSlice";
 function CompanyActivity() {
  const {company :{Activity}} = useSelector((state: any) => state.companiesSlice);
  const {Activity:optionsActivity, ActivityLoading} = useSelector((state: any) => state.config);
-      
+        console.log("optionsActivity", optionsActivity);
     const dispatch = useDispatch();
     const ActivityChange = (e: any) => {
         dispatch(setCUData({ Activity: e }));

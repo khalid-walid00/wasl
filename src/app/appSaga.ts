@@ -8,7 +8,7 @@ export function* fetchActivity(): Generator<any, void, any> {
   try {
     const endpoint = `/activity/all`;
     const response = yield call(fetchDataFromApi, endpoint, null,"GET", null);
-    const Option = response.map((item: any) => ({ value: item.Id, label: item.Name }));
+    const Option = response?.Data?.map((item: any) => ({ value: item.Id, label: item.Name }));
     yield put(setActivity(Option));
   } catch (error: any) {
      Toast.fire({

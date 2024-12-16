@@ -12,7 +12,7 @@ import InquiryModel from "./components/inquiryModel";
 function Page() {
   const {items:{Data},itemsSearch,loading} = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
-
+ console.log("Data",Data);
  const columns = useMemo(
   () => [
     {

@@ -10,7 +10,7 @@ const initialState = {
   user: {},
   redirectTo: null as string | null,
   ActivityLoading: false,
-  Activity: [{ value: "Active", label: "Active" }, { value: "Inactive", label: "Inactive" }],
+  Activity: [],
 }
 
 export const reducer = createSlice({

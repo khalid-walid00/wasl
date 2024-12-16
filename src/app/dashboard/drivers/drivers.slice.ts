@@ -191,6 +191,14 @@ export const driversSlice = createSlice({
     sendData: (state) => {
       state.loading = true;
     },
+    fetchInquiry: (state, action) => {
+      state.inquiryLoading = true;
+    },
+    
+    setInquiry: (state, action) => {
+      state.inquiryLoading = true;
+      state.inquiry = action.payload;
+    },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
       console.log(type, value);
@@ -272,5 +280,7 @@ export const { setDataEmpty, addItem,
    clearOneData,fetchOneData,
    setFilter,
    setData,
+   fetchInquiry,
+   setInquiry,
     deleteItem } = driversSlice.actions;
 export default driversSlice.reducer;

@@ -17,20 +17,18 @@ let endpoint = `operationCompany`;
 
   try {
     const result = yield call(validateCompanyData, company);
-    console.log("result", result);
-    console.log("variable", company);
- 
+
     if (!result.valid) {
       Toast.fire({
-        title: result.errors.split(" | ").map((msg:any) => `<p>${msg}</p>`).join(""),
+        title: result.errors.map((msg: string) => `<p>${msg}</p>`).join(""),
         icon: "error",
       });
-
+    
       return;
     }
     const response = yield performMutation(company, endpoint);
 
-
+   
    if (companyId){
      yield put(replaceItem(company));
      yield put(setRedirectTo("/dashboard/companies"));

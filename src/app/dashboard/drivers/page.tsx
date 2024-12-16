@@ -64,27 +64,7 @@ function Page() {
           return <p>{tableProps.row.original?.licenseNumberArabic}</p>;
         },
       },
-      {
-        Header: 'Mobile Number',
-        accessor: 'mobileNumber',
-        Cell: (tableProps: any) => {
-          return <p>{tableProps.row.original?.mobileNumber}</p>;
-        },
-      },
-      {
-        Header: 'Tag ID',
-        accessor: 'tagid',
-        Cell: (tableProps: any) => {
-          return <p>{tableProps.row.original?.tagid}</p>;
-        },
-      },
-      {
-        Header: 'License Expiry',
-        accessor: 'licenseExpiry',
-        Cell: (tableProps: any) => {
-          return <p>{tableProps.row.original?.licenseExpiry}</p>;
-        },
-      },
+  
       // {
       //   Header: 'Status',
       //   accessor: 'status',

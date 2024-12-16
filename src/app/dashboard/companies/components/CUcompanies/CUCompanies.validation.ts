@@ -2,69 +2,43 @@ import * as Yup from 'yup';
 
 const companySchema = Yup.object({
   Name: Yup.string()
-    .min(3, "اسم الشركة يجب أن يحتوي على 3 أحرف على الأقل.")
-    .required("اسم الشركة مطلوب."),
+    .required("Company name is required."),
 
   IdentityNumber: Yup.string()
-    .matches(/^(10|70)\d{8}$/, "رقم الهوية يجب أن يبدأ بـ '10' أو '70' ويتكون من 10 أرقام.")
-    .length(10, "رقم الهوية يجب أن يكون مكوناً من 10 أرقام.")
-    .required("رقم الهوية مطلوب."),
-
-  CommercialRecordNumber: Yup.string()
-    .required("رقم السجل التجاري مطلوب."),
-
-  CommercialRecordIssueDateHijri: Yup.string()
-    .required("تاريخ إصدار السجل التجاري مطلوب."),
-
-  DateOfBirthHijri: Yup.string()
-    .required("تاريخ الميلاد بالهجري مطلوب."),
-
-  DateOfBirthGregorian: Yup.string()
-    .required("تاريخ الميلاد بالميلادي مطلوب."),
+    .matches(/^(10|70)\d{8}$/, "Identity number must start with '10' or '70' and contain 10 digits.")
+    .length(10, "Identity number must be exactly 10 digits.")
+    .required("Identity number is required."),
 
   PhoneNumber: Yup.string()
-    .required("رقم الهاتف مطلوب.")
-    .min(9, "رقم الهاتف يجب أن يكون مكوناً من 9 أرقام.")
-    .max(15, "رقم الهاتف يجب أن يكون مكوناً من 15 رقمًا."),
-
-  ExtensionNumber: Yup.string()
-    .optional(),
+    .required("Phone number is required.")
+    .matches(
+      /^(966\d{8}|05\d{8}|8\d{7})$/,
+      "Phone number must start with '966' followed by 8 digits, '05' followed by 8 digits, or '8' followed by 7 digits."
+    ),
 
   EmailAddress: Yup.string()
-    .email("البريد الإلكتروني غير صحيح.")
-    .required("البريد الإلكتروني مطلوب."),
-
-  ManagerName: Yup.string()
-    .required("اسم المدير مطلوب."),
-
-  ManagerPhoneNumber: Yup.string()
-    .required("رقم هاتف المدير مطلوب."),
-
-  ManagerMobileNumber: Yup.string()
-    .required("رقم جوال المدير مطلوب.")
-    .min(9, "رقم الجوال يجب أن يكون مكوناً من 9 أرقام.")
-    .max(15, "رقم الجوال يجب أن يكون مكوناً من 15 رقمًا."),
+    .email("Email address is invalid.")
+    .required("Email address is required."),
 
   Activity: Yup.string()
-    .required("نشاط الشركة مطلوب."),
+    .required("Company activity is required."),
 
   UplevelOperationCompanyId: Yup.string()
-    .min(3, "رقم الشركة العليا يجب أن يحتوي على 3 أحرف على الأقل.")
+    .required("Uplevel operation company ID is required."),
 });
 
 export const validateCompanyData = async (data: Record<string, any>) => {
   try {
-    console.log("validateCompanyData", data);
     await companySchema.validate(data, { abortEarly: false });
     return { valid: true, errors: null };
   } catch (error) {
     if (error instanceof Yup.ValidationError) {
-      const errorMessages = error.errors.join(" | ");
       return {
         valid: false,
-        errors: errorMessages,
+        errors: error.errors,
       };
     }
     throw error;
   }
 };
+

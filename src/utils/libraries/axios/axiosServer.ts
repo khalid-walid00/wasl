@@ -1,17 +1,10 @@
 "use server";
-import axios from 'axios';
-import { cookies } from 'next/headers';
-import { cookiesValues } from '~/config/constant';
+import axios from "axios";
+import { cookies } from "next/headers";
+import { cookiesValues } from "~/config/constant";
 
-class CustomError extends Error {
-  StatusCode: number;
-  Message: string;
-
-  constructor(statusCode: number, message: string) {
-    super(message);
-    this.StatusCode = statusCode;
-    this.Message = message;
-  }
+interface CustomError extends Error {
+  StatusCode?: number;
 }
 
 export const fetchDataFromApi = async (
@@ -51,15 +44,9 @@ export const fetchDataFromApi = async (
     console.log("response", response.data);
     return response.data;
   } catch (error: any) {
-    console.error("Fetch Error:", error);
+   
 
-    if (error.response) {
-      throw new CustomError(error.response.status, error.response.statusText);
-    } else if (error.request) {
-      throw new CustomError(500, "No response from server");
-    } else {
-      throw new CustomError(500, error.message);
-    }
+    throw  error;
   }
 };
 

@@ -81,11 +81,11 @@ function TableModel() {
 
                                 <div className="flex flex-col gap-1 items-end">
                                     <CustomLabel bold>Request Time</CustomLabel>
-                                    {item.RequestTime.slice(0, 10)}
+                                      { item.RequestTime.slice(11, 19)+ ' : ' + item.RequestTime.slice(0, 10)}
                                 </div>
                                 <div className="flex flex-col gap-1 items-end">
                                     <CustomLabel bold>Response Time</CustomLabel>
-                                    {item.ResponseTime.slice(0, 10)}
+                                      { item.ResponseTime.slice(11, 19)+ ' : ' + item.ResponseTime.slice(0, 10)}
                                 </div>
 
 
