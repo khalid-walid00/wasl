@@ -11,15 +11,14 @@ const persistConfig: any = {
   key: 'root',
   storage,
   blacklist: [
-  "companiesSlice",
   "forgetPassword",
-  "vehiclesSlice",
   "driversSlice",
   "requestsLogSlice"
   ],
-  whitelist: [
+  // whitelist: [
+  // "companiesSlice"
     
-  ],
+  // ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

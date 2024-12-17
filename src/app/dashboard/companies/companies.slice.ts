@@ -41,7 +41,7 @@ const items : itemsTypes = {
 
 const initialState = {
   items: items ,
-  itemsSearch: []as any ,
+  itemsSearch: [] as any ,
   loading: false,
   error: false,
   company,
@@ -74,6 +74,9 @@ export const companiesSlice = createSlice({
       state.items = action.payload;
       state.loading = false;
     },
+    fetchDataRequestSuccess(state) {
+      state.loading = false;
+    },
     fetchOneData: (state, action) => {
       state.companyId = action.payload;
       const company = state.items.Data.find((item) => item.Id === action.payload);
@@ -102,6 +105,7 @@ export const companiesSlice = createSlice({
     },
     setFilter:(state, action) => {
       const  value  = action.payload;
+      console.log("value", value);
       state.filter = value; 
       let filterValue = { WaslId: true, IsDeletedFromWasl: false };
     
@@ -113,12 +117,15 @@ export const companiesSlice = createSlice({
         filterValue = { WaslId: false, IsDeletedFromWasl: true };
       }
     
-      if (value === " Active") {
+      if (value === "Active") {
         filterValue = { WaslId: true, IsDeletedFromWasl: false };
       }
-      state.itemsSearch = state.items.Data.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl
-    
-    )
+      console.log("filterValue", filterValue);
+      console.log("Datafilter", state?.items?.Data);
+       const newData = state?.items?.Data?.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl )
+      console.log("newData", newData);
+          state.itemsSearch = newData;
+        
     },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
@@ -167,7 +174,7 @@ export const companiesSlice = createSlice({
     },
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,
+export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,
   clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

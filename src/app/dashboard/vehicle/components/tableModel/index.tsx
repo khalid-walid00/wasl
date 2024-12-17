@@ -7,45 +7,57 @@ import { setSelectedRowId } from '../../vehicle.slice';
 function TableModel() {
     const dispatch = useDispatch();
     const { modalRow, vehicleId, items: { Data } } = useSelector((state: any) => state.vehiclesSlice);
+    const { items: { Data: dataCompanie } } = useSelector((state: any) => state.companiesSlice);
+
+    const selectedVehicle = Data?.find((item: any) => item.Id === vehicleId);
+    const Companie = selectedVehicle 
+        ? dataCompanie?.find((item: any) => item.Id === selectedVehicle?.OperationCompanyId) 
+        : null;
+
+    if (!selectedVehicle) {
+        return null;
+    }
+
     return (
         <CustomModal isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
-            <div>
-                {
-                    Data?.filter((item: any) => item.Id === vehicleId)?.map((item: any, index: number) => (
-                        <div key={index} className=" grid grid-cols-2 gap-3">
-                             <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>WASL Vehicle Key</CustomLabel>
-                                {item.WASLVehicleKey || 'N/A'}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>IMEI Number</CustomLabel>
-                                {item.IMEINumber || 'N/A'}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>Vehicle Number</CustomLabel>
-                                {item.VehicleNo || 'N/A'}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>Plate ype</CustomLabel>
-                                {item.PlateType || 'N/A'}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>Response</CustomLabel>
-                                {item.Response || 'N/A'}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>Registration Date</CustomLabel>
-                                {item.RegistrationDate || 'N/A'}
-                            </div>
-                            <div className="flex flex-col gap-1 items-end">
-                                <CustomLabel bold>Reply</CustomLabel>
-                                {item.Reply || 'N/A'}
-                            </div>
-                        </div>
-                    ))
-                }
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>Id</CustomLabel>
+                        {selectedVehicle.Id || 'N/A'}
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>Deleted From Wasl
+                        </CustomLabel>
+                        {!selectedVehicle.IsDeletedFromWasl ? <div className=' text-red-600'>Yes</div>  : <div className=' text-red-600'>No</div> || 'N/A'}
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>WASL Vehicle Key</CustomLabel>
+                        {selectedVehicle.WaslId || 'N/A'}
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>IMEI Number</CustomLabel>
+                        {selectedVehicle.ImeiNumber || 'N/A'}
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>VehiclePlate</CustomLabel>
+                       { ( selectedVehicle.VehiclePlate?.LeftLetter +  selectedVehicle?.VehiclePlate?.LeftLetter  + selectedVehicle.VehiclePlate?.RightLetter + ` | `+ selectedVehicle.VehiclePlate?.Number) || 'N/A'} 
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>Plate Type</CustomLabel>
+                        {selectedVehicle.PlateType || 'N/A'}
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>Sequence Number</CustomLabel>
+                        {selectedVehicle.SequenceNumber || 'N/A'}
+                    </div>
+                {Companie && (
+                    <div className="flex flex-col gap-1 items-end">
+                        <CustomLabel bold>Company Name </CustomLabel>
+                        {Companie.Name || 'N/A'}
+                    </div>
+                )}
+                </div>
 
-            </div>
         </CustomModal>
     );
 }

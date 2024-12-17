@@ -39,7 +39,7 @@ let endpoint = `operationCompany`;
       title: "Company saved successfully",
       icon: "success",
     });
-    // yield put(clearOneData());
+    yield put(clearOneData());
   } catch (error: any) {
     console.log("error", error);
     Toast.fire({

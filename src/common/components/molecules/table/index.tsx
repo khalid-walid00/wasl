@@ -22,7 +22,7 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
 
   const pageData = useMemo(() => {
     const startIndex = pageIndex * pageSize;
-    return data.slice(startIndex, startIndex + pageSize);
+    return data?.slice(startIndex, startIndex + pageSize);
   }, [data, pageIndex, pageSize]);
   const {
     getTableProps,

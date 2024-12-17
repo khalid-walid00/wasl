@@ -1,21 +1,20 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import HeadTable from "~/common/components/molecules/headTable";
 import Table from "~/common/components/molecules/table";
 import VehicleHeader from "./components/header";
 import ActionList from "./components/actionList/ActionsMenu";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataRequest, setSearch,search, setSelectedRowId, setFilter } from "./vehicle.slice";
+import { fetchDataRequest, setSelectedRowId } from "./vehicle.slice";
 import TableModel from "./components/tableModel";
 import InquiryModel from "./components/inquiryModel";
 
 function Page() {
   const dispatch = useDispatch();
-  const {items:{Data},itemsSearch} = useSelector((state: any) => state.vehiclesSlice);
+  const {itemsSearch} = useSelector((state: any) => state.vehiclesSlice);
   useEffect(() => {
-    const endpoint = "vehicles/all";
+    const endpoint = "/vehicles/all";
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
-    dispatch(setFilter("Active"));
   }, [dispatch]);
 
 
@@ -23,9 +22,9 @@ function Page() {
   const columns = useMemo(
     () => [
       {
-        Header: 'Account',
-        accessor: 'Account',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.Account}</p>,
+        Header: 'ImeiNumber',
+        accessor: 'ImeiNumber',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.ImeiNumber}</p>,
       },
       {
         Header: 'Sequence Number',
@@ -35,7 +34,7 @@ function Page() {
       {
         Header: 'Plate Number',
         accessor: 'PlateNumber',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.PlateNumber}</p>,
+        Cell: (tableProps: any) => <p>({tableProps.row.original?.VehiclePlate?.Number+ ` | `+ tableProps.row.original?.VehiclePlate?.LeftLetter +  tableProps.row.original?.VehiclePlate?.LeftLetter  + tableProps.row.original?.VehiclePlate?.RightLetter })</p>,
       },
       {
         Header: 'Activity',
@@ -65,7 +64,7 @@ function Page() {
         header={<VehicleHeader />}
         columns={columns}
         handleRowClick={handleSelectedRowId}
-        data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
+        data={itemsSearch}
         loading={false}
         limit={10}
       />

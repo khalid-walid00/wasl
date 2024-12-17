@@ -81,66 +81,7 @@ interface StateTypes {
 }
 
 const items: ItemsTypes = {
-  Data: [
-    {
-      Id: "1",
-      Account: 999,
-      VehicleNo: "Vehicle-1234",
-      SequenceNumber: "1234",
-      PlateNumber: "1234",
-      IsDeletedFromWasl: false,
-      WaslId : "45254242",
-      PlateRightLetter: "X",
-      PlateMiddleLetter: "Y",
-      PlateType: 2,
-      PlateLeftLetter: "Z",
-      IMEINumber: "23456789",
-      WASLVehicleKey: "",
-      Response: "Approved",
-      RegistrationDate: "2024-11-20",
-      Activity: "Active",
-      Reply: "Success",
-    },
-    {
-      Id: "3",
-      Account: 888,
-      VehicleNo: "Vehicle-5747",
-      SequenceNumber: "1234",
-      PlateNumber: "1234",
-      PlateRightLetter: "X",
-      IsDeletedFromWasl: false,
-      WaslId : "",
-      PlateMiddleLetter: "Y",
-      PlateType: 6,
-      PlateLeftLetter: "Z",
-      IMEINumber: "23456789",
-      WASLVehicleKey: "WASL123456",
-      Response: "Approved",
-      RegistrationDate: "2024-11-20",
-      Activity: "Active",
-      Reply: "Success",
-    },
-    {
-      Id: "2",
-      Account: 102,
-      VehicleNo: "Vehicle-5678",
-      SequenceNumber: "5678",
-      PlateNumber: "5545",
-      PlateRightLetter: "j",
-      PlateMiddleLetter: "b",
-      PlateType: 1,
-      IsDeletedFromWasl: true,
-      WaslId : "",
-      PlateLeftLetter: "C",
-      IMEINumber: "9885437545345",
-      WASLVehicleKey: "WASL654321",
-      Response: "Pending",
-      RegistrationDate: "2023-05-15",
-      Activity: "Inactive",
-      Reply: "Processing",
-    }
-  ],
-    
+  Data: [], 
   Message:"",
   StatusCode:false
 };
@@ -156,7 +97,7 @@ const initialState: StateTypes = {
   vehicleId: null,
   itemsSearch: [],
   inquiryLoading: false,
-  inquiry: [],
+  inquiry: {},
   inquiryModel: false,
   modalRow: false,
   ActivityLoading: false,
@@ -174,6 +115,9 @@ export const vehiclesSlice = createSlice({
     },
     fetchDataFailed: (state) => {
       state.error = true;
+    },
+    fetchDataRequestSuccess(state) {
+      state.loading = false;
     },
     fetchOneData: (state, action) => {
       state.vehicleId = action.payload;
@@ -217,11 +161,11 @@ export const vehiclesSlice = createSlice({
         filterValue = { WaslId: false, IsDeletedFromWasl: true };
       }
     
-      if (value === " Active") {
+      if (value === "Active") {
         filterValue = { WaslId: true, IsDeletedFromWasl: false };
       }
-      state.itemsSearch = state.items.Data.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl
-    )
+      const newData = state?.items?.Data?.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl )
+      state.itemsSearch = newData;
     },
     search: (state) => {
       const { type, value } = state.searchItems;
@@ -292,6 +236,7 @@ export const {
   setData,
   setFilter,
   deleteItem,
+  fetchDataRequestSuccess,
   setSelectedRowId,
   setInquiryModel
 } = vehiclesSlice.actions;

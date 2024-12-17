@@ -10,9 +10,8 @@ import TableModel from "./components/tableModel";
 import InquiryModel from "./components/inquiryModel";
 
 function Page() {
-  const {items:{Data},itemsSearch,loading} = useSelector((state: any) => state.companiesSlice);
+  const {itemsSearch,loading} = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
- console.log("Data",Data);
  const columns = useMemo(
   () => [
     {
@@ -69,11 +68,8 @@ function Page() {
 );
   useEffect(() => {
     const endpoint = "/operationCompany/all";
-    dispatch(fetchDataRequest({ endpoint, params:null, method: "GET",body: null }));
+    dispatch(fetchDataRequest({ endpoint, params:null, method: "GET",body: null }))
     dispatch(setFilter("Active"));
-
-    
-
   }, []);
   const handleSelectedRowId = (rowId:any) => {
     dispatch(setSelectedRowId(rowId));
@@ -86,7 +82,7 @@ function Page() {
           header={<ComapnySearch />}
           columns={columns}
           handleRowClick={handleSelectedRowId}
-          data={itemsSearch.length > 0 ? itemsSearch : Data ?? []}
+          data={itemsSearch ?? []}
           loading={loading}
         />
       <TableModel/>

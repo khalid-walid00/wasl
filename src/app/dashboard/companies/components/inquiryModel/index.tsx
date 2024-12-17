@@ -3,6 +3,7 @@ import CustomLabel from '~/common/components/atoms/label';
 import CustomModal from '~/common/components/molecules/modal';
 import { fetchInquiry, setInquiryModel, setSelectedRowId } from '../../companies.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { LoadingScreen } from '~/common/components/templates/loadingSecreen';
 
 function InquiryModel() {
     const dispatch = useDispatch();
@@ -19,9 +20,11 @@ function InquiryModel() {
             dispatch(fetchInquiry({ method: "GET", endpoint }));
         }
     }, [company?.Id]);
-
+     
     return (
         <CustomModal isOpen={inquiryModel} onOpenChange={() => dispatch(setInquiryModel(null))} title="Inquiry">
+          {Object.keys(inquiry).length === 0 ? 
+            <LoadingScreen/>    :
             <div className="flex flex-col gap-3">
                 <div className="flex flex-col items-end gap-2">
                     <CustomLabel>Is Valid</CustomLabel>
@@ -46,6 +49,8 @@ function InquiryModel() {
                     <div>{inquiry?.RegistrationDate}</div>
                 </div>
             </div>
+          }
+
         </CustomModal>
     );
 }
