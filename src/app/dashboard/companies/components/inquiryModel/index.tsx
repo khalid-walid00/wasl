@@ -9,21 +9,26 @@ function InquiryModel() {
     const { inquiryModel, company, inquiry } = useSelector((state: any) => state.companiesSlice);
     let endpoint
     if (company?.IdentityNumber?.startsWith("70")) {
-        endpoint = `/operationCompany/inquiry-individual?operationCompanyId=${company?.Id}`
-    } else {
         endpoint = `/operationCompany/inquiry-company?operationCompanyId=${company?.Id}`
+    } else {
+        endpoint = `/operationCompany/inquiry-individual?operationCompanyId=${company?.Id}`
 
     }
     useEffect(() => {
-        dispatch(fetchInquiry({ method: "GET", endpoint }));
-    }, [dispatch,company]);
-console.log(inquiry);
+        if (company?.Id) { 
+            dispatch(fetchInquiry({ method: "GET", endpoint }));
+        }
+    }, [company?.Id]);
+
     return (
         <CustomModal isOpen={inquiryModel} onOpenChange={() => dispatch(setInquiryModel(null))} title="Inquiry">
             <div className="flex flex-col gap-3">
                 <div className="flex flex-col items-end gap-2">
                     <CustomLabel>Is Valid</CustomLabel>
-                    <div className="">{inquiry?.IsValid ? "Valid" : "Invalid"}</div>
+                    {inquiry?.IsValid ? 
+                        <div className='  bg-green-600 rounded-md px-4 py-1 text-white '>Valid</div> :
+                        <div className='  bg-red-600 rounded-md px-4 py-1 text-white '>Invalid</div> 
+                    }
                 </div>
 
                 <div className="flex flex-col items-end  gap-2">

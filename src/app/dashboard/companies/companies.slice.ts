@@ -89,6 +89,7 @@ export const companiesSlice = createSlice({
     },
 
     fetchInquiry: (state, action) => {
+      console.log("fetchInquiry",action.payload);
       state.inquiryLoading = true;
     },
     
