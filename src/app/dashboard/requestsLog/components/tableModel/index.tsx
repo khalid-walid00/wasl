@@ -14,7 +14,7 @@ function TableModel() {
             <div>
                 {
                     Data?.filter((item: any) => item.Id === requestId)?.map((item: any, index: number) => (
-                        <div key={index} className="flex gap-4">
+                        <div key={index} className="flex md:flex-row flex-col  gap-4">
                             <div className=" flex   gap-4">
                                 <div className="flex  w-1/2 flex-col gap-1 items-end h-full">
                                     <CustomLabel bold>Request Body</CustomLabel>
