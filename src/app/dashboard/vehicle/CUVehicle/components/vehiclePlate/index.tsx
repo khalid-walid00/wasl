@@ -5,24 +5,13 @@ import CustomInput from "~/common/components/atoms/input";
 import { setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
 
 function VehiclePlate() {
-  const {vehicle: {VehiclePlate},} = useSelector((state: any) => state.vehiclesSlice); 
+  const { VehiclePlate } = useSelector((state: any) => state.vehiclesSlice?.vehicle || {});
 
   const dispatch = useDispatch();
 
-  const handleVehiclePlateNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ VehiclePlate: {...VehiclePlate, Number: e.target.value } }));
-  };
-
-  const handlePlateRightLetterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ VehiclePlate: {...VehiclePlate, RightLetter: e.target.value } }));
-  };
-
-  const handlePlateMiddleLetterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ VehiclePlate: { ...VehiclePlate, MiddleLetter: e.target.value } }));
-  };
-
-  const handlePlateLeftLetterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ VehiclePlate: {...VehiclePlate, LeftLetter: e.target.value } }));
+  const handlePlateChange = (key: string, value: string) => {
+    if (VehiclePlate) dispatch(setCUData({VehiclePlate: {...VehiclePlate,[key]: value},}));
+    
   };
 
   return (
@@ -33,35 +22,36 @@ function VehiclePlate() {
           <span className="text-gray-600 text-center">Letter</span>
           <div className="grid grid-cols-3 gap-2">
             <CustomInput
-              value={VehiclePlate?.RightLetter}
+              value={VehiclePlate?.RightLetter || ''}
               style={{ textAlign: "center" }}
-              onChange={handlePlateRightLetterChange}
+              onChange={(e) => handlePlateChange('RightLetter', e.target.value)}
               maxLength={1}
               placeholder="Right"
             />
             <CustomInput
-              value={VehiclePlate?.MiddleLetter}
+              value={VehiclePlate?.MiddleLetter || ''}
               style={{ textAlign: "center" }}
-              onChange={handlePlateMiddleLetterChange}
+              onChange={(e) => handlePlateChange('MiddleLetter', e.target.value)}
               maxLength={1}
               placeholder="Middle"
             />
             <CustomInput
-              value={VehiclePlate?.LeftLetter}
+              value={VehiclePlate?.LeftLetter || ''}
               style={{ textAlign: "center" }}
-              onChange={handlePlateLeftLetterChange}
+              onChange={(e) => handlePlateChange('LeftLetter', e.target.value)}
               maxLength={1}
               placeholder="Left"
             />
           </div>
         </div>
+
         <div className="flex flex-col col-span-3 gap-1">
           <span className="text-gray-600 text-center">Number</span>
           <CustomInput
-            value={VehiclePlate?.Number}
+            value={VehiclePlate?.Number || ''}
             style={{ textAlign: "center" }}
             maxLength={4}
-            onChange={handleVehiclePlateNumberChange}
+            onChange={(e) => handlePlateChange('Number', e.target.value)}
             placeholder="Number"
           />
         </div>
