@@ -7,14 +7,13 @@ import { LoadingScreen } from '~/common/components/templates/loadingSecreen';
 
 function InquiryModel() {
     const dispatch = useDispatch();
-    const { inquiryModel, vehicle,inquiry} = useSelector((state: any) => state.vehiclesSlice);
-     const endpoint =`/vehicles/vehicle-inquiry?VehicleId=${vehicle?.Id}`
-
+    const { inquiryModel,inquiry} = useSelector((state: any) => state.vehiclesSlice);
+     const endpoint =`/vehicles/vehicle-inquiry?VehicleId=${inquiry?.Id}`
      useEffect(() => {
-        if (vehicle?.Id) { 
+        if (inquiry?.Id) { 
             dispatch(fetchInquiry({ method: "GET", endpoint }));
         }
-    }, [vehicle?.Id]);
+    }, [inquiry?.Id]);
 
     return (
         <CustomModal isOpen={inquiryModel} onOpenChange={() => dispatch(setInquiryModel(null))} title="Inquiry">

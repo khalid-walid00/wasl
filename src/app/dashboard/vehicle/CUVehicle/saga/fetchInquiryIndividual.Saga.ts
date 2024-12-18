@@ -5,9 +5,7 @@ import { setInquiry } from "../../vehicle.slice";
 
 export function* fetchInquiryVehicle(action: any): Generator<any, void, any> {
   try {
-    const { params, method, body , vehicleId} = action.payload;
-    const endpoint = `vehicles/vehicle-inquiry?VehicleId=675ad4baac12422051144236`;
-    console.log(endpoint, params, method, body);
+    const { params, method, body , endpoint} = action.payload;
     const response = yield call(fetchDataFromApi, endpoint, params, method, body);
     yield put(setInquiry(response));
   } catch (error: any) {
