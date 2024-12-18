@@ -15,7 +15,7 @@ interface TooltipOption {
 interface CustomSelectorProps {
   label?: string;
   options: Option[];
-  value: string | null;
+  value: string | null | number;
   onChange: (selectedValue: any) => void;
   placeholder?: string;
   isClearable?: boolean;

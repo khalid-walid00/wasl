@@ -6,7 +6,6 @@ export const useSearch = (
 ) => {
   const dispatch = useDispatch();
   const searchItems = useSelector((state: any) => state[sliceName]?.searchItems || { type: "", value: "" });
-console.log(searchItems);
   const handleSearch = (value: any, type: string) => {
     dispatch(setSearchAction({ type, value }));
   };

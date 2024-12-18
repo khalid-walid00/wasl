@@ -1,6 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { configuerStore } from "~/app/appSlice";
-import analysisReducer from "~/app/dashboard/analysis/analysisSlice";
 import companiesSlice from "~/app/dashboard/companies/companies.slice";
 import forgetPassword  from "~/app/(auth)/forgetPassword/forgetPassword.slice";
 import  vehiclesSlice  from "~/app/dashboard/vehicle/vehicle.slice";

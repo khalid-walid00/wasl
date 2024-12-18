@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SearchItems {
   type: string;
-  value: string | null;
+  value: string | null  | number;
 }
 
 const searchItems: SearchItems = {
@@ -63,53 +63,7 @@ interface StateTypes {
 }
 
 const items: ItemsTypes = {
-  Data: [
-    {
-      Id: "675d6410b367ea8c1804cee3",
-      EntityType: 2,
-      EntityId: "675d640fb367ea8c1804cee2",
-      Endpoint: "tracking/v1/operating-companies/BC2C3593-DFE1-4A50-AA8E-52146E88118F/vehicles",
-      Method: "POST",
-      RequestBody: {
-        sequenceNumber: "814102010",
-        vehiclePlate: {
-          number: "9781",
-          rightLetter: "أ",
-          middleLetter: "ع",
-          leftLetter: "أ"
-        },
-        plateType: 1,
-        imeiNumber: "135320135199367",
-        activity: "DEFAULT"
-      },
-      ResponseBody: "{\"resultCode\":\"vehicle_not_found\",\"success\":false}cccccccccccccccccccccccccccccccccc",
-      StatusCode: 400,
-      Error: "Error: vehicle_not_found",
-      RequestTime: "2024-12-14T10:55:11.961Z",
-      ResponseTime: "2024-12-14T10:55:12.795Z",
-      RequestDurationInSeconds:0
-    },
-    {
-      Id: "675d64443a01d932e063b0bc",
-      EntityType: 3,
-      EntityId: "675c63ffc1128b160122f2e8",
-      Endpoint: "tracking/v1/operating-companies/BC2C3593-DFE1-4A50-AA8E-52146E88118F/drivers",
-      Method: "POST",
-      RequestBody: {
-        identityNumber: "675c63ffc1128b160122f2e8",
-        dateOfBirthHijri: "1443-01-02",
-        dateOfBirthGregorian: null,
-        mobileNumber: "+966321523021",
-        activity: "DEFAULT"
-      },
-      ResponseBody: "{\"errorCode\":\"bad_request\",\"errorMsg\":\"identityNumber is not valid\"}",
-      StatusCode: 400,
-      Error: "Error: identityNumber is not valid",
-      RequestTime: "2024-12-14T10:56:04.044Z",
-      ResponseTime: "2024-12-14T10:56:04.398Z",
-      RequestDurationInSeconds:0
-    }
-  ],
+  Data:[],
   Message: "",
   StatusCode: false
 };
@@ -153,6 +107,9 @@ export const requestsLogSlice = createSlice({
     fetchInquiry: (state, action) => {
       state.inquiryLoading = true;
     },
+    fetchDataRequestSuccess(state) {
+      state.loading = false;
+    },
     setInquiry: (state, action) => {
       state.inquiry = action.payload;
     },
@@ -167,21 +124,21 @@ export const requestsLogSlice = createSlice({
       const { type, value } = action.payload;
       state.searchItems.type = type;
       state.searchItems.value = value;
-    },
-    sendData: (state) => {
-      state.loading = true;
-    },
-    search: (state) => {
-      const { type, value } = state.searchItems;
+      
       if (value !== null) {
-        const matchingItems = state.items.Data.filter((item: any) =>
+        const matchingItems = state.items?.Data?.filter((item: any) =>
           item[type] && item[type].toString().includes(value)
-        );
+      );
         state.itemsSearch = matchingItems;
       } else {
         state.itemsSearch = [];
       }
+
+     },
+    sendData: (state) => {
+      state.loading = true;
     },
+
     addItem: (state, action: PayloadAction<DataTypes>) => {
       state.items.Data.unshift(action.payload);
     },
@@ -227,9 +184,9 @@ export const {
   toggleModel,
   clearRequest,
   clearOneData,
+  fetchDataRequestSuccess,
   replaceItem,
   setCUData,
-  search,
   setInquiry,
   fetchInquiry,
   sendData,

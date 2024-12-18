@@ -1,12 +1,13 @@
 
-export const statuses= [
-  { value: "Active", label: "Active" },
-  { value: "Inactive", label: "Inactive" },
-  { value: "", label: "delete" },
+export const statusMethods= [
+  { value: "GET", label: "GET" },
+  { value: "POST", label: "POST" },
+  { value: "PUT", label: "PUT" },
+  { value: "DELETE", label: "DELETE" },
 ];
-
-export const tooltipOptions = [
-  { id: "Active", tooltipContent: "المركبات الموجوده في wasl" },
-  { id: "Inactive", tooltipContent: "المركبات الغير موجوده في wasl" },
-  { id: "", tooltipContent: "المركبات المحذوفه من wasl فقط" },
+export const status= [
+  { value: 400, label: "400" },
+  { value: 500, label: "500" },
+  { value: 200, label: "200" },
+  { value: 404, label: "404" },
 ];
