@@ -18,7 +18,7 @@ const vehicleRegisterSchema = Yup.object({
   OperationCompanyId: Yup.string()
     .required("Operation company ID is mandatory."),
 
-  VehiclePlate: Yup.object({
+    VehiclePlate: Yup.object({
     Number: Yup.string()
       .required("Plate number is mandatory."),
 

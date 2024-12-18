@@ -1,12 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Toast } from "~/utils/libraries";
 
-let url;
-if (typeof window !== 'undefined') {
-  url = new URL(window.location.href);
-} else {
-  url = new URL('http://localhost:3055');
-}
 
 interface SearchItems {
   type: string;
@@ -18,51 +11,54 @@ const searchItems: SearchItems = {
   value: null
 };
 
-interface DataTypes {
-  Id: string;
-  Account: number | null;
-  VehicleNo: string;
-  SequenceNumber: string;
-  PlateNumber: string;
-  PlateRightLetter: string;
-  PlateMiddleLetter: string;
-  WaslId: string | null;
-  IsDeletedFromWasl: boolean;
-  PlateLeftLetter: string;
-  PlateType: number | null;
-  IMEINumber: string;
-  WASLVehicleKey: string;
-  Response: string;
-  RegistrationDate: string;
-  Activity: string;
-  Reply: string;
+interface VehiclePlate {
+  Number: string;
+  RightLetter: string;
+  MiddleLetter: string;
+  LeftLetter: string;
 }
 
+interface DataTypes {
+  Id: string;
+  WaslId: string | null;
+  IsDeletedFromWasl: boolean;
+  CreatedDate: string;
+  Activity: string;
+  CreatedBy: string;
+  OperationCompanyId: string;
+  SequenceNumber: string;
+  VehiclePlate: VehiclePlate;
+  PlateType: number;
+  ImeiNumber: string;
+  VehicleInfo: any; 
+}
 
 interface ItemsTypes {
   Data: DataTypes[];
   Message: string;
   StatusCode: boolean;
 }
-const vehicle: DataTypes | null = {
+
+const vehicle: any | null = {
   Id: "",
-  Account:null ,
-  VehicleNo: "",
   WaslId: null,
   IsDeletedFromWasl: false,
+  CreatedDate: "",
+  Activity: "DEFAULT",
+  CreatedBy: "",
+  OperationCompanyId: "",
   SequenceNumber: "",
-  PlateNumber: "",
-  PlateRightLetter: "",
-  PlateMiddleLetter: "",
-  PlateType: null,
-  PlateLeftLetter: "",
-  IMEINumber: "",
-  WASLVehicleKey: "",
-  Response: "",
-  RegistrationDate: "",
-  Activity: "",
-  Reply: "",
+  VehiclePlate: {
+    Number: "",
+    RightLetter: "",
+    MiddleLetter: "",
+    LeftLetter: "",
+  },
+  PlateType: 1,
+  ImeiNumber: "",
+  VehicleInfo: null,
 };
+
 interface StateTypes {
   items: ItemsTypes;
   loading: boolean;
@@ -72,7 +68,7 @@ interface StateTypes {
   inquiryLoading: boolean;
   inquiry: any;
   filter: string;
-  vehicle: DataTypes | null;
+  vehicle: any | null;
   vehicleId: string | null;
   showModel: boolean;
   modalRow: boolean;
@@ -81,9 +77,9 @@ interface StateTypes {
 }
 
 const items: ItemsTypes = {
-  Data: [], 
-  Message:"",
-  StatusCode:false
+  Data: [],
+  Message: "",
+  StatusCode: false
 };
 
 const initialState: StateTypes = {
@@ -93,7 +89,7 @@ const initialState: StateTypes = {
   showModel: false,
   searchItems,
   vehicle,
-  filter:'' ,
+  filter: '',
   vehicleId: null,
   itemsSearch: [],
   inquiryLoading: false,
@@ -122,14 +118,13 @@ export const vehiclesSlice = createSlice({
     fetchOneData: (state, action) => {
       state.vehicleId = action.payload;
       const vehicle = state.items.Data.find((item) => item.Id === action.payload);
-       if (vehicle) {
+      if (vehicle) {
         state.vehicle = vehicle;
       }
     },
     fetchInquiry: (state, action) => {
       state.inquiryLoading = true;
     },
-    
     setInquiry: (state, action) => {
       state.inquiry = action.payload;
     },
@@ -138,7 +133,7 @@ export const vehiclesSlice = createSlice({
       state.loading = false;
     },
     setCUData: (state, action) => {
-      state.vehicle =  {...state.vehicle, ...action.payload};
+      state.vehicle = { ...state.vehicle, ...action.payload };
     },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
@@ -148,32 +143,37 @@ export const vehiclesSlice = createSlice({
     sendData: (state) => {
       state.loading = true;
     },
-    setFilter:(state, action) => {
-      const  value  = action.payload;
-      state.filter = value; 
+    setFilter: (state, action) => {
+      const value = action.payload;
+      state.filter = value;
       let filterValue = { WaslId: true, IsDeletedFromWasl: false };
-    
+
       if (value === "Inactive") {
         filterValue = { WaslId: false, IsDeletedFromWasl: false };
       }
-    
+
       if (value === "Delete") {
         filterValue = { WaslId: false, IsDeletedFromWasl: true };
       }
-    
+
       if (value === "Active") {
         filterValue = { WaslId: true, IsDeletedFromWasl: false };
       }
-      const newData = state?.items?.Data?.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl )
+
+      const newData = state?.items?.Data?.filter(
+        (item) =>
+          Boolean(item.WaslId) == filterValue.WaslId &&
+          Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl
+      );
       state.itemsSearch = newData;
     },
     search: (state) => {
       const { type, value } = state.searchItems;
       if (value !== null) {
-        const matchingItems = state.items.Data.filter((item: any) => 
-          item[type] && item[type].toString().includes(value)
+        const matchingItems = state.items.Data.filter(
+          (item: any) =>
+            item[type] && item[type].toString().includes(value)
         );
-        console.log("matchingItems", matchingItems);
         state.itemsSearch = matchingItems;
       } else {
         state.itemsSearch = [];
@@ -183,7 +183,7 @@ export const vehiclesSlice = createSlice({
       state.items.Data.unshift(action.payload);
     },
     replaceItem: (state, action: PayloadAction<{ Data: Partial<DataTypes> & { Id: string } }>) => {
-      const Data  = action.payload.Data;
+      const Data = action.payload.Data;
       const index = state.items.Data.findIndex((item) => item.Id === Data?.Id);
       if (index !== -1) {
         state.items.Data[index] = { ...state.items.Data[index], ...Data };
@@ -197,22 +197,22 @@ export const vehiclesSlice = createSlice({
       state.vehicle = vehicle;
       state.vehicleId = null;
       state.showModel = !state.showModel;
-  },
-  clearOneData: (state) => {
-    state.vehicle = vehicle;
-  },
-    toggleModel: (state,action) => { 
+    },
+    clearOneData: (state) => {
+      state.vehicle = vehicle;
+    },
+    toggleModel: (state, action) => {
       state.showModel = !state.showModel;
       if (action.payload) state.vehicleId = action.payload;
     },
     setSelectedRowId: (state, action) => {
-      if(action.payload ) state.vehicleId = action.payload;
-      state.modalRow =  !state.modalRow
-      if(!state.modalRow) state.vehicleId=null
+      if (action.payload) state.vehicleId = action.payload;
+      state.modalRow = !state.modalRow;
+      if (!state.modalRow) state.vehicleId = null;
     },
     setInquiryModel: (state, action) => {
-      if(action.payload) state.inquiry = action.payload;
-      state.inquiryModel =  !state.inquiryModel
+      if (action.payload) state.inquiry = action.payload;
+      state.inquiryModel = !state.inquiryModel;
     },
   }
 });

@@ -16,16 +16,15 @@ export function* sendDataSaga(): Generator<any, void, any> {
   console.log("vehicle", vehicle);
   try {
     const result = yield call(validateVehicleData, vehicle);
-
     if (!result.valid) {
       Toast.fire({
-        title: result.errors.split(" | ").map((msg: any) => `<p>${msg}</p>`).join(""),
+        title: result.errors?.map((msg: string) => `<p>${msg}</p>`)?.join(""),
         icon: "error",
       });
-
+    
       return;
     }
-    // const response = yield performMutation(vehicle, endpoint);
+    const response = yield performMutation(vehicle, endpoint);
 
 
     if (vehicleId) {

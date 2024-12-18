@@ -53,7 +53,7 @@ const CUCompaniesComponent = ({ _id }: any) => {
             <EmailAddress />
             <UplevelOperationCompanyId />
             {
-              company?.IdentityNumber.startsWith("70") ? <>
+              company?.IdentityNumber?.startsWith("70") ? <>
                 <CommercialRecordNumber />
                 <CommercialRecordIssueDateHijri />
                 <ManagerName />
