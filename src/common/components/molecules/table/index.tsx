@@ -79,7 +79,7 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
   }
 ];
   const pagination = () => (
-    <div className=" w-full flex sm:flex-row items-center flex-col gap-y-3 justify-between">
+    <div className=" w-full flex sm:flex-row sm:items-center flex-col gap-y-3 justify-between">
      <div className=" flex gap-6 items-center ">
       <div className=" flex items-center gap-4">
       <button
