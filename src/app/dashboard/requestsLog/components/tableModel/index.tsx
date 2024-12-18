@@ -15,7 +15,7 @@ function TableModel() {
                 {
                     Data?.filter((item: any) => item.Id === requestId)?.map((item: any, index: number) => (
                         <div key={index} className="flex md:flex-row flex-col  gap-4">
-                            <div className=" flex   gap-4">
+                            <div className=" flex h-full   gap-4">
                                 <div className="flex  w-1/2 flex-col gap-1 items-end h-full">
                                     <CustomLabel bold>Request Body</CustomLabel>
                                     <Editor code={item.RequestBody} />
@@ -27,7 +27,7 @@ function TableModel() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="grid grid-cols-1 w-4/12 gap-3">
+                            <div className="grid grid-cols-1 md:w-4/12 w-full gap-3">
                                 <div className="flex flex-col gap-1 items-end">
                                     <CustomLabel bold>ID</CustomLabel>
                                     {item.Id}
