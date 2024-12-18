@@ -8,14 +8,30 @@ function TableModel() {
     const dispatch = useDispatch();
     const { modalRow, companyId, items: { Data } } = useSelector((state: any) => state.companiesSlice);
     return (
-        <CustomModal isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
+        <CustomModal size='lg' isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
             <div>
                 {
                     Data?.filter((item: any) => item.Id === companyId)?.map((item: any, index: number) => (
                         <div key={index} className=" grid grid-cols-2 gap-3">
                             <div className="flex flex-col gap-1 items-end  text-end">
+                                <CustomLabel bold>Name</CustomLabel>
+                                {item.Name || 'N/A'}
+                            </div>
+                            <div className="flex flex-col gap-1 items-end  text-end">
+                                <CustomLabel bold>EmailAddress</CustomLabel>
+                                {item.EmailAddress || 'N/A'}
+                            </div>
+                            <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Wasl Id</CustomLabel>
                                 {item.WaslId || 'N/A'}
+                            </div>
+                            <div className="flex flex-col gap-1 items-end  text-end">
+                                <CustomLabel bold>Phone Number</CustomLabel>
+                                {item.PhoneNumber || 'N/A'}
+                            </div>
+                            <div className="flex flex-col gap-1 items-end  text-end">
+                                <CustomLabel bold>Identity Number</CustomLabel>
+                                {item.IdentityNumber || 'N/A'}
                             </div>
                             <div className="flex flex-col gap-1 items-end  text-end">
                                 <CustomLabel bold>Created Date</CustomLabel>
