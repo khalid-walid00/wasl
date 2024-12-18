@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideBar } from "~/app/appSlice";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import UserOptionsTemplates from "../templates/userOptions";
-import SearchTemplates from "../templates/search";
+import Button from "../atoms/button";
+import { Tooltip } from "@nextui-org/react"; 
+import { FaServer } from "react-icons/fa";
 
 
 export default function PrimarySearchAppBar({ iconToggle = false }: { iconToggle?: boolean }) {
@@ -13,7 +14,6 @@ export default function PrimarySearchAppBar({ iconToggle = false }: { iconToggle
   const dispatch = useDispatch();
   const { showSideBar } = useSelector((state: any) => state.config);
   const [isLoading, setIsLoading] = useState(false);
-  const locale = "ar"
   if (isLoading) {
     return (
       <div
@@ -32,21 +32,29 @@ export default function PrimarySearchAppBar({ iconToggle = false }: { iconToggle
       </div>
     );
   }
-
+ function clearPersistedData() {
+  localStorage.removeItem("persist:root");
+  window.location.reload();
+ }
   return (
     <div className="sticky bg-[#fff] top-0 z-[99999] shadow-sm " >
       <div className="w-full flex justify-start items-center border-b border-[#EFEFEF] h-[61px] px-4 md:px-5">
-        <div className={`w-full flex flex-wrap items-center flex-col-reverse lg:flex-row gap-y-2 `}>
-          <div className={`flex  w-full lg:w-6/12  sm:gap-6 gap-3 items-center justify-between flex-row`}>
-            
-            <HiOutlineMenuAlt3 onClick={() => dispatch(toggleSideBar(!showSideBar))} className={`${showSideBar ? "0" : "rotate-180"} ${iconToggle ? "block" : "hidden"}  md:hidden transition-all duration-300 cursor-pointer text-mainColor w-[40px] h-[40px]`} />
+        <div className={`w-full flex justify-between items-center`}>
+          <div className="">
+          <Tooltip classNames={
+            {
+              content: "border-red-600 border rounded-md bg-white shadow-lg",
+            }
+          } content={<div className=" py-1">Get All Data From Server</div>} placement="bottom">
+          <div className="">
+              <Button style={{backgroundColor: "red"}} onClick={clearPersistedData} primary>
+              <FaServer />
+              </Button>
           </div>
-          <div className={`flex  w-full lg:w-6/12   flex-row justify-end xs:justify-end gap-3 text-white items-center `} >
-            {/* <div className="w-full">
-              <SearchTemplates />
-            </div> */}
-            <HiOutlineMenuAlt3 onClick={() => dispatch(toggleSideBar(!showSideBar))} className={`${showSideBar ? "0" : "rotate-180"} ${iconToggle ? "md:block hidden" : "hidden"} transition-all duration-300 cursor-pointer text-mainColor w-[40px] h-[40px]`}/>
+            </Tooltip>
           </div>
+        <HiOutlineMenuAlt3 onClick={() => dispatch(toggleSideBar(!showSideBar))} className={`${showSideBar ? "0" : "rotate-180"} ${iconToggle ? "block" : "hidden"} transition-all duration-300 cursor-pointer text-mainColor w-[40px] h-[40px]`}/>
+
         </div>
       </div>
     </div>

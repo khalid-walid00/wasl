@@ -12,13 +12,8 @@ const persistConfig: any = {
   storage,
   blacklist: [
   "forgetPassword",
-  "driversSlice",
-  "requestsLogSlice"
   ],
-  // whitelist: [
-  // "companiesSlice"
-    
-  // ],
+
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

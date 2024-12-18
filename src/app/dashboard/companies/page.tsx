@@ -46,7 +46,7 @@ function Page() {
       Header: 'Wasl Id',
       accessor: 'Wasl Id',
       Cell: (tableProps: any) => {
-        return <p>{tableProps.row.original?.WaslId}</p>;
+        return <p>{tableProps.row.original?.WaslId || 'N/A'}</p>;
       },
     },
 
