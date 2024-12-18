@@ -16,11 +16,11 @@ function TableModel() {
                     Data?.filter((item: any) => item.Id === requestId)?.map((item: any, index: number) => (
                         <div key={index} className="flex md:flex-row flex-col  gap-4">
                             <div className=" flex h-full   gap-4">
-                                <div className="flex  w-1/2 flex-col gap-1 items-end h-full">
+                                <div className="flex  w-1/2 flex-col gap-1 items-end min-h-96 h-full">
                                     <CustomLabel bold>Request Body</CustomLabel>
                                     <Editor code={item.RequestBody} />
                                 </div>
-                                <div className="flex w-1/2 flex-col gap-1 items-end h-full overflow-auto">
+                                <div className="flex w-1/2 flex-col gap-1 items-end min-h-96 h-full overflow-auto">
                                     <CustomLabel bold>Response Body</CustomLabel>
                                     <div className="h-full">
                                         <Editor code={item.ResponseBody} />
