@@ -109,3 +109,6 @@
     overflow-wrap: anywhere;
     display: inline;
 }
+.react-datepicker__input-container ,.react-datepicker-wrapper {
+  width: 100% !important;
+}

@@ -12,8 +12,8 @@ function* performMutation(variables: any, endpoint: string): Generator<any, any,
 
 export function* sendDataSaga(): Generator<any, void, any> {
   const { company ,companyId } = yield select((state: any) => state.companiesSlice);
-let endpoint = `operationCompany`;
-   if (companyId)  endpoint = `operationCompany`
+let endpoint = `/operationCompany/register`;
+   if (companyId)  endpoint = `/operationCompany/update`
 
   try {
     const result = yield call(validateCompanyData, company);

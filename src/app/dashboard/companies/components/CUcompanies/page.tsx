@@ -5,7 +5,7 @@ import HeadTable from "~/common/components/molecules/headTable";
 import NameInput from "./components/companyName";
 import IdentityNumber from "./components/identityNumber";
 import CommercialRecordNumber from "./components/commercialRecordNumber";
-import CommercialRecordIssueDateHijri from "./components/commercialRecordIssueDateHijri";
+import CommercialRecordIssueDateHijri from "../../../../../common/components/molecules/DateHijri";
 import ExtensionNumber from "./components/ExtensionNumber";
 import CompanyActivity from "./components/companyActivity";
 import DateOfBirthHijri from "./components/DateOfBirthHijri";
@@ -17,14 +17,14 @@ import ManagerPhoneNumber from "./components/ManagerPhoneNumber";
 import ManagerMobileNumber from "./components/ManagerMobileNumber";
 import UplevelOperationCompanyId from "./components/uplevelOperationCompanyId";
 import Button from "~/common/components/atoms/button";
-import { fetchOneData, clearOneData, sendData } from "../../companies.slice";
+import { fetchOneData, clearOneData, sendData, setCUData, changeRegisterType } from "../../companies.slice";
 import { AiOutlineReload } from "react-icons/ai";
+import DynamicDateInputHijr from "../../../../../common/components/molecules/DateHijri";
 
-const CUCompaniesComponent = ({ _id }:any) => {
+const CUCompaniesComponent = ({ _id }: any) => {
   const dispatch = useDispatch();
-  const { company } = useSelector((state: any) => state.companiesSlice);
-  const [registerType, setRegisterType] = useState<string>("");
-  console.log("company", company);
+  const { company, companyType } = useSelector((state: any) => state.companiesSlice);
+  console.log("company",company);
   useEffect(() => {
     if (_id) {
       dispatch(fetchOneData(_id));
@@ -42,35 +42,45 @@ const CUCompaniesComponent = ({ _id }:any) => {
   };
   const handelChangeType = (type: string) => {
     dispatch(clearOneData());
-    setRegisterType(type)
+    dispatch(changeRegisterType(type));
   }
   const renderFields = () => {
-    switch (registerType) {
+    switch (companyType) {
       case "Corporate":
         return (
           <>
             <NameInput />
-            <IdentityNumber registerType="Corporate" />
+            <IdentityNumber />
             <CommercialRecordNumber />
-            <CommercialRecordIssueDateHijri />
+            <DynamicDateInputHijr
+              label="Commercial Record Issue Date (Hijri)"
+              slice="companiesSlice"
+              field="CommercialRecordIssueDateHijri"
+            />
             <ManagerName />
             <EmailAddress />
+            <CompanyActivity />
             <ManagerPhoneNumber />
             <ManagerMobileNumber />
             {/* <DateOfBirthGregorian /> */}
-          </>
+            <PhoneNumber />
+            </>
         );
       case "Individual":
         return (
           <>
             <NameInput />
-            <IdentityNumber registerType="Individual" />
-            <ExtensionNumber />
+            <IdentityNumber />
+            {/* <ExtensionNumber /> */}
             <CompanyActivity />
+            <DynamicDateInputHijr
+              label="Date Of Birth (Hijri)"
+              slice="companiesSlice"
+              field="DateOfBirthHijri"
+            />
             <PhoneNumber />
             <EmailAddress />
             {/* <UplevelOperationCompanyId /> */}
-            <DateOfBirthHijri />
           </>
         );
       default:
@@ -91,23 +101,23 @@ const CUCompaniesComponent = ({ _id }:any) => {
             <div className="flex flex-col gap-6 w-full items-center justify-between">
               <div className="flex gap-8">
 
-                <Button primary={registerType == "Corporate"} onClick={() => handelChangeType("Corporate")}>
-                Corporate
+                <Button primary={companyType == "Corporate"} onClick={() => handelChangeType("Corporate")}>
+                  Corporate
                 </Button>
-                <Button primary={registerType == "Individual"} onClick={() => handelChangeType("Individual")}>
+                <Button primary={companyType == "Individual"} onClick={() => handelChangeType("Individual")}>
                   Individual
                 </Button>
               </div>
-              <div className={`grid ${registerType == "" ? " grid-cols-1" : "grid-cols-2"}  gap-4 w-full`}>{renderFields()}</div>
-             { registerType !=="" &&
-              <div className="flex flex-col w-5/12 gap-6">
-                <Button onClick={handleSendData} primary className="px-8 w-full">
-                  Register
-                </Button>
-                <Button onClick={handleClearData} className="px-8 w-full">
-                  Clear
-                </Button>
-              </div>}
+              <div className={`grid ${companyType == "" ? " grid-cols-1" : "grid-cols-2"}  gap-4 w-full`}>{renderFields()}</div>
+              {companyType !== "" &&
+                <div className="flex flex-col w-5/12 gap-6">
+                  <Button onClick={handleSendData} primary className="px-8 w-full">
+                    Register
+                  </Button>
+                  <Button onClick={handleClearData} className="px-8 w-full">
+                    Clear
+                  </Button>
+                </div>}
             </div>
           </div>
         </div>

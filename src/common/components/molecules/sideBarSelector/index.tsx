@@ -45,18 +45,18 @@ function SideBarSelector({ className, title, content }: Props) {
             >
               {!item.list?.length ? (
                 item.href ? (
-                  <Link href={item.href} className={`items-center flex flex-row  gap-2`}>
+                  <Link href={item.href} className={`items-center flex flex-row  w-full gap-2`}>
+                    {item.icon}
                     {showSideBar && (
                       <div className="md:text-[14px] text-base self-center">{item.text}</div>
                     )}
-                    {item.icon}
                   </Link>
                 ) : (
-                  <button className={`items-center flex flex-row  gap-2`} onClick={item.onClick}>
+                  <button className={`items-center flex flex-row  gap-2 w-full`} onClick={item.onClick}>
+                    {item.icon}
                     {showSideBar && (
                       <div className="md:text-[14px] text-base self-center">{item.text}</div>
                     )}
-                    {item.icon}
                   </button>
                 )
               ) : (

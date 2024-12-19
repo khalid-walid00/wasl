@@ -22,7 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={"ar"} dir={"rtl"}>
+    <html lang={"en"} dir={"ltr"}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

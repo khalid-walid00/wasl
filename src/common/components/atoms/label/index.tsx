@@ -11,7 +11,7 @@ function CustomLabel({ children, primary, bold, className = "", htmlFor, ...rest
   return (
     <label
       htmlFor={htmlFor}
-      className={`text-end text-lg ${bold ? "font-bold" : "font-normal"} ${
+      className={` text-lg ${bold ? "font-bold" : "font-normal"} ${
         primary ? "text-grayG" : "text-blackBlue"
       } ${className}`}
       {...rest}

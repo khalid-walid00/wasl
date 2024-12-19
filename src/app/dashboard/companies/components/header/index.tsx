@@ -16,8 +16,11 @@ function ComapnyHeader() {
 
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
-    <div className=" flex gap-3 flex-col sm:flex-row">
-      <div className="grid md:grid-cols-4 grid-cols-2 gap-2 w-full sm:w-11/12">
+    <div className=" flex gap-3 flex-col justify-between sm:flex-row">
+      <div className="w-full sm:w-2/12">
+        <Button onClick={() => dispatch(search())}>Search</Button>
+      </div>
+      <div className="grid md:grid-cols-3 grid-cols-2 gap-2 w-full sm:w-8/12">
         <CustomInput
           value={searchItems.type === "Name" ? searchItems.value : ""}
           onChange={(e) => handleSearch(e.target.value, "Name")}
@@ -37,11 +40,12 @@ function ComapnyHeader() {
           className="bg-[--linerPrimary]"
         />
       </div>
-      <div className="w-full sm:w-2/12">
-        <Button onClick={() => dispatch(search())}>Search</Button>
-      </div>
     </div>
     <div className="flex justify-between">
+      <Link href="/dashboard/companies/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">
+        add company
+        <IoIosAddCircleOutline size={20}/>
+      </Link>
       <div className="sm:w-2/12">
       <CustomSelector
           value={filter}
@@ -51,10 +55,6 @@ function ComapnyHeader() {
           onChange={(e) => dispatch(setFilter(e))}
         />
       </div>
-      <Link href="/dashboard/companies/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">
-        add company
-        <IoIosAddCircleOutline size={20}/>
-      </Link>
     </div>
   </div>
   );

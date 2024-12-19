@@ -16,7 +16,6 @@ import { FiLogOut } from "react-icons/fi";
 import { LuHardDriveDownload } from "react-icons/lu";
 
 function Sidebar() {
-  const { app } = useParams();
   const { user, showSideBar } = useSelector((state: any) => state.config);
   const menu = [
     {

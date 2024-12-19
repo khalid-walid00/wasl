@@ -15,7 +15,7 @@ function PhoneNumber() {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex justify-end flex-col gap-2">
     <CustomLabel bold>Phone Number</CustomLabel>
     <CustomInput value={PhoneNumber} onChange={handleIdentityNumberhange} placeholder='Phone Number' />
 </div>

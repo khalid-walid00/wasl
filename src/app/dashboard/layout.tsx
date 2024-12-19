@@ -13,6 +13,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
       <div className={`flex flex-row`}>
+        <Sidebar />
         <div className="w-full xs:w-[400px] flex-1  " >
           <div className="flex-1 sticky z-[999] bg-[#F7F7F7]  top-0">
             <PrimarySearchAppBar iconToggle />
@@ -23,7 +24,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </NextUIProvider>
           </section>
         </div>
-        <Sidebar />
       </div>
   );
 }

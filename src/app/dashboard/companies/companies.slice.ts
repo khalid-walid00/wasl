@@ -5,7 +5,6 @@ const searchItems = {
   type:"",
   value:"",
 }
-
 const company : CompanyData = {
   Id:"",
   Name: "",
@@ -47,6 +46,7 @@ const initialState = {
   company,
   companyId:"",
   filter:'' ,
+ companyType : "",
   searchItems,
   inquiry: {},
   inquiryLoading: false,
@@ -71,6 +71,7 @@ export const companiesSlice = createSlice({
     },
 
     setData: (state, action) => {
+      console.log("setData",action.payload);
       state.items = action.payload;
       state.loading = false;
     },
@@ -172,9 +173,12 @@ export const companiesSlice = createSlice({
       if(action.payload) state.company = action.payload;
       state.inquiryModel =  !state.inquiryModel
     },
+    changeRegisterType: (state, action) => {
+      state.companyType =  action.payload
+    },
   }
 })
 export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,
-  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel
+  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel,changeRegisterType
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

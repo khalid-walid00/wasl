@@ -40,6 +40,7 @@ export default function PrimarySearchAppBar({ iconToggle = false }: { iconToggle
     <div className="sticky bg-[#fff] top-0 z-[99999] shadow-sm " >
       <div className="w-full flex justify-start items-center border-b border-[#EFEFEF] h-[61px] px-4 md:px-5">
         <div className={`w-full flex justify-between items-center`}>
+        <HiOutlineMenuAlt3 onClick={() => dispatch(toggleSideBar(!showSideBar))} className={`${showSideBar ? "0" : "rotate-180"} ${iconToggle ? "block" : "hidden"} transition-all duration-300 cursor-pointer text-mainColor w-[40px] h-[40px]`}/>
           <div className="">
           <Tooltip classNames={
             {
@@ -53,7 +54,6 @@ export default function PrimarySearchAppBar({ iconToggle = false }: { iconToggle
           </div>
             </Tooltip>
           </div>
-        <HiOutlineMenuAlt3 onClick={() => dispatch(toggleSideBar(!showSideBar))} className={`${showSideBar ? "0" : "rotate-180"} ${iconToggle ? "block" : "hidden"} transition-all duration-300 cursor-pointer text-mainColor w-[40px] h-[40px]`}/>
 
         </div>
       </div>
