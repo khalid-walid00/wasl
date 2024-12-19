@@ -179,8 +179,8 @@ export const vehiclesSlice = createSlice({
         state.itemsSearch = [];
       }
     },
-    addItem: (state, action: PayloadAction<DataTypes>) => {
-      state.items.Data.unshift(action.payload);
+    addItem: (state, action: any) => {
+      state.items.Data.unshift(action.payload?.Data);
     },
     replaceItem: (state, action: PayloadAction<{ Data: Partial<DataTypes> & { Id: string } }>) => {
       const Data = action.payload.Data;

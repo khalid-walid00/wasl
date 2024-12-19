@@ -28,9 +28,9 @@ export function* sendDataSaga(): Generator<any, void, any> {
 
 
     if (vehicleId) {
-      yield put(replaceItem(response?.Data));
+      yield put(replaceItem(response));
       yield put(clearVehicle());
-    } else yield put(addItem(response?.Data));
+    } else yield put(addItem(response));
 
     Toast.fire({
       title: "Vehicle saved successfully",
