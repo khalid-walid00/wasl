@@ -54,9 +54,10 @@ const CUCompaniesComponent = ({ _id }:any) => {
             <CommercialRecordNumber />
             <CommercialRecordIssueDateHijri />
             <ManagerName />
+            <EmailAddress />
             <ManagerPhoneNumber />
             <ManagerMobileNumber />
-            <DateOfBirthGregorian />
+            {/* <DateOfBirthGregorian /> */}
           </>
         );
       case "Individual":
@@ -68,7 +69,7 @@ const CUCompaniesComponent = ({ _id }:any) => {
             <CompanyActivity />
             <PhoneNumber />
             <EmailAddress />
-            <UplevelOperationCompanyId />
+            {/* <UplevelOperationCompanyId /> */}
             <DateOfBirthHijri />
           </>
         );

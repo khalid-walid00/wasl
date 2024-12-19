@@ -16,8 +16,8 @@ function NameInput() {
 
   return (
     <div className="flex flex-col gap-2">
-    <CustomLabel bold>Account</CustomLabel>
-    <CustomInput  value={Name} onChange={handleTitlehange} placeholder='Select Company' />
+    <CustomLabel bold>Company Name</CustomLabel>
+    <CustomInput  value={Name} onChange={handleTitlehange} placeholder='Select Company Name' />
 </div>
   );
 }
