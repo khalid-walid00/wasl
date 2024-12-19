@@ -98,6 +98,7 @@ const CUCompaniesComponent = ({ _id }:any) => {
                 </Button>
               </div>
               <div className={`grid ${registerType == "" ? " grid-cols-1" : "grid-cols-2"}  gap-4 w-full`}>{renderFields()}</div>
+             { registerType !=="" &&
               <div className="flex flex-col w-5/12 gap-6">
                 <Button onClick={handleSendData} primary className="px-8 w-full">
                   Register
@@ -105,7 +106,7 @@ const CUCompaniesComponent = ({ _id }:any) => {
                 <Button onClick={handleClearData} className="px-8 w-full">
                   Clear
                 </Button>
-              </div>
+              </div>}
             </div>
           </div>
         </div>
