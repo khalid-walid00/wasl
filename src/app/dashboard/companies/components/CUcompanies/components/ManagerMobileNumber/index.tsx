@@ -16,7 +16,7 @@ function ManagerMobileNumber() {
 
   return (
     <div className="flex flex-col gap-2">
-    <CustomLabel bold>Manager Phone Number</CustomLabel>
+    <CustomLabel bold>Manager Mobile Number</CustomLabel>
     <CustomInput value={ManagerMobileNumber} onChange={handleManagerMobileNumberChange} placeholder='Manager Mobile Number' />
 </div>
   );

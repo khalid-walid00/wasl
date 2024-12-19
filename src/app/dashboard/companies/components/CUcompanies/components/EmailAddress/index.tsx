@@ -17,7 +17,7 @@ function EmailAddress() {
   return (
     <div className="flex flex-col gap-2">
     <CustomLabel bold>Email Address</CustomLabel>
-    <CustomInput value={EmailAddress} onChange={handleEmailAddressChange} placeholder='Phone Number' />
+    <CustomInput value={EmailAddress} onChange={handleEmailAddressChange} placeholder='Email' />
 </div>
   );
 }
