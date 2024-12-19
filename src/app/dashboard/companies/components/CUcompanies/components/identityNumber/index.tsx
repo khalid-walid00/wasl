@@ -13,7 +13,7 @@ function IdentityNumber({ registerType }: Props) {
   const { company } = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
 
-  const defaultPrefix = registerType === "Individual" ? "70" : "1";
+  const defaultPrefix = registerType === "Individual" ? "1" : "70";
 
   const handleIdentityNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedValue = e.target.value;

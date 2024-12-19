@@ -46,11 +46,11 @@ const CUCompaniesComponent = ({ _id }:any) => {
   }
   const renderFields = () => {
     switch (registerType) {
-      case "Individual":
+      case "Corporate":
         return (
           <>
             <NameInput />
-            <IdentityNumber registerType="Individual" />
+            <IdentityNumber registerType="Corporate" />
             <CommercialRecordNumber />
             <CommercialRecordIssueDateHijri />
             <ManagerName />
@@ -59,11 +59,11 @@ const CUCompaniesComponent = ({ _id }:any) => {
             <DateOfBirthGregorian />
           </>
         );
-      case "Institution":
+      case "Individual":
         return (
           <>
             <NameInput />
-            <IdentityNumber registerType="Institution" />
+            <IdentityNumber registerType="Individual" />
             <ExtensionNumber />
             <CompanyActivity />
             <PhoneNumber />
@@ -90,8 +90,8 @@ const CUCompaniesComponent = ({ _id }:any) => {
             <div className="flex flex-col gap-6 w-full items-center justify-between">
               <div className="flex gap-8">
 
-                <Button primary={registerType == "Institution"} onClick={() => handelChangeType("Institution")}>
-                  Institution
+                <Button primary={registerType == "Corporate"} onClick={() => handelChangeType("Corporate")}>
+                Corporate
                 </Button>
                 <Button primary={registerType == "Individual"} onClick={() => handelChangeType("Individual")}>
                   Individual
