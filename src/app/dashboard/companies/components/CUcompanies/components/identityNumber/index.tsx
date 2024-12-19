@@ -3,34 +3,53 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
 import { setCUData } from "~/app/dashboard/companies/companies.slice";
+import React from "react";
 
-function IdentityNumber() {
-  const {
-    company
-  } = useSelector((state: any) => state.companiesSlice);
+interface Props {
+  registerType: string;
+}
 
+function IdentityNumber({ registerType }: Props) {
+  const { company } = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
-  const handleIdentityNumberhange = (e: any) => {
-    dispatch(setCUData({ IdentityNumber: e.target.value }));
-  if(company?.IdentityNumber?.startsWith("70")){
-    dispatch(setCUData({ DateOfBirthHijri: "" }));
-  }else{
-    dispatch(setCUData({ 
-      CommercialRecordNumber: "",
-      CommercialRecordIssueDateHijri:"",
-      ManagerName:"",
-      ManagerPhoneNumber:"",
-      ManagerMobileNumber:"",
-      DateOfBirthGregorian:"",
-    }));
-  }
+
+  const defaultPrefix = registerType === "Individual" ? "70" : "1";
+
+  const handleIdentityNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedValue = e.target.value;
+
+    dispatch(setCUData({ IdentityNumber: updatedValue }));
+
+    if (updatedValue.startsWith("70")) {
+      dispatch(setCUData({ DateOfBirthHijri: "" }));
+    } else {
+      dispatch(
+        setCUData({
+          CommercialRecordNumber: "",
+          CommercialRecordIssueDateHijri: "",
+          ManagerName: "",
+          ManagerPhoneNumber: "",
+          ManagerMobileNumber: "",
+          DateOfBirthGregorian: "",
+        })
+      );
+    }
   };
+
+  const identityValue =
+    company?.IdentityNumber?.startsWith("10") || company?.IdentityNumber?.startsWith("11")
+      ? company.IdentityNumber
+      : defaultPrefix;
 
   return (
     <div className="flex flex-col gap-2">
-    <CustomLabel bold>IdentityNumber</CustomLabel>
-    <CustomInput value={company.IdentityNumber} onChange={handleIdentityNumberhange} placeholder='identity Number' />
-</div>
+      <CustomLabel bold>Identity Number</CustomLabel>
+      <CustomInput
+        value={identityValue}
+        onChange={handleIdentityNumberChange}
+        placeholder="Identity Number"
+      />
+    </div>
   );
 }
 

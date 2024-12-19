@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
 import { setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
+import CustomSelector from "~/common/components/atoms/customSelector/CustomSelector";
+import { optionsVehiclePlateLetter } from "../options";
 
 function VehiclePlate() {
   const { VehiclePlate } = useSelector((state: any) => state.vehiclesSlice?.vehicle || {});
@@ -10,10 +12,10 @@ function VehiclePlate() {
   const dispatch = useDispatch();
 
   const handlePlateChange = (key: string, value: string) => {
-    if (VehiclePlate) dispatch(setCUData({VehiclePlate: {...VehiclePlate,[key]: value},}));
-    
-  };
+    if (VehiclePlate) dispatch(setCUData({ VehiclePlate: { ...VehiclePlate, [key]: value }, }));
 
+  };
+   
   return (
     <div className="flex flex-col gap-2 items-end">
       <CustomLabel bold>Vehicle Plate</CustomLabel>
@@ -21,26 +23,24 @@ function VehiclePlate() {
         <div className="flex flex-col col-span-7 gap-1">
           <span className="text-gray-600 text-center">Letter</span>
           <div className="grid grid-cols-3 gap-2">
-            <CustomInput
+
+            <CustomSelector
               value={VehiclePlate?.RightLetter || ''}
-              style={{ textAlign: "center" }}
-              onChange={(e) => handlePlateChange('RightLetter', e.target.value)}
-              maxLength={1}
-              placeholder="Right"
+              options={optionsVehiclePlateLetter}
+              onChange={(e) => handlePlateChange('RightLetter', e)}
+              placeholder={"Right"}
             />
-            <CustomInput
+            <CustomSelector
               value={VehiclePlate?.MiddleLetter || ''}
-              style={{ textAlign: "center" }}
-              onChange={(e) => handlePlateChange('MiddleLetter', e.target.value)}
-              maxLength={1}
-              placeholder="Middle"
+              options={optionsVehiclePlateLetter}
+              onChange={(e) => handlePlateChange('MiddleLetter', e)}
+              placeholder={"Middle"}
             />
-            <CustomInput
+            <CustomSelector
               value={VehiclePlate?.LeftLetter || ''}
-              style={{ textAlign: "center" }}
-              onChange={(e) => handlePlateChange('LeftLetter', e.target.value)}
-              maxLength={1}
-              placeholder="Left"
+              options={optionsVehiclePlateLetter}
+              onChange={(e) => handlePlateChange('LeftLetter', e)}
+              placeholder={"Left"}
             />
           </div>
         </div>

@@ -40,7 +40,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
   tooltipOptions = [], 
 }) => {
   const selectedValue = value
-    ? options.find(option => option.value === value) || null
+    ? options?.find(option => option.value === value) || null
     : null;
 
   return (
@@ -129,7 +129,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
         components={{
           Option: (props) => {
             const { data, innerRef, innerProps } = props;
-            const tooltipContent = tooltipOptions.find(
+            const tooltipContent = tooltipOptions?.find(
               (tooltipOption) => tooltipOption.id === data.value
             )?.tooltipContent;
             const optionContent = (

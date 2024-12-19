@@ -21,7 +21,7 @@ function Button({
   return (
     <button
       onClick={onClick}
-      className={`md:text-[22px] h-[45px] text-base flex items-center gap-2  justify-center py-4 px-3 ${
+      className={`md:text-[22px] h-[45px] text-base flex hover:shadow-md active:translate-y-1 transition-all duration-300 items-center gap-2  justify-center py-4 px-3 ${
         primary
           ? "bg-mainColor text-white"
           : ` text-mainColor border border-mainColor `
