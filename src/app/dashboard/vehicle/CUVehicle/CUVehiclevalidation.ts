@@ -23,16 +23,13 @@ const vehicleRegisterSchema = Yup.object({
       .required("Plate number is mandatory."),
 
     RightLetter: Yup.string()
-      .required("Right/Middle/Left letter is mandatory.")
-      .matches(/^[A-Z]$/, "Right letter must be a single uppercase letter."),
+      .required("Right/Middle/Left letter is mandatory."),
 
     MiddleLetter: Yup.string()
-      .required("Right/Middle/Left letter is mandatory.")
-      .matches(/^[A-Z]$/, "Middle letter must be a single uppercase letter."),
-
+      .required("Right/Middle/Left letter is mandatory."),
     LeftLetter: Yup.string()
       .required("Right/Middle/Left letter is mandatory.")
-      .matches(/^[A-Z]$/, "Left letter must be a single uppercase letter."),
+
   }),
 });
 

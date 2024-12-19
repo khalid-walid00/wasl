@@ -13,7 +13,7 @@ export function* sendDataSaga(): Generator<any, void, any> {
   const { vehicle, vehicleId } = yield select((state: any) => state.vehiclesSlice);
   let endpoint = `/vehicles/register`;
   if (vehicleId) endpoint = `vehicles/update`
-  console.log("vehicle", vehicle);
+
   try {
     const result = yield call(validateVehicleData, vehicle);
     if (!result.valid) {
@@ -28,9 +28,9 @@ export function* sendDataSaga(): Generator<any, void, any> {
 
 
     if (vehicleId) {
-      yield put(replaceItem(vehicle));
+      yield put(replaceItem(response?.Data));
       yield put(clearVehicle());
-    } else yield put(addItem(vehicle));
+    } else yield put(addItem(response?.Data));
 
     Toast.fire({
       title: "Vehicle saved successfully",

@@ -20,7 +20,7 @@ import Button from "~/common/components/atoms/button";
 import { fetchOneData, clearOneData, sendData } from "../../companies.slice";
 import { AiOutlineReload } from "react-icons/ai";
 
-const CUCompaniesComponent = ({ _id }: { _id: string | null }) => {
+const CUCompaniesComponent = ({ _id }:any) => {
   const dispatch = useDispatch();
   const { company } = useSelector((state: any) => state.companiesSlice);
   const [registerType, setRegisterType] = useState<string>("");
