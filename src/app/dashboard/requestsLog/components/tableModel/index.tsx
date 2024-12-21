@@ -15,34 +15,23 @@ function TableModel() {
                 {
                     Data?.filter((item: any) => item.Id === requestId)?.map((item: any, index: number) => (
                         <div key={index} className="flex md:flex-row flex-col  gap-4">
-                            <div className=" flex h-full   gap-4">
-                                <div className="flex  w-1/2 flex-col gap-1 items-end min-h-96 h-full">
-                                    <CustomLabel bold>Request Body</CustomLabel>
-                                    <Editor code={item.RequestBody} />
-                                </div>
-                                <div className="flex w-1/2 flex-col gap-1 items-end min-h-96 h-full overflow-auto">
-                                    <CustomLabel bold>Response Body</CustomLabel>
-                                    <div className="h-full">
-                                        <Editor code={item.ResponseBody} />
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div className="grid grid-cols-1 md:w-4/12 w-full gap-3">
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>ID</CustomLabel>
                                     {item.Id}
                                 </div>
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>Error</CustomLabel>
                                     {item.Error || 'N/A'}
                                 </div>
 
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>Endpoint</CustomLabel>
-                                    <div className=" text-end"> {item.Endpoint}</div>
+                                    <div> {item.Endpoint}</div>
                                 </div>
 
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>Method</CustomLabel>
                                     <p
                                         className={`${item.Method === "POST"
@@ -60,9 +49,9 @@ function TableModel() {
                                     </p>
                                 </div>
 
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>Status Code</CustomLabel>
-                                    <div className="flex items-center justify-center">
+                                    <div className="flex items-center ">
                                         <p
                                             className={`py-1 w-max rounded-lg px-4 ${item.StatusCode === 500
                                                 ? "bg-red-600 text-white"
@@ -79,18 +68,29 @@ function TableModel() {
                                 </div>
 
 
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>Request Time</CustomLabel>
                                       { item.RequestTime.slice(11, 19)+ ' : ' + item.RequestTime.slice(0, 10)}
                                 </div>
-                                <div className="flex flex-col gap-1 items-end">
+                                <div className="flex flex-col gap-1 ">
                                     <CustomLabel bold>Response Time</CustomLabel>
                                       { item.ResponseTime.slice(11, 19)+ ' : ' + item.ResponseTime.slice(0, 10)}
                                 </div>
 
 
                             </div>
-
+                            <div className=" flex h-full   gap-4">
+                                <div className="flex  w-1/2 flex-col gap-1  min-h-96 h-full">
+                                    <CustomLabel bold>Request Body</CustomLabel>
+                                    <Editor code={item.RequestBody} />
+                                </div>
+                                <div className="flex w-1/2 flex-col gap-1  min-h-96 h-full overflow-auto">
+                                    <CustomLabel bold>Response Body</CustomLabel>
+                                    <div className="h-full">
+                                        <Editor code={item.ResponseBody} />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     ))

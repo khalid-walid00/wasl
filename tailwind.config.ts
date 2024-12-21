@@ -43,12 +43,12 @@ export default {
       container:{
         center:true,
         padding: {
-          DEFAULT: "0.5rem",
-          sm: "0.5rem",
-          md: "1rem",
-          lg: "2rem",
-          xl: "3rem",
-          "2xl": "4rem",
+          DEFAULT: "0.25rem",
+          sm: "0.25rem",
+          md: "0.5rem",
+          lg: "1rem",
+          xl: "1.5rem",
+          "2xl": "2rem",
         }
       },
       colors:{
@@ -65,10 +65,8 @@ export default {
       }
     }, 
   },
-  // darkMode: "class",
   plugins: [
     nextui()
   ],
 };
 
-// veryDarkPurple:"#100027",

@@ -82,7 +82,7 @@ function Page() {
   return (
     <div className="bg-transparent py-[18px] flex flex-col gap-10">
       <HeadTable title="Requests Log" description="View request details and actions" />
-      <div className="container">
+      <div className="container ">
         <Table
           header={<VehicleHeader />}
           columns={columns}

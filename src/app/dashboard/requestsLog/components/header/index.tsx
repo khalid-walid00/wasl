@@ -8,9 +8,8 @@ function VehicleHeader() {
   const { searchItems, handleSearch } = useSearch("requestsLogSlice", setSearch);
 
   return (
-    <div className="flex flex-col gap-6 p-4 pb-0">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-2 gap-2 w-full sm:w-11/12">
+    <div className="flex flex-col  md:items-end gap-6 p-4 pb-0">
+        <div className="flex gap-3 md:w-4/12">
           <CustomSelector
             value={searchItems.type === "Method" ? searchItems.value : ""}
             placeholder="Method"
@@ -28,8 +27,7 @@ function VehicleHeader() {
             }
           />
         </div>
-      
-      </div>
+
     </div>
   );
 }
