@@ -56,17 +56,17 @@ const Page = () => {
         <div className="relative  justify-between h-screen
         w-full lg:container  items-center content-center">
           <div className="bg-white place-items-center rounded-xl md:shadow-[0px_0px_40px_rgba(0,0,0,0.25)]   grid grid-cols-1 md:grid-cols-2 px-5 gap-x-12 xl:gap-x-[110px]">
-          
-          <Image
-                      width={400}
-                      height={380}
-                      className=" rounded-xl md:block hidden"
-                      src={"/assets/images/login.png"}
-                      alt=" logo"
-                    />
-          <div className=" h-full w-full pl-2 py-10">
-            <LoginTemplate />
-          </div>
+
+            <div className=" h-full w-full pl-2 py-10">
+              <LoginTemplate />
+            </div>
+            <Image
+              width={400}
+              height={380}
+              className=" rounded-xl md:block hidden"
+              src={"/assets/images/login.png"}
+              alt=" logo"
+            />
           </div>
         </div>
       </div>

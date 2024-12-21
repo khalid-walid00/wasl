@@ -24,6 +24,12 @@ const Page = () => {
             <path opacity="0.2" d="M192.598 240.034C171.7 7.2511 27.3632 -28.1382 -87.0027 -3.14851C-110.716 4.33475 -130.518 38.9877 -9.7702 101.008L-3.93653 42.4763L14.3453 116.475L61.8095 145.554L70.4608 89.3722L83.7607 166.287C155.928 210.164 192.598 240.034 192.598 240.034Z" fill="black" fill-opacity="0.19" />
             <path d="M170.521 170.46C110.244 36.3325 13.3159 3.10167 -97.8058 11.4042C-3.8801 21.079 91.2741 30.0618 170.521 170.46Z" fill="white" />
           </svg>
+      
+       <div className=" flex justify-end">
+        <div className=" w-[392px]">
+          {componentsMap[step] || null}
+        </div>
+       </div> 
        <div className="relative w-full h-full md:flex items-center hidden">
           <Image
             src={`/assets/images/login.png`}
@@ -46,11 +52,6 @@ const Page = () => {
           </svg>
 
         </div>
-       <div className=" flex justify-end">
-        <div className=" w-[392px]">
-          {componentsMap[step] || null}
-        </div>
-       </div>
       </div>
        
       </div>

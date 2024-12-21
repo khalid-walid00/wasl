@@ -103,10 +103,10 @@ export default function GetThePasswordTemplate() {
     </div>
   </div>
   <div className=" flex gap-6">
-  <Button disabled={timeLeft <= 0} style={{height: "55px",backgroundColor:timeLeft <= 0 ? "#D9D9D9" : ""}} primary type="submit" loading={loading}>
+  <CustomBtnBack type="button" onClick={() => dispatch(goToStep(1))} />
+  <Button disabled={timeLeft <= 0} style={{backgroundColor:timeLeft <= 0 ? "#D9D9D9" : ""}} primary type="submit" loading={loading}>
     Verify
   </Button>
-  <CustomBtnBack type="button" onClick={() => dispatch(goToStep(1))} />
   </div>
 </form>
 

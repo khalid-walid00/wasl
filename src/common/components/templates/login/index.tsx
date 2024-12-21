@@ -41,10 +41,10 @@ export default function LoginTemplate() {
   return (
 <form onSubmit={formik.handleSubmit} className="flex flex-col gap-[24px]">
   <div className="flex flex-col gap-[8px]">
-    <div className="md:text-[24px] text-[22px] text-blackBlue text-center font-bold md:text-end">
+    <div className="md:text-[24px] text-[22px] text-blackBlue text-center font-bold md:text-start">
       Login
     </div>
-    <div className="text-[16px] text-grayG text-base text-center font-bold md:text-end">
+    <div className="text-[16px] text-grayG text-base text-center font-bold md:text-start">
       Please enter your details to continue
     </div>
   </div>
@@ -62,8 +62,8 @@ export default function LoginTemplate() {
         onChange={formik.handleChange}
         value={formik.values.password}
       />
-      <Link href={"/forgetPassword"} className="text-[18px] text-end font-normal text-mainColor">
-      ? Forgot your password 
+      <Link href={"/forgetPassword"} className="text-[18px] font-normal text-mainColor">
+       Forgot your password ?
       </Link>
     </div>
   </div>

@@ -88,7 +88,7 @@ catch(error){
         <PasswordInput name="password" onChange={formik.handleChange} value={formik.values.password} />
         <PasswordInput ConfirmPassword name="rePassword" value={formik.values.rePassword} onChange={formik.handleChange} />
       </div>
-      <Button style={{ height: "55px" }} primary type={"submit"} loading={loading}>
+      <Button  primary type={"submit"} loading={loading}>
         Submit
       </Button>
     </div>
