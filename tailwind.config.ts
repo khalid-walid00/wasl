@@ -46,8 +46,8 @@ export default {
           DEFAULT: "0.25rem",
           sm: "0.25rem",
           md: "0.5rem",
-          lg: "1rem",
-          xl: "1.5rem",
+          lg: "1.5rem",
+          xl: "3rem",
           "2xl": "2rem",
         }
       },
