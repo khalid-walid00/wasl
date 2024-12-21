@@ -3,47 +3,53 @@ import { validateVehicleData } from "../CUVehiclevalidation";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { Toast } from "~/utils/libraries";
 import { addItem, clearOneData, clearVehicle, replaceItem } from "../../vehicle.slice";
+import { HttpMethod } from "~/types";
 
-function* performMutation(variables: any, endpoint: string): Generator<any, any, any> {
-  const method = "POST";
-  return yield call(fetchDataFromApi, endpoint, null, method, variables);
+
+function* performMutation(variables: any, endpoint: string, method: HttpMethod = "POST"): Generator<any, any, any> {
+  return yield call(() => fetchDataFromApi(endpoint, null, method, variables));
 }
 
 export function* sendDataSaga(): Generator<any, void, any> {
   const { vehicle, vehicleId } = yield select((state: any) => state.vehiclesSlice);
-  let endpoint = `/vehicles/register`;
-  if (vehicleId) endpoint = `vehicles/update`
+
+  const endpoint = vehicleId ? `/vehicles/update` : `/vehicles/register`;
+  const method: HttpMethod = vehicleId ? "PUT" : "POST"; 
 
   try {
-    const result = yield call(validateVehicleData, vehicle);
-    if (!result.valid) {
+    const validationResult = yield call(validateVehicleData, vehicle);
+    if (!validationResult.valid) {
+      const errorMessages = validationResult.errors?.map((msg: string) => `<p>${msg}</p>`)?.join("");
       Toast.fire({
-        title: result.errors?.map((msg: string) => `<p>${msg}</p>`)?.join(""),
+        title: errorMessages,
         icon: "error",
       });
-    
       return;
     }
-    const response = yield performMutation(vehicle, endpoint);
 
+    const response = yield call(performMutation, vehicle, endpoint, method);
 
     if (vehicleId) {
-      yield put(replaceItem(response));
+      yield put(replaceItem(response)); 
       yield put(clearVehicle());
-    } else yield put(addItem(response));
+    } else {
+      yield put(addItem(response)); 
+    }
 
     Toast.fire({
       title: "Vehicle saved successfully",
       icon: "success",
     });
+
     yield put(clearOneData());
   } catch (error: any) {
-    console.log("error", error);
+    console.error("Error saving vehicle:", error);
+
     Toast.fire({
-      title: error.message,
+      title: error.message || "An error occurred while saving the vehicle",
       icon: "error",
     });
   } finally {
-    console.log("finally");
+    console.log("Vehicle save operation completed.");
   }
 }

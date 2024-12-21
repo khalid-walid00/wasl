@@ -2,6 +2,7 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 import { cookiesValues } from "~/config/constant";
+import { HttpMethod } from "~/types";
 
 interface CustomError extends Error {
   StatusCode?: number;
@@ -10,7 +11,7 @@ interface CustomError extends Error {
 export const fetchDataFromApi = async (
   endpoint: string,
   params: any = null,
-  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  method: HttpMethod = "GET",
   body: any = null
 ) => {
   try {

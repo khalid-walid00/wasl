@@ -14,9 +14,9 @@ interface TableProps {
   loading: boolean;
   limit?: number;
   setLimit?: (val: number) => void;
-  handleRowClick?: (id: string) => void; 
+  handleRowClick?: (id: string) => void;
 }
-const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: TableProps) => {
+const Table = ({ columns, data, header, loading, limit = 10, handleRowClick }: TableProps) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(limit);
 
@@ -28,31 +28,31 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,  
+    rows,
     prepareRow,
   } = useTable({
     columns,
-    data: pageData, 
+    data: pageData,
   });
-  
+
   const pageCount = Math.ceil(data.length / pageSize);
-  
+
   const handleNextPage = () => {
     if (pageIndex < pageCount - 1) {
       setPageIndex((prev) => prev + 1);
     }
   };
-  
+
   const handlePrevPage = () => {
     if (pageIndex > 0) {
       setPageIndex((prev) => prev - 1);
     }
   };
-  
-  const handlePageSizeChange = (e:any) => {
+
+  const handlePageSizeChange = (e: any) => {
     const newLimit = Number(e) || 10;
     setPageSize(newLimit);
-    setPageIndex(0); 
+    setPageIndex(0);
   };
   const optionsLimit = [{
     label: '10',
@@ -77,48 +77,52 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
     label: '100',
     value: '100',
   }
-];
+  ];
   const pagination = () => (
     <div className=" w-full flex sm:flex-row sm:items-center flex-col gap-y-3 justify-between">
-     <div className=" flex gap-6 items-center ">
-      <div className=" flex items-center gap-4">
-      <button
-        className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)]  cursor-pointer w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
-        onClick={handlePrevPage}
-        disabled={loading || pageIndex === 0}
-      >
-      <IoIosArrowForward size={24}/> 
-      
-      </button>
-      <button
-        className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)] cursor-pointer w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
-        onClick={handleNextPage}
-        disabled={loading || pageIndex >= pageCount - 1}
-      >
-      
-        <IoIosArrowBack  size={24}/>
-      </button>
-      </div>
-      <span>
-        صفحة {pageIndex + 1} من {pageCount}
-      </span>
-      </div>
       <div className="">
 
-      <CustomSelector
-      options={optionsLimit}
-    value={pageSize.toString() || '10'}
-  onChange={(key: any) => handlePageSizeChange(Number(key))}
->
-</CustomSelector>
+        <CustomSelector
+        bgArrow={false}
+          options={optionsLimit}
+          value={pageSize.toString() || '10'}
+          onChange={(key: any) => handlePageSizeChange(Number(key))}
+        >
+        </CustomSelector>
       </div>
+      <div className=" flex gap-6 items-center ">
+         <span>
+          صفحة {pageIndex + 1} من {pageCount}
+        </span>
+        <div className=" flex items-center gap-4">
+          
+          <button
+            className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)] cursor-pointer w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
+            onClick={handleNextPage}
+            disabled={loading || pageIndex >= pageCount - 1}
+          >
+
+            <IoIosArrowBack size={24} />
+          </button>
+          <button
+            className="shadow-[0px_0px_25px_rgba(0,0,0,0.1)]  cursor-pointer w-[50px] h-[50px] justify-center rounded-lg flex gap-2 items-center"
+            onClick={handlePrevPage}
+            disabled={loading || pageIndex === 0}
+          >
+            <IoIosArrowForward size={24} />
+
+          </button>
+        </div>
+       
+      </div>
+
     </div>
   );
-  
+
   return (
     <div className="flex-col flex gap-5 bg-white border-1 rounded-lg border-gray-300">
       <div className="w-full">{header}</div>
-      <div className={`overflow-auto min-h-screen table-scroll ${data.length > 0 ? "" : "flex items-center justify-center" } `} dir="ltr">
+      <div className={`overflow-auto min-h-screen table-scroll ${data.length > 0 ? "" : "flex items-center justify-center"} `} dir="ltr">
         {loading ? (
           <LoadingScreen />
         ) : pageData.length > 0 ? (
@@ -135,16 +139,16 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {rows.map((row:any, i: number) => {
+              {rows.map((row: any, i: number) => {
                 prepareRow(row);
                 return (
-                  <tr 
+                  <tr
                     onClick={() => handleRowClick ? handleRowClick(row.original.Id) : undefined}
-                    className='cursor-pointer' 
-                    {...row.getRowProps()} 
+                    className='cursor-pointer'
+                    {...row.getRowProps()}
                     key={i}
                   >
-                    {row.cells.map((cell:any, j:number) => (
+                    {row.cells.map((cell: any, j: number) => (
                       <td key={j} {...cell.getCellProps()} style={cell.column.width ? { width: cell.column.width } : {}}>
                         {cell.render('Cell')}
                       </td>
@@ -163,7 +167,7 @@ const Table = ({ columns, data, header, loading, limit = 10,handleRowClick}: Tab
       <div className="px-10 py-2 flex justify-between  border-t">{!loading && pagination()}</div>
     </div>
   );
-  
-}; 
+
+};
 
 export default Table;  

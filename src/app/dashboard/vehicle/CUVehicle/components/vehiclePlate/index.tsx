@@ -15,7 +15,7 @@ function VehiclePlate() {
     if (VehiclePlate) dispatch(setCUData({ VehiclePlate: { ...VehiclePlate, [key]: value }, }));
 
   };
-   
+
   return (
     <div className="flex flex-col gap-2 items-end">
       <CustomLabel bold>Vehicle Plate</CustomLabel>
@@ -25,18 +25,21 @@ function VehiclePlate() {
           <div className="grid grid-cols-3 gap-2">
 
             <CustomSelector
+              bgArrow={false}
               value={VehiclePlate?.RightLetter || ''}
               options={optionsVehiclePlateLetter}
               onChange={(e) => handlePlateChange('RightLetter', e)}
               placeholder={"Right"}
             />
             <CustomSelector
+              bgArrow={false}
               value={VehiclePlate?.MiddleLetter || ''}
               options={optionsVehiclePlateLetter}
               onChange={(e) => handlePlateChange('MiddleLetter', e)}
               placeholder={"Middle"}
             />
             <CustomSelector
+              bgArrow={false}
               value={VehiclePlate?.LeftLetter || ''}
               options={optionsVehiclePlateLetter}
               onChange={(e) => handlePlateChange('LeftLetter', e)}

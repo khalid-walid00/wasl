@@ -10,7 +10,7 @@ function InquiryModel() {
     const { inquiryModel,inquiry} = useSelector((state: any) => state.vehiclesSlice);
      const endpoint =`/vehicles/vehicle-inquiry?VehicleId=${inquiry?.Id}`
      useEffect(() => {
-        if (inquiry?.Id) { 
+        if (inquiry?.Id&&inquiryModel) { 
             dispatch(fetchInquiry({ method: "GET", endpoint }));
         }
     }, [inquiry?.Id]);
@@ -20,25 +20,25 @@ function InquiryModel() {
               {Object.keys(inquiry).length === 0 ? 
             <LoadingScreen/>    :
             <div className="flex flex-col gap-3">
-                <div className="flex flex-col items-end gap-2">
+                <div className="flex flex-col  gap-2">
                     <CustomLabel>Is Valid</CustomLabel>
                     {inquiry?.IsValid ? 
-                        <div className='  bg-green-600 rounded-md px-4 py-1 text-white '>Valid</div> :
-                        <div className='  bg-red-600 rounded-md px-4 py-1 text-white '>Invalid</div> 
+                        <div className=' w-max  bg-green-600 rounded-md px-4 py-1 text-white '>Valid</div> :
+                        <div className=' w-max  bg-red-600 rounded-md px-4 py-1 text-white '>Invalid</div> 
                     }
                 </div>
 
-                <div className="flex flex-col items-end  gap-2">
+                <div className="flex flex-col   gap-2">
                     <CustomLabel>Reference Number</CustomLabel>
                     <div>{inquiry?.ReferenceNumber}</div>
                 </div>
 
-                <div className="flex flex-col items-end  gap-2">
+                <div className="flex flex-col   gap-2">
                     <CustomLabel>vehicle Name</CustomLabel>
                     <div>{inquiry?.Name}</div>
                 </div>
 
-                <div className="flex flex-col  items-end gap-2">
+                <div className="flex flex-col   gap-2">
                     <CustomLabel>Registration Date</CustomLabel>
                     <div>{inquiry?.RegistrationDate}</div>
                 </div>

@@ -60,3 +60,4 @@ export type TTableProps = {
   selectionMode?: SelectionMode;
   searchPlaceholder?:string
 };
+export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
