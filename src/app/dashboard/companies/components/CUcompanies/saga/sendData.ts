@@ -19,12 +19,55 @@ export function* sendDataSaga(): Generator<any, void, any> {
   if (companyType === "Corporate") validateData = validateCompanyData
   else validateData = validateOwnerInfoData
   try {
-    const result = yield call(validateData, company);
-   console.log("result", result);
+
+  //   Name
+  //   IdentityNumber
+  // CommercialRecordNumber
+  // DateOfBirthHijri
+  // ExtensionNumber
+  // EmailAddress
+  // ManagerName
+  //   PhoneNumber
+
+  // ManagerPhoneNumber
+  // ManagerMobileNumber
+
+  // Activity
+
+
+    let dataToSend = company; 
+    if (companyType == "Corporate") {
+      dataToSend = { 
+        Name: company.Name,
+        EmailAddress: company.EmailAddress,
+        PhoneNumber: company.PhoneNumber,
+        DateOfBirthHijri: company.DateOfBirthHijri,
+        IdentityNumber: company.IdentityNumber,
+        CommercialRecordNumber: company.CommercialRecordNumber,
+        CommercialRecordIssueDateHijri: company.CommercialRecordIssueDateHijri,
+        Activity: company.Activity,
+        ManagerName: company.ManagerName,
+        ManagerPhoneNumber: company.ManagerPhoneNumber,
+        ManagerMobileNumber: company.ManagerMobileNumber
+      }
+    }else{
+      dataToSend = {
+        Name: company.Name,
+        EmailAddress: company.EmailAddress,
+        PhoneNumber: company.PhoneNumber,
+        DateOfBirthHijri: company.DateOfBirthHijri,
+        IdentityNumber: company.IdentityNumber,
+        Activity: company.Activity,
+      };
+    }
+    console.log("dataToSend", dataToSend);
+    const result = yield call(validateData, dataToSend);
     if (!result.valid) {
-      Toast.fire({
-        title: result.errors.map((msg: any) => `<p>${msg?.message}</p>`).join(""),
-        icon: "error",
+      result?.errors?.map((msg: any) => {
+        Toast.fire({
+          title: msg ,
+          icon: "error",
+        });
       });
 
       return;

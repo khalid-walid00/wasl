@@ -6,7 +6,7 @@ const CompanyInfoSchema = Yup.object({
     .max(100, "Name cannot exceed 100 characters."),
 
     IdentityNumber: Yup.string()
-    .matches(/^(10|11)\d{8,9}$/, "Identity number must start with 10 or 11 and be followed by 8 or 9 digits."),
+    .matches(/^(10|11)\d{8,9}$/, "Owner ID must start with 10 or 11 and be followed by 8 or 9 digits."),
   
   DateOfBirthHijri: Yup.string()
     .required("Date of birth (Hijri) is required."),
@@ -26,13 +26,14 @@ const CompanyInfoSchema = Yup.object({
 });
 
 export const validateOwnerInfoData = async (data: Record<string, any>) => {
-  try {
-    await CompanyInfoSchema.validate(data, { abortEarly: false });
-    return { valid: true, errors: null };
-  } catch (error) {
-    if (error instanceof Yup.ValidationError) {
-      return { valid: false, errors: error.inner };
+    try {
+      await CompanyInfoSchema.validate(data, { abortEarly: false });
+      return { valid: true, errors: null };
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        return { valid: false, errors: error.errors };
+      }
+      throw error;
     }
-    throw error;
-  }
-};
+  };
+  
