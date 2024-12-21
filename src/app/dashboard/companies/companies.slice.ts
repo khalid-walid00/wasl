@@ -167,10 +167,12 @@ export const companiesSlice = createSlice({
     },
     setSelectedRowId: (state, action) => {
       if(action.payload) state.companyId = action.payload;
+      else state.companyId = "";
       state.modalRow =  !state.modalRow
     },
     setInquiryModel: (state, action) => {
       if(action.payload) state.company = action.payload;
+      // else state.company = company;
       state.inquiryModel =  !state.inquiryModel
     },
     changeRegisterType: (state, action) => {

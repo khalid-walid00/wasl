@@ -15,7 +15,7 @@ function CommercialRecordNumber() {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col justify-between gap-2">
       <CustomLabel bold>Commercial Record Number</CustomLabel>
       <CustomInput value={CommercialRecordNumber} onChange={handleIdentityNumberhange} placeholder='Commercial Record Number' />
     </div>

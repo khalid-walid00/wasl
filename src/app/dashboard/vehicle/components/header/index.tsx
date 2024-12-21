@@ -16,8 +16,11 @@ function VehicleHeader() {
 
   return (
     <div className="flex flex-col gap-6 p-4 pb-0">
-      <div className=" flex gap-3 flex-col sm:flex-row">
-        <div className=" grid lg:grid-cols-6 md:grid-cols-4  grid-cols-2  gap-2 w-full sm:w-11/12 ">
+      <div className=" flex gap-3 flex-col justify-between sm:flex-row">
+        <div className="   w-full sm:w-2/12">
+          <Button onClick={() => dispatch(search())}>Search</Button>
+        </div> 
+        <div className=" grid  md:grid-cols-4  grid-cols-2  gap-2 w-full sm:w-8/12 ">
           <CustomInput
             value={searchItems.type === "Account" ? searchItems.value : ""}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value, "Account")}
@@ -35,11 +38,14 @@ function VehicleHeader() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value, "IMEINumber")}
             placeholder='Search IMEI' className='bg-[--linerPrimary]' />
         </div>
-        <div className="   w-full sm:w-2/12">
-          <Button onClick={() => dispatch(search())}>Search</Button>
-        </div>
+       
       </div>
       <div className=" flex justify-between">
+
+        <Link href="/dashboard/vehicle/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">
+          add vehicle
+          <IoIosAddCircleOutline size={20} />
+        </Link>
         <div className="">
         <CustomSelector
           value={filter}
@@ -49,11 +55,6 @@ function VehicleHeader() {
           onChange={(e) => dispatch(setFilter(e))}
         />
         </div>
-
-        <Link href="/dashboard/vehicle/create" className="text-background bg-mainColor h-[40px] flex justify-center items-center px-[12px] rounded-lg shadow-lg gap-x-2">
-          add vehicle
-          <IoIosAddCircleOutline size={20} />
-        </Link>
 
       </div>
     </div>

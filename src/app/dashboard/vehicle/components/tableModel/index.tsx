@@ -21,37 +21,37 @@ function TableModel() {
     return (
         <CustomModal isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Id</CustomLabel>
                         {selectedVehicle.Id || 'N/A'}
                     </div>
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Deleted From Wasl
                         </CustomLabel>
                         {!selectedVehicle.IsDeletedFromWasl ? <div className=' text-red-600'>Yes</div>  : <div className=' text-red-600'>No</div> || 'N/A'}
                     </div>
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>WASL Vehicle Key</CustomLabel>
                         {selectedVehicle.WaslId || 'N/A'}
                     </div>
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>IMEI Number</CustomLabel>
                         {selectedVehicle.ImeiNumber || 'N/A'}
                     </div>
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>VehiclePlate</CustomLabel>
                        { ( selectedVehicle.VehiclePlate?.LeftLetter +  selectedVehicle?.VehiclePlate?.LeftLetter  + selectedVehicle.VehiclePlate?.RightLetter + ` | `+ selectedVehicle.VehiclePlate?.Number) || 'N/A'} 
                     </div>
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Plate Type</CustomLabel>
                         {selectedVehicle.PlateType || 'N/A'}
                     </div>
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Sequence Number</CustomLabel>
                         {selectedVehicle.SequenceNumber || 'N/A'}
                     </div>
                 {Companie && (
-                    <div className="flex flex-col gap-1 items-end">
+                    <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Company Name </CustomLabel>
                         {Companie.Name || 'N/A'}
                     </div>

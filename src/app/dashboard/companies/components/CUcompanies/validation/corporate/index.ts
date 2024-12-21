@@ -22,8 +22,6 @@ const companySchema = Yup.object({
   Activity: Yup.string()
     .required("Company activity is required."),
 
-  // UplevelOperationCompanyId: Yup.string()
-  //   .required("Uplevel operation company ID is required."),
 });
 
 export const validateCompanyData = async (data: Record<string, any>) => {

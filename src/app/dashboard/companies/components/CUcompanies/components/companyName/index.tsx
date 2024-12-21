@@ -19,7 +19,7 @@ function NameInput() {
   const placeholderText =companyType== "Corporate" ? "Enter Company Name" : "Enter Owner Name";
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col justify-between ">
       <CustomLabel bold>{labelText}</CustomLabel>
       <CustomInput 
         value={Name} 
