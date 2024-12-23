@@ -46,6 +46,7 @@ export function* sendDataSaga(): Generator<any, void, any> {
         CommercialRecordNumber: company.CommercialRecordNumber,
         CommercialRecordIssueDateHijri: company.CommercialRecordIssueDateHijri,
         Activity: company.Activity,
+         ExtensionNumber: "1234",
         ManagerName: company.ManagerName,
         ManagerPhoneNumber: company.ManagerPhoneNumber,
         ManagerMobileNumber: company.ManagerMobileNumber
@@ -54,7 +55,8 @@ export function* sendDataSaga(): Generator<any, void, any> {
       dataToSend = {
         Name: company.Name,
         EmailAddress: company.EmailAddress,
-        PhoneNumber: company.PhoneNumber,
+         ExtensionNumber: "1234",
+         PhoneNumber: company.PhoneNumber,
         DateOfBirthHijri: company.DateOfBirthHijri,
         IdentityNumber: company.IdentityNumber,
         Activity: company.Activity,
