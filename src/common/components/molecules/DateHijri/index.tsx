@@ -18,19 +18,19 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
     const currentHijriYear = moment().iYear();
     const yearOptions = Array.from({ length: currentHijriYear - 1400 + 1 }, (_, index) => ({
         label: (currentHijriYear - index).toString(),
-        value: (currentHijriYear - index).toString()
+        value: (currentHijriYear - index).toString(),
     }));
 
     const monthOptions = Array.from({ length: 12 }, (_, index) => ({
-        label: (index + 1).toString().padStart(2, '0'),
-        value: (index + 1).toString().padStart(2, '0')
+        label: (index + 1).toString().padStart(2, "0"),
+        value: (index + 1).toString().padStart(2, "0"),
     }));
 
     const getDaysInMonth = (year: string, month: string) => {
         const daysInMonth = moment(`${year}-${month}-01`, "iYYYY-iMM-DD").daysInMonth();
         return Array.from({ length: daysInMonth }, (_, index) => ({
-            label: (index + 1).toString().padStart(2, '0'),
-            value: (index + 1).toString().padStart(2, '0')
+            label: (index + 1).toString().padStart(2, "0"),
+            value: (index + 1).toString().padStart(2, "0"),
         }));
     };
 
@@ -42,24 +42,40 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
         }
     }, [year, month]);
 
+    // متابعة تغيير الحقول وتحديث القيمة في Redux
     const handleYearChange = (value: string) => {
         setYear(value);
+        handleDateChange(value, month, day, "year");
     };
 
     const handleMonthChange = (value: string) => {
         setMonth(value);
+        handleDateChange(year, value, day, "month");
     };
 
     const handleDayChange = (value: string) => {
         setDay(value);
+        handleDateChange(year, month, value, "day");
     };
 
-    const handleDateChange = () => {
-        const formattedDate = `${year}-${month}-${day}`;
-        dispatch({
-            type: `${slice}/setCUData`,
-            payload: { [field]: formattedDate }
-        });
+    const handleDateChange = (newYear: string, newMonth: string, newDay: string, changedField: string) => {
+        // تحديث فقط الحقل المعني في Redux
+        if (changedField === "year") {
+            dispatch({
+                type: `${slice}/setCUData`,
+                payload: { [field]: `${newYear}-${newMonth}-${newDay || "01"}` },
+            });
+        } else if (changedField === "month") {
+            dispatch({
+                type: `${slice}/setCUData`,
+                payload: { [field]: `${newYear || "1400"}-${newMonth}-${newDay || "01"}` },
+            });
+        } else if (changedField === "day") {
+            dispatch({
+                type: `${slice}/setCUData`,
+                payload: { [field]: `${newYear || "1400"}-${newMonth || "01"}-${newDay}` },
+            });
+        }
     };
 
     return (
@@ -71,10 +87,7 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
                         bgArrow={false}
                         value={year}
                         options={yearOptions}
-                        onChange={(e) => {
-                            handleYearChange(e);
-                            handleDateChange();
-                        }}
+                        onChange={(e) => handleYearChange(e)}
                         placeholder="السنة"
                         required
                     />
@@ -84,10 +97,7 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
                         bgArrow={false}
                         value={month}
                         options={monthOptions}
-                        onChange={(e) => {
-                            handleMonthChange(e);
-                            handleDateChange();
-                        }}
+                        onChange={(e) => handleMonthChange(e)}
                         placeholder="الشهر"
                         required
                     />
@@ -97,10 +107,7 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
                         value={day}
                         bgArrow={false}
                         options={dayOptions}
-                        onChange={(e) => {
-                            handleDayChange(e);
-                            handleDateChange();
-                        }}
+                        onChange={(e) => handleDayChange(e)}
                         required
                         placeholder="اليوم"
                     />
