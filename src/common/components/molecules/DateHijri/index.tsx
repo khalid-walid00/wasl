@@ -45,37 +45,27 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
     // متابعة تغيير الحقول وتحديث القيمة في Redux
     const handleYearChange = (value: string) => {
         setYear(value);
-        handleDateChange(value, month, day, "year");
+        updateDateInRedux(value, month, day);
     };
 
     const handleMonthChange = (value: string) => {
         setMonth(value);
-        handleDateChange(year, value, day, "month");
+        updateDateInRedux(year, value, day);
     };
 
     const handleDayChange = (value: string) => {
         setDay(value);
-        handleDateChange(year, month, value, "day");
+        updateDateInRedux(year, month, value);
     };
 
-    const handleDateChange = (newYear: string, newMonth: string, newDay: string, changedField: string) => {
-        // تحديث فقط الحقل المعني في Redux
-        if (changedField === "year") {
-            dispatch({
-                type: `${slice}/setCUData`,
-                payload: { [field]: `${newYear}-${newMonth}-${newDay || "01"}` },
-            });
-        } else if (changedField === "month") {
-            dispatch({
-                type: `${slice}/setCUData`,
-                payload: { [field]: `${newYear || "1400"}-${newMonth}-${newDay || "01"}` },
-            });
-        } else if (changedField === "day") {
-            dispatch({
-                type: `${slice}/setCUData`,
-                payload: { [field]: `${newYear || "1400"}-${newMonth || "01"}-${newDay}` },
-            });
-        }
+    // وظيفة تحديث التاريخ في Redux
+    const updateDateInRedux = (newYear: string, newMonth: string, newDay: string) => {
+        dispatch({
+            type: `${slice}/setCUData`,
+            payload: {
+                [field]: `${newYear || ""}-${newMonth || ""}-${newDay || ""}`,
+            },
+        });
     };
 
     return (
