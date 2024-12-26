@@ -49,7 +49,8 @@ export function* sendDataSaga(): Generator<any, void, any> {
          ExtensionNumber: "1234",
         ManagerName: company.ManagerName,
         ManagerPhoneNumber: company.ManagerPhoneNumber,
-        ManagerMobileNumber: company.ManagerMobileNumber
+        ManagerMobileNumber: company.ManagerMobileNumber,
+        UplevelOperationCompanyId: company.UplevelOperationCompanyId
       }
     }else{
       dataToSend = {
@@ -59,21 +60,22 @@ export function* sendDataSaga(): Generator<any, void, any> {
          PhoneNumber: company.PhoneNumber,
         DateOfBirthHijri: company.DateOfBirthHijri,
         IdentityNumber: company.IdentityNumber,
-        Activity: company.Activity,
+        Activity: company.Activity
       };
     }
     console.log("dataToSend", dataToSend);
-    const result = yield call(validateData, dataToSend);
-    if (!result.valid) {
-      result?.errors?.map((msg: any) => {
-        Toast.fire({
-          title: msg ,
-          icon: "error",
-        });
-      });
+    // const result = yield call(validateData, dataToSend);
+    // console.log("resultvalidateData", result);
+    // if (!result.valid) {
+    //   result?.errors?.map((msg: any) => {
+    //     Toast.fire({
+    //       title: msg ,
+    //       icon: "error",
+    //     });
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
     const response = yield performMutation(company, endpoint);
     console.log("response", response);
 

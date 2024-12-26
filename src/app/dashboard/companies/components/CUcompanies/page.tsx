@@ -17,14 +17,14 @@ import ManagerPhoneNumber from "./components/ManagerPhoneNumber";
 import ManagerMobileNumber from "./components/ManagerMobileNumber";
 import UplevelOperationCompanyId from "./components/uplevelOperationCompanyId";
 import Button from "~/common/components/atoms/button";
-import { fetchOneData, clearOneData, sendData, setCUData, changeRegisterType } from "../../companies.slice";
+import { fetchOneData, clearOneData, sendData, setCUData, changeRegisterType, faildSetData } from "../../companies.slice";
 import { AiOutlineReload } from "react-icons/ai";
 import DynamicDateInputHijr from "../../../../../common/components/molecules/DateHijri";
+import { validateCompanyData, validateOwnerInfoData } from "./validation";
 
 const CUCompaniesComponent = ({ _id }: any) => {
   const dispatch = useDispatch();
   const { company, companyType } = useSelector((state: any) => state.companiesSlice);
-  console.log("company",company);
   useEffect(() => {
     if (_id) {
       dispatch(fetchOneData(_id));
@@ -33,10 +33,16 @@ const CUCompaniesComponent = ({ _id }: any) => {
     }
   }, [_id, dispatch]);
 
-  const handleSendData = () => {
+  const handleSendData = async () => {
+    const validateRsult: any = companyType === "Corporate" ? await validateCompanyData(company) : await validateOwnerInfoData(company);
+console.log("validateRsult", validateRsult);
+    if (!validateRsult.valid) {
+      dispatch(faildSetData(validateRsult.errors));
+      return;
+    }
+
     dispatch(sendData());
   };
-
   const handleClearData = () => {
     dispatch(clearOneData());
   };
@@ -44,6 +50,14 @@ const CUCompaniesComponent = ({ _id }: any) => {
     dispatch(clearOneData());
     dispatch(changeRegisterType(type));
   }
+  // const result : any = validateOwnerInfoData
+  // if (!result.valid) {
+  //   result?.errors?.map((msg: any) => {
+
+  //   });
+
+  //   return;
+  // }
   const renderFields = () => {
     switch (companyType) {
       case "Corporate":
@@ -64,7 +78,9 @@ const CUCompaniesComponent = ({ _id }: any) => {
             <ManagerMobileNumber />
             {/* <DateOfBirthGregorian /> */}
             <PhoneNumber />
-            </>
+            <UplevelOperationCompanyId />
+
+          </>
         );
       case "Individual":
         return (
@@ -80,7 +96,6 @@ const CUCompaniesComponent = ({ _id }: any) => {
             />
             <PhoneNumber />
             <EmailAddress />
-            {/* <UplevelOperationCompanyId /> */}
           </>
         );
       default:

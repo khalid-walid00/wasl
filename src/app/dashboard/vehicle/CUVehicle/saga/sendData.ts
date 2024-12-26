@@ -1,9 +1,9 @@
 import { call, put, select } from "redux-saga/effects";
-import { validateVehicleData } from "../CUVehiclevalidation";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { Toast } from "~/utils/libraries";
 import { addItem, clearOneData, clearVehicle, replaceItem } from "../../vehicle.slice";
 import { HttpMethod } from "~/types";
+import { validateVehicleInfoData } from "../validations";
 
 
 function* performMutation(variables: any, endpoint: string, method: HttpMethod = "POST"): Generator<any, any, any> {
@@ -17,7 +17,7 @@ export function* sendDataSaga(): Generator<any, void, any> {
   const method: HttpMethod = vehicleId ? "PUT" : "POST"; 
 
   try {
-    const validationResult = yield call(validateVehicleData, vehicle);
+    const validationResult = yield call(validateVehicleInfoData, vehicle);
     if (!validationResult.valid) {
       const errorMessages = validationResult.errors?.map((msg: string) => `<p>${msg}</p>`)?.join("");
       Toast.fire({
@@ -27,8 +27,8 @@ export function* sendDataSaga(): Generator<any, void, any> {
       return;
     }
 
+    console.log("vehicle", vehicle);
     const response = yield call(performMutation, vehicle, endpoint, method);
-
     if (vehicleId) {
       yield put(replaceItem(response)); 
       yield put(clearVehicle());

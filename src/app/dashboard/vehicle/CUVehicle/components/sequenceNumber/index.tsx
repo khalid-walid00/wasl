@@ -15,7 +15,7 @@ function SequenceNumber() {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-end">
+    <div className="flex flex-col gap-2">
     <CustomLabel bold>Sequence Number</CustomLabel>
     <CustomInput value={SequenceNumber} onChange={handleSequenceNumberChange} placeholder="Enter Sequence Number" />
   </div>

@@ -8,7 +8,7 @@ const vehicleRegisterSchema = Yup.object({
   PlateType: Yup.string()
     .required("Plate type is mandatory."),
 
-  IMEINumber: Yup.string()
+    ImeiNumber: Yup.string()
     .required("IMEI number is mandatory.")
     .matches(/^\d{14,}$/, "IMEI number must be at least 14 digits."),
 
@@ -33,17 +33,25 @@ const vehicleRegisterSchema = Yup.object({
   }),
 });
 
-export const validateVehicleData = async (data: Record<string, any>) => {
-  try {
-    await vehicleRegisterSchema.validate(data, { abortEarly: false });
-    return { valid: true, errors: null };
-  } catch (error) {
-    if (error instanceof Yup.ValidationError) {
-      return {
-        valid: false,
-        errors: error.errors,
-      };
+export const validateVehicleInfoData = async (data: Record<string, any>) => {
+    let errorsArray: { field: string; message: string }[] = [];
+  
+    try {
+      await vehicleRegisterSchema.validate(data, { abortEarly: false });
+      return { valid: true, errors: null };
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        errorsArray = error.inner.map((err) => ({
+          field: err.path || "Unknown Field",
+          message: err.message,
+        }));
+  
+        return {
+          valid: false,
+          errors: errorsArray,
+        };
+      }
+      throw error;
     }
-    throw error;
-  }
-};
+  };
+  

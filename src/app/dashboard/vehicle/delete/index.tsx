@@ -8,7 +8,7 @@ import { Toast } from "~/utils/libraries";
 export default function DeleteOne({ _id }: any) {
   const dispatch = useDispatch();
   const deleteHandler = () => {
-    const endpoint = `vehicles/delete?VehicleId=${_id}`;
+    const endpoint = `/vehicles/delete?VehicleId=${_id}`;
 
 
     Swal.fire({

@@ -30,7 +30,7 @@ export const fetchDataFromApi = async (
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const url = `http://212.102.11.66:22/api/v1${endpoint}`;
+    const url = `https://api.lamarpro.com:22/api/v1${endpoint}`;
 
     const config = {
       method,

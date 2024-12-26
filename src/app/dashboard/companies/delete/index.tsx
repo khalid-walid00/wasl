@@ -8,7 +8,7 @@ import { deleteItem } from "../companies.slice";
 export default function DeleteOne({ _id }: any) {
   const dispatch = useDispatch();
   const deleteHandler =  () => {
-    const endpoint = `operationCompany/delete?operationCompanyId=${_id}`;
+    const endpoint = `/operationCompany/delete?operationCompanyId=${_id}`;
 
 
     Swal.fire({

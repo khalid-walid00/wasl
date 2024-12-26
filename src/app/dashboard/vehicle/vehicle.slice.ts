@@ -67,6 +67,7 @@ interface StateTypes {
   itemsSearch: DataTypes[];
   inquiryLoading: boolean;
   inquiry: any;
+  errors:any;
   filter: string;
   vehicle: any | null;
   vehicleId: string | null;
@@ -86,6 +87,7 @@ const initialState: StateTypes = {
   items: items,
   loading: false,
   error: false,
+  errors: [],
   showModel: false,
   searchItems,
   vehicle,
@@ -126,6 +128,7 @@ export const vehiclesSlice = createSlice({
       state.inquiryLoading = true;
     },
     setInquiry: (state, action) => {
+      console.log("setInquiry", action.payload);
       state.inquiry = action.payload;
     },
     setData: (state, action: PayloadAction<ItemsTypes>) => {
@@ -134,6 +137,9 @@ export const vehiclesSlice = createSlice({
     },
     setCUData: (state, action) => {
       state.vehicle = { ...state.vehicle, ...action.payload };
+    },
+    faildSetData: (state, action) => {
+      state.errors = action.payload;
     },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
@@ -235,6 +241,7 @@ export const {
   fetchOneData,
   setData,
   setFilter,
+  faildSetData,
   deleteItem,
   fetchDataRequestSuccess,
   setSelectedRowId,

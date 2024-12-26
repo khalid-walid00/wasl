@@ -10,7 +10,9 @@ const initialState = {
   user: {},
   redirectTo: null as string | null,
   ActivityLoading: false,
+  companyLoading: false,
   Activity: [],
+  company: [],
 }
 
 export const reducer = createSlice({
@@ -53,9 +55,16 @@ export const reducer = createSlice({
       state.ActivityLoading = false;
       state.Activity = action.payload;
     },
+    fetchCompany: (state) => {
+      state.companyLoading = true;
+    },
+    setCompany: (state, action) => {
+      state.companyLoading = false;
+      state.company = action.payload;
+    },
   },
 });
 
-export const { setLoading, mainToggle, setUser, appLoad, fetchActivity, setActivity,
+export const { setLoading, mainToggle, setUser, appLoad, fetchActivity, setActivity,setCompany,fetchCompany,
    toggleSideBar,toggleBuilder, setRedirectTo, resetRedirect } = reducer.actions;
 export const configuerStore = reducer.reducer

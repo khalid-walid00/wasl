@@ -7,7 +7,7 @@ export function* fetchInquiryVehicle(action: any): Generator<any, void, any> {
   try {
     const { params, method, body , endpoint} = action.payload;
     const response = yield call(fetchDataFromApi, endpoint, params, method, body);
-    yield put(setInquiry(response));
+    yield put(setInquiry(response.Data));
   } catch (error: any) {
      Toast.fire({
        title: error.message,

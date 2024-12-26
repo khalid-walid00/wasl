@@ -28,7 +28,7 @@ function TableModel() {
                     <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Deleted From Wasl
                         </CustomLabel>
-                        {!selectedVehicle.IsDeletedFromWasl ? <div className=' text-red-600'>Yes</div>  : <div className=' text-red-600'>No</div> || 'N/A'}
+                        {selectedVehicle.IsDeletedFromWasl ? <div className=' text-red-600'>Yes</div>  : <div className=' text-green-600'>No</div> || 'N/A'}
                     </div>
                     <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>WASL Vehicle Key</CustomLabel>

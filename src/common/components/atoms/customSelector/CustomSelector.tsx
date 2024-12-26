@@ -41,7 +41,7 @@ const CustomSelector: React.FC<CustomSelectorProps> = ({
   tooltipOptions = [],
   ...props 
 }) => {
-  const selectedValue = value ? options.find(option => option.value === value) : null;
+  const selectedValue = value ? options?.find(option => option.value === value) : null;
   
   const arrowColor = bgArrow ? 'white' : 'black';
   const arrowBackgroundColor = bgArrow ? '#008ffb' : 'transparent';

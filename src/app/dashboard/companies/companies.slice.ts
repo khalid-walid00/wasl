@@ -43,6 +43,7 @@ const initialState = {
   itemsSearch: [] as any ,
   loading: false,
   error: false,
+  errors: [] as any,
   company,
   companyId:"",
   filter:'' ,
@@ -88,12 +89,14 @@ export const companiesSlice = createSlice({
     setCUData: (state, action) => {
       state.company =  {...state.company, ...action.payload};
     },
+    faildSetData: (state, action) => {
+      state.errors = action.payload;
+    },
     sendData: (state) => {
       state.loading = true;
     },
 
     fetchInquiry: (state, action) => {
-      console.log("fetchInquiry",action.payload);
       state.inquiryLoading = true;
     },
     
@@ -163,7 +166,9 @@ export const companiesSlice = createSlice({
     }, 
     deleteItem: (state, action) => {
      const idsToRemove =action.payload
+     console.log("idsToRemove", idsToRemove);
         state.items.Data = state.items.Data?.filter(item => item.Id !== idsToRemove);
+        console.log("state.items.Data", state.items.Data);
     },
     setSelectedRowId: (state, action) => {
       if(action.payload) state.companyId = action.payload;
@@ -178,9 +183,16 @@ export const companiesSlice = createSlice({
     changeRegisterType: (state, action) => {
       state.companyType =  action.payload
     },
+    completeFormData(state, action) {
+      const { payload } = action;
+      const matchingItems = state.items.Data?.find((item) => item.IdentityNumber === payload);
+      if (matchingItems !== undefined) {
+         state.company = matchingItems;
+        }
+    }
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,
-  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel,changeRegisterType
+export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,faildSetData,
+  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel,changeRegisterType,completeFormData
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

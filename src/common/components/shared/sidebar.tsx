@@ -141,6 +141,7 @@ function Sidebar() {
               {
                 showSideBar && <div className=" text- font-bold text-mainColor">WASL</div>
               }
+              
               <Image
                 width={40}
                 height={40}
