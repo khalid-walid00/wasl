@@ -40,7 +40,7 @@ function TableModel() {
                     </div>
                     <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>VehiclePlate</CustomLabel>
-                       { ( selectedVehicle.VehiclePlate?.LeftLetter +  selectedVehicle?.VehiclePlate?.LeftLetter  + selectedVehicle.VehiclePlate?.RightLetter + ` | `+ selectedVehicle.VehiclePlate?.Number) || 'N/A'} 
+                       { ( selectedVehicle.VehiclePlate?.LeftLetter + " "+  selectedVehicle?.VehiclePlate?.MiddleLetter   + " "+ selectedVehicle.VehiclePlate?.RightLetter + ` | `+ selectedVehicle.VehiclePlate?.Number) || 'N/A'} 
                     </div>
                     <div className="flex flex-col gap-1 ">
                         <CustomLabel bold>Plate Type</CustomLabel>

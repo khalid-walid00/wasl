@@ -60,9 +60,9 @@ function ActionList({ item }: Props) {
               <span className="group-hover:text-black">inquiry</span>
             </button>
           </DropdownItem>
-          <DropdownItem className=" flex">
-            <DeleteOne _id={item.Id} />
-          </DropdownItem>
+          <DropdownItem className={` ${item.IsDeletedFromWasl == false && (item.WaslId != null && item.WaslId != "") ? "flex" : "hidden"}`}>
+                <DeleteOne _id={item.Id} />
+              </DropdownItem>
         </DropdownMenu>
 
       </Dropdown>

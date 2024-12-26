@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { Toast } from "~/utils/libraries";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
-import { deleteItem } from "../companies.slice";
+import { deleteItem, setFilter } from "../companies.slice";
 
 export default function DeleteOne({ _id }: any) {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ export default function DeleteOne({ _id }: any) {
           showConfirmButton: false,
         })
         dispatch(deleteItem(_id));
+        dispatch(setFilter("Active"));
       }
         else{
         Toast.fire({

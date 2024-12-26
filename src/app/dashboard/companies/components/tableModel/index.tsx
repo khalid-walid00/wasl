@@ -11,7 +11,7 @@ function TableModel() {
         <CustomModal size='lg' isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
             <div>
                 {
-                    Data?.filter((item: any) => item.Id === companyId)?.map((item: any, index: number) => (
+                    Data?.filter((item: any) => item?.Id === companyId)?.map((item: any, index: number) => (
                         <div key={index} className=" grid grid-cols-2 gap-3">
                             <div className="flex flex-col gap-1  ">
                                 <CustomLabel bold>Name</CustomLabel>

@@ -17,6 +17,7 @@ interface Props {
 }
 function ActionList({ item }: Props) {
   const dispatch = useDispatch();
+  console.log("item", item);
   return (
     <div className="relative flex justify-center items-center  text-black gap-2">
       <Dropdown className=" p-0  min-w-40">
@@ -56,9 +57,12 @@ function ActionList({ item }: Props) {
               <span className="group-hover:text-black">inquiry</span>
             </button>
           </DropdownItem>
-          <DropdownItem className=" flex">
-            <DeleteOne _id={item.Id} />
-          </DropdownItem>
+        
+              <DropdownItem className={` ${item.IsDeletedFromWasl == false && (item.WaslId != null && item.WaslId != "") ? "flex" : "hidden"}`}>
+                <DeleteOne _id={item.Id} />
+
+              </DropdownItem>
+          
         </DropdownMenu>
 
       </Dropdown>

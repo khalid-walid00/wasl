@@ -1,7 +1,7 @@
 import { call, put, select } from "redux-saga/effects";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
 import { Toast } from "~/utils/libraries";
-import { addItem, clearOneData, replaceItem } from "../../../companies.slice";
+import { addItem, clearOneData, replaceItem, setFilter } from "../../../companies.slice";
 import { setRedirectTo } from "~/app/appSlice";
 import { validateCompanyData, validateOwnerInfoData } from "../validation";
 
@@ -80,10 +80,14 @@ export function* sendDataSaga(): Generator<any, void, any> {
     console.log("response", response);
 
     if (companyId) {
-      yield put(replaceItem(company));
+      yield put(replaceItem(response));
       yield put(setRedirectTo("/dashboard/companies"));
 
-    } else yield put(addItem(company));
+    } else {
+      yield put(addItem(response));
+      
+    }
+    yield put(setFilter("Active"));
 
     Toast.fire({
       title: "Company saved successfully",

@@ -109,7 +109,7 @@ export const companiesSlice = createSlice({
     },
     setFilter:(state, action) => {
       const  value  = action.payload;
-      console.log("value", value);
+      console.log("nnnnn", value);
       state.filter = value; 
       let filterValue = { WaslId: true, IsDeletedFromWasl: false };
     
@@ -126,9 +126,13 @@ export const companiesSlice = createSlice({
       }
       console.log("filterValue", filterValue);
       console.log("Datafilter", state?.items?.Data);
-       const newData = state?.items?.Data?.filter((item) =>  Boolean(item.WaslId) == filterValue.WaslId && Boolean(item.IsDeletedFromWasl) == filterValue.IsDeletedFromWasl )
+       const newData = state?.items?.Data?.filter((item) => 
+        Boolean(item?.WaslId) === filterValue.WaslId && 
+        Boolean(item?.IsDeletedFromWasl) === filterValue.IsDeletedFromWasl
+      );
       console.log("newData", newData);
-          state.itemsSearch = newData;
+      if(newData === undefined) state.itemsSearch = [];
+      else  state.itemsSearch = newData;
         
     },
     setSearch: (state, action) => {
@@ -139,7 +143,7 @@ export const companiesSlice = createSlice({
     search: (state) => {
       const { type, value } = state.searchItems;
       if (value !== "") {
-        const matchingItems = state.items.Data?.filter((item: any) => 
+        const matchingItems = state.items?.Data?.filter((item: any) => 
           item[type] && item[type].toString().includes(value)
         );
         state.itemsSearch = matchingItems; 
@@ -148,7 +152,17 @@ export const companiesSlice = createSlice({
       }
     },
     addItem: (state, action) => {
-        state.items.Data.unshift(action.payload)
+      console.log("addItem", action.payload);
+      const existingIndex = state.items.Data.findIndex(
+        (item: any) => item.Id === action.payload?.Data?.Id
+    );
+
+    if (existingIndex !== -1) {
+        state.items.Data[existingIndex] = action.payload?.Data;
+    } else {
+        state.items.Data.unshift(action.payload?.Data);
+    }  
+    console.log("state.items.Data", state.items.Data);
     },
 
     replaceItem: ( state , action ) => {
@@ -165,10 +179,11 @@ export const companiesSlice = createSlice({
       }
     }, 
     deleteItem: (state, action) => {
-     const idsToRemove =action.payload
-     console.log("idsToRemove", idsToRemove);
-        state.items.Data = state.items.Data?.filter(item => item.Id !== idsToRemove);
-        console.log("state.items.Data", state.items.Data);
+      const idsToRemove = action.payload;
+      const index = state.items.Data.findIndex((item) => item.Id === idsToRemove);
+      if (index !== -1) {
+        state.items.Data[index] = { ...state.items.Data[index], IsDeletedFromWasl: true,WaslId: "" };
+      }
     },
     setSelectedRowId: (state, action) => {
       if(action.payload) state.companyId = action.payload;

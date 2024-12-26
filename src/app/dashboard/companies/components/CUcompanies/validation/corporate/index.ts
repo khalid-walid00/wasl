@@ -15,9 +15,9 @@ const CompanyInfoSchema = Yup.object({
         .required("Issue date required.")
         .matches(/^\d{4}-\d{2}-\d{2}$/, "Use format YYYY-MM-DD."),
     
-    ExtensionNumber: Yup.string()
-        .optional()
-        .matches(/^\d*$/, "Extension must be numeric."),
+    // ExtensionNumber: Yup.string()
+    //     .optional()
+    //     .matches(/^\d*$/, "Extension must be numeric."),
     
     EmailAddress: Yup.string()
         .required("Email required.")

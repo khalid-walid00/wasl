@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { fetchDataFromApi } from "~/utils/libraries/axios/axiosServer";
-import { deleteItem } from "../vehicle.slice";
+import { deleteItem, setFilter } from "../vehicle.slice";
 import { Toast } from "~/utils/libraries";
 
 export default function DeleteOne({ _id }: any) {
@@ -29,6 +29,7 @@ export default function DeleteOne({ _id }: any) {
             showConfirmButton: false,
           })
           dispatch(deleteItem(_id));
+          dispatch(setFilter("Active"));
 
         }
       }).catch((err) => {

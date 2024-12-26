@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
+import { completeFormData, setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
 
 function SequenceNumber() {
   const {
@@ -12,6 +12,8 @@ function SequenceNumber() {
   const dispatch = useDispatch();
   const handleSequenceNumberChange = (e: any) => {
     dispatch(setCUData({ SequenceNumber: e.target.value }));
+    dispatch(completeFormData(e.target.value));
+
   };
 
   return (

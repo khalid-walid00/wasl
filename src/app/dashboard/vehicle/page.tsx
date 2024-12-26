@@ -34,7 +34,7 @@ function Page() {
       {
         Header: 'Plate Number',
         accessor: 'PlateNumber',
-        Cell: (tableProps: any) => <p>({tableProps.row.original?.VehiclePlate?.Number+ ` | `+ tableProps.row.original?.VehiclePlate?.LeftLetter +  tableProps.row.original?.VehiclePlate?.LeftLetter  + tableProps.row.original?.VehiclePlate?.RightLetter })</p>,
+        Cell: (tableProps: any) => <p>({tableProps.row.original?.VehiclePlate?.Number+ ` | `+ tableProps.row.original?.VehiclePlate?.LeftLetter +  " "+ tableProps.row.original?.VehiclePlate?.MiddleLetter  +  " "+ tableProps.row.original?.VehiclePlate?.RightLetter })</p>,
       },
       {
         Header: 'Activity',

@@ -186,8 +186,16 @@ export const vehiclesSlice = createSlice({
       }
     },
     addItem: (state, action: any) => {
-      state.items.Data.unshift(action.payload?.Data);
-    },
+      const existingIndex = state.items.Data.findIndex(
+          (item: any) => item.Id === action.payload?.Data?.Id
+      );
+  
+      if (existingIndex !== -1) {
+          state.items.Data[existingIndex] = action.payload?.Data;
+      } else {
+          state.items.Data.unshift(action.payload?.Data);
+      }
+  },
     replaceItem: (state, action: PayloadAction<{ Data: Partial<DataTypes> & { Id: string } }>) => {
       const Data = action.payload.Data;
       const index = state.items.Data.findIndex((item) => item.Id === Data?.Id);
@@ -197,7 +205,11 @@ export const vehiclesSlice = createSlice({
     },
     deleteItem: (state, action: PayloadAction<string>) => {
       const idsToRemove = action.payload;
-      state.items.Data = state.items.Data.filter((item) => item.Id !== idsToRemove);
+      const index = state.items.Data.findIndex((item) => item.Id === idsToRemove);
+      if (index !== -1) {
+        state.items.Data[index] = { ...state.items.Data[index], IsDeletedFromWasl: true,WaslId: "" };
+      }
+
     },
     clearVehicle: (state) => {
       state.vehicle = vehicle;
@@ -220,6 +232,13 @@ export const vehiclesSlice = createSlice({
       if (action.payload) state.inquiry = action.payload;
       state.inquiryModel = !state.inquiryModel;
     },
+    completeFormData(state, action) {
+      const { payload } = action;
+      const matchingItems = state.items.Data?.find((item) => item.SequenceNumber === payload);
+      if (matchingItems !== undefined) {
+         state.vehicle = matchingItems;
+        }
+    }
   }
 });
 
@@ -242,6 +261,7 @@ export const {
   setData,
   setFilter,
   faildSetData,
+  completeFormData,
   deleteItem,
   fetchDataRequestSuccess,
   setSelectedRowId,
