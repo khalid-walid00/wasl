@@ -13,6 +13,7 @@ const initialState = {
   companyLoading: false,
   Activity: [],
   company: [],
+  validationErrors: [],
 }
 
 export const reducer = createSlice({
@@ -62,9 +63,12 @@ export const reducer = createSlice({
       state.companyLoading = false;
       state.company = action.payload;
     },
+    setValidationErrors: (state, action) => {
+      state.validationErrors = action.payload;
+    },
   },
 });
 
-export const { setLoading, mainToggle, setUser, appLoad, fetchActivity, setActivity,setCompany,fetchCompany,
+export const { setLoading, mainToggle, setUser, appLoad, fetchActivity, setActivity,setCompany,fetchCompany,setValidationErrors,
    toggleSideBar,toggleBuilder, setRedirectTo, resetRedirect } = reducer.actions;
 export const configuerStore = reducer.reducer

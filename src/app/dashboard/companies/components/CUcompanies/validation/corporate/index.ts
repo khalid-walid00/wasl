@@ -1,42 +1,38 @@
 import * as Yup from 'yup';
 
-const CompanyInfoSchema = Yup.object({
+export const CompanyInfoSchema = Yup.object({
     Name: Yup.string()
-        .min(1, "Name required.")
-        .max(100, "Max 100 chars."),
+        .min(1, "Name is required.")
+        .max(100, "Max 100 characters."),
         
     IdentityNumber: Yup.string()
         .matches(/^(70)\d{8,9}$/, "ID must start with 70 and be 8-9 digits."),
     
     CommercialRecordNumber: Yup.string()
-        .required("Record number required."),
+        .required("Record number is required."),
     
     CommercialRecordIssueDateHijri: Yup.string()
-        .required("Issue date required.")
-        .matches(/^\d{4}-\d{2}-\d{2}$/, "Use format YYYY-MM-DD."),
-    
-    // ExtensionNumber: Yup.string()
-    //     .optional()
-    //     .matches(/^\d*$/, "Extension must be numeric."),
+        .required("Issue date is required.")
+        .matches(/^\d{4}-\d{2}-\d{2}$/, "Format must be YYYY-MM-DD."),
     
     EmailAddress: Yup.string()
-        .required("Email required.")
-        .email("Invalid email."),
+        .required("Email is required.")
+        .email("Invalid email format."),
     
     ManagerName: Yup.string()
-        .required("Manager name required."),
+        .required("Manager name is required."),
     
     PhoneNumber: Yup.string()
-        .required("Phone required.")
+        .required("Phone number is required.")
         .matches(
             /^(?:\+966\d{9}|05\d{8}|8\d{7})$/,
-            "Invalid phone format."
+            "Phone must start with '+966' (9 digits), '05' (8 digits), or '8' (7 digits)."
         ),
     
     ManagerPhoneNumber: Yup.string()
         .matches(
             /^(?:\+966\d{9}|05\d{8}|8\d{7})$/,
-            "Invalid manager phone."
+            "Invalid manager phone number."
         ),
     
     ManagerMobileNumber: Yup.string()
@@ -46,7 +42,7 @@ const CompanyInfoSchema = Yup.object({
         ),
     
     Activity: Yup.string()
-        .required("Activity required."),
+        .required("Activity is required."),
 });
 
 export const validateCompanyData = async (data: Record<string, any>) => {

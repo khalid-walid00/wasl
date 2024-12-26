@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-const CompanyInfoSchema = Yup.object({
+export const OwnerInfoSchema = Yup.object({
   Name: Yup.string()
     .min(1, "Name required.")
     .max(100, "Max 100 chars."),
@@ -29,7 +29,7 @@ export const validateOwnerInfoData = async (data: Record<string, any>) => {
   let errorsArray: { field: string; message: string }[] = [];
 
   try {
-    await CompanyInfoSchema.validate(data, { abortEarly: false });
+    await OwnerInfoSchema.validate(data, { abortEarly: false });
     return { valid: true, errors: null };
   } catch (error) {
     if (error instanceof Yup.ValidationError) {

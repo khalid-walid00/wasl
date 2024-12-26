@@ -17,7 +17,7 @@ import ManagerPhoneNumber from "./components/ManagerPhoneNumber";
 import ManagerMobileNumber from "./components/ManagerMobileNumber";
 import UplevelOperationCompanyId from "./components/uplevelOperationCompanyId";
 import Button from "~/common/components/atoms/button";
-import { fetchOneData, clearOneData, sendData, setCUData, changeRegisterType, faildSetData } from "../../companies.slice";
+import { fetchOneData, clearOneData, sendData, setCUData, changeRegisterType, setValidationErrors, emptyValidationErrors } from "../../companies.slice";
 import { AiOutlineReload } from "react-icons/ai";
 import DynamicDateInputHijr from "../../../../../common/components/molecules/DateHijri";
 import { validateCompanyData, validateOwnerInfoData } from "./validation";
@@ -37,7 +37,7 @@ console.log("company",company);
     const validateRsult: any = companyType === "Corporate" ? await validateCompanyData(company) : await validateOwnerInfoData(company);
 console.log("validateRsult", validateRsult);
     if (!validateRsult.valid) {
-      dispatch(faildSetData(validateRsult.errors));
+      dispatch(setValidationErrors(validateRsult.errors));
       return;
     }
 
@@ -45,10 +45,12 @@ console.log("validateRsult", validateRsult);
   };
   const handleClearData = () => {
     dispatch(clearOneData());
+    dispatch(emptyValidationErrors());
   };
   const handelChangeType = (type: string) => {
     dispatch(clearOneData());
     dispatch(changeRegisterType(type));
+    dispatch(emptyValidationErrors());
   }
   // const result : any = validateOwnerInfoData
   // if (!result.valid) {

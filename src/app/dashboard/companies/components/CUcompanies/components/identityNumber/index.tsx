@@ -2,19 +2,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { completeFormData, setCUData } from "~/app/dashboard/companies/companies.slice";
+import { clearFeiledErrors, setCUData } from "~/app/dashboard/companies/companies.slice";
 import { Tooltip } from "@nextui-org/react";
 import { BsExclamationOctagon } from "react-icons/bs";
+import { validateField } from "~/utils/validation";
+import { CompanyInfoSchema } from "../../validation/corporate";
 import React from "react";
+import { OwnerInfoSchema } from "../../validation/individual";
 
 function IdentityNumber() {
   const { company, companyType, errors } = useSelector((state: any) => state.companiesSlice);
   const dispatch = useDispatch();
   const defaultPrefix = companyType === "Corporate" ? "70" : "1";
+  const validationInfoSchema = companyType === "Corporate" ?  CompanyInfoSchema : OwnerInfoSchema ;
 
   const error = errors?.find((err: { field: string }) => err.field === "IdentityNumber");
 
-  const handleIdentityNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIdentityNumberChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     let updatedValue = e.target.value;
 
     if (!updatedValue.startsWith(defaultPrefix)) {
@@ -24,7 +28,11 @@ function IdentityNumber() {
     updatedValue = updatedValue.replace(/\D/g, "");
 
     dispatch(setCUData({ IdentityNumber: updatedValue }));
-    dispatch(completeFormData(updatedValue));
+
+    const isValid = await validateField(validationInfoSchema as any, "IdentityNumber", updatedValue);
+    if (isValid) {
+      dispatch(clearFeiledErrors("IdentityNumber"));
+    }
   };
 
   const identityValue =
@@ -42,12 +50,11 @@ function IdentityNumber() {
           value={identityValue}
           onChange={handleIdentityNumberChange}
           placeholder="Identity Number"
-          className={`border ${error && 'border-red-500 pr-10' }`}
+          className={`border ${error ? 'border-red-500 pr-10' : 'border-gray-300'}`}
         />
- {error && (
-      <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" />
-    )}
-    
+        {error && (
+          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" />
+        )}
       </div>
 
       <div

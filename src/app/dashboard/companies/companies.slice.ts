@@ -89,8 +89,16 @@ export const companiesSlice = createSlice({
     setCUData: (state, action) => {
       state.company =  {...state.company, ...action.payload};
     },
-    faildSetData: (state, action) => {
+    setValidationErrors: (state, action) => {
       state.errors = action.payload;
+    },
+    emptyValidationErrors: (state) => {
+      state.errors =[];
+    },
+    clearFeiledErrors: (state, action) => {
+      state.errors = state.errors.filter(
+        (error:any) => error.field !== action.payload
+      );
     },
     sendData: (state) => {
       state.loading = true;
@@ -207,7 +215,7 @@ export const companiesSlice = createSlice({
     }
   }
 })
-export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,faildSetData,
-  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel,changeRegisterType,completeFormData
+export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,setValidationErrors,emptyValidationErrors,
+  clearOneData,setCUData,setInquiry,fetchInquiry,sendData,setInquiryModel,changeRegisterType,completeFormData,clearFeiledErrors
   , fetchDataRequest, fetchDataFailed, setData ,deleteItem } = companiesSlice.actions;
 export default companiesSlice.reducer;

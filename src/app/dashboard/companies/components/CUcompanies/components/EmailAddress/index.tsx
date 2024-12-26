@@ -2,8 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { setCUData } from "~/app/dashboard/companies/companies.slice";
+import { clearFeiledErrors, setCUData } from "~/app/dashboard/companies/companies.slice";
 import { BsExclamationOctagon } from "react-icons/bs";
+import { validateField } from "~/utils/validation";
+import { CompanyInfoSchema } from "../../validation/corporate";
 import React from "react";
 
 function EmailAddress() {
@@ -16,8 +18,14 @@ function EmailAddress() {
 
   const error = errors?.find((err: { field: string }) => err.field === "EmailAddress");
 
-  const handleEmailAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ EmailAddress: e.target.value }));
+  const handleEmailAddressChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(setCUData({ EmailAddress: value }));
+
+    const isValid = await validateField(CompanyInfoSchema, "EmailAddress", value);
+    if (isValid) {
+      dispatch(clearFeiledErrors("EmailAddress"));
+    }
   };
 
   return (
@@ -28,8 +36,8 @@ function EmailAddress() {
         <CustomInput
           value={EmailAddress}
           onChange={handleEmailAddressChange}
-          placeholder="Email"
-          className={`w-full border ${error && 'border-red-500 pr-10'}`}
+          placeholder="Enter email address"
+          className={`w-full border ${error ? 'border-red-500 pr-10' : 'border-gray-300'}`}
         />
         {error && (
           <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2" />

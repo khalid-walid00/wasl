@@ -2,8 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { setCUData } from "~/app/dashboard/companies/companies.slice";
+import { clearFeiledErrors, setCUData } from "~/app/dashboard/companies/companies.slice";
 import { BsExclamationOctagon } from "react-icons/bs";
+import { validateField } from "~/utils/validation";
+import { CompanyInfoSchema } from "../../validation/corporate";
 import React from "react";
 
 function CommercialRecordNumber() {
@@ -16,12 +18,18 @@ function CommercialRecordNumber() {
 
   const error = errors?.find((err: { field: string }) => err.field === "CommercialRecordNumber");
 
-  const handleRecordNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ CommercialRecordNumber: e.target.value }));
+  const handleRecordNumberChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(setCUData({ CommercialRecordNumber: value }));
+
+    const isValid = await validateField(CompanyInfoSchema, "CommercialRecordNumber", value);
+    if (isValid) {
+      dispatch(clearFeiledErrors("CommercialRecordNumber"));
+    }
   };
 
   return (
-    <div className="relative flex flex-col  justify-between">
+    <div className="relative flex flex-col justify-between">
       <CustomLabel bold>Commercial Record Number</CustomLabel>
       
       <div className="relative flex items-center">
@@ -29,8 +37,8 @@ function CommercialRecordNumber() {
           value={CommercialRecordNumber}
           onChange={handleRecordNumberChange}
           placeholder="Commercial Record Number"
-          className={`border ${error && 'border-red-500 pr-10' }`}
-          />
+          className={`border ${error ? 'border-red-500 pr-10' : 'border-gray-300'}`}
+        />
 
         {error && (
           <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" />

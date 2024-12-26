@@ -2,8 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { setCUData } from "~/app/dashboard/companies/companies.slice";
+import { clearFeiledErrors, setCUData } from "~/app/dashboard/companies/companies.slice";
 import { BsExclamationOctagon } from "react-icons/bs";
+import { validateField } from "~/utils/validation";
+import { CompanyInfoSchema } from "../../validation/corporate";
 import React from "react";
 
 function ManagerMobileNumber() {
@@ -15,8 +17,14 @@ function ManagerMobileNumber() {
   const dispatch = useDispatch();
   const error = errors?.find((err: { field: string }) => err.field === "ManagerMobileNumber");
 
-  const handleManagerMobileNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ ManagerMobileNumber: e.target.value }));
+  const handleManagerMobileNumberChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(setCUData({ ManagerMobileNumber: value }));
+
+    const isValid = await validateField(CompanyInfoSchema, "ManagerMobileNumber", value);
+    if (isValid) {
+      dispatch(clearFeiledErrors("ManagerMobileNumber"));
+    }
   };
 
   return (
@@ -28,10 +36,10 @@ function ManagerMobileNumber() {
           value={ManagerMobileNumber}
           onChange={handleManagerMobileNumberChange}
           placeholder="Manager Mobile Number"
-          className={`w-full border ${error && 'border-red-500 pr-10'}`}
+          className={`w-full border ${error ? 'border-red-500 pr-10' : 'border-gray-300'}`}
         />
         {error && (
-          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2" />
+          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" />
         )}
       </div>
 

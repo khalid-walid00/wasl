@@ -2,8 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { setCUData } from "~/app/dashboard/companies/companies.slice";
+import { clearFeiledErrors, setCUData } from "~/app/dashboard/companies/companies.slice";
 import { BsExclamationOctagon } from "react-icons/bs";
+import { validateField } from "~/utils/validation";
+import { CompanyInfoSchema } from "../../validation/corporate";
 import React from "react";
 
 function ManagerName() {
@@ -16,8 +18,14 @@ function ManagerName() {
 
   const error = errors?.find((err: { field: string }) => err.field === "ManagerName");
 
-  const handleManagerNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCUData({ ManagerName: e.target.value }));
+  const handleManagerNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(setCUData({ ManagerName: value }));
+
+    const isValid = await validateField(CompanyInfoSchema, "ManagerName", value);
+    if (isValid) {
+      dispatch(clearFeiledErrors("ManagerName"));
+    }
   };
 
   return (
@@ -29,10 +37,10 @@ function ManagerName() {
           value={ManagerName}
           onChange={handleManagerNameChange}
           placeholder="Manager Name"
-          className={`w-full border ${error && 'border-red-500 pr-10'}`}
+          className={`w-full border ${error ? 'border-red-500 pr-10' : 'border-gray-300'}`}
         />
         {error && (
-          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2" />
+          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" />
         )}
       </div>
 
