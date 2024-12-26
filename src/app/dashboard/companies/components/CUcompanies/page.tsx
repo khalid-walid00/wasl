@@ -32,7 +32,7 @@ const CUCompaniesComponent = ({ _id }: any) => {
       dispatch(clearOneData());
     }
   }, [_id, dispatch]);
-
+console.log("company",company);
   const handleSendData = async () => {
     const validateRsult: any = companyType === "Corporate" ? await validateCompanyData(company) : await validateOwnerInfoData(company);
 console.log("validateRsult", validateRsult);
@@ -70,6 +70,7 @@ console.log("validateRsult", validateRsult);
               label="Commercial Record Issue Date (Hijri)"
               slice="companiesSlice"
               field="CommercialRecordIssueDateHijri"
+              defaultValue={company.CommercialRecordIssueDateHijri}
             />
             <ManagerName />
             <EmailAddress />
@@ -93,6 +94,7 @@ console.log("validateRsult", validateRsult);
               label="Date Of Birth (Hijri)"
               slice="companiesSlice"
               field="DateOfBirthHijri"
+              defaultValue={company.DateOfBirthHijri}
             />
             <PhoneNumber />
             <EmailAddress />

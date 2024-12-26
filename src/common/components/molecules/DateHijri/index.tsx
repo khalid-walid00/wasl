@@ -6,17 +6,28 @@ import CustomSelector from "../../atoms/customSelector/CustomSelector";
 // @ts-ignore
 import moment from "moment-hijri";
 
-function DynamicDateInput({ label, slice, field }: { label: string, slice: any, field: string }) {
+function DynamicDateInput({ label, slice, field, defaultValue }: { label: string, slice: any, field: string, defaultValue?: string }) {
     const stateSlice = useSelector((state: any) => state[slice]);
     const value = stateSlice ? stateSlice[field] : "";
     const errors = stateSlice?.errors || [];
     const dispatch = useDispatch();
 
-    const [year, setYear] = useState("");
-    const [month, setMonth] = useState("");
-    const [day, setDay] = useState("");
+    const parseDate = (date: string) => {
+        if (date) {
+            const [y, m, d] = date.split("-");
+            return { year: y, month: m, day: d };
+        }
+        return { year: "", month: "", day: "" };
+    };
+
+    // تحديد القيم الافتراضية بناءً على defaultValue أو قيمة المخزن في slice
+    const initialDate = parseDate(value || defaultValue || "");
+    const [year, setYear] = useState(initialDate.year);
+    const [month, setMonth] = useState(initialDate.month);
+    const [day, setDay] = useState(initialDate.day);
 
     const currentHijriYear = moment().iYear();
+
     const yearOptions = Array.from({ length: currentHijriYear - 1400 + 1 }, (_, index) => ({
         label: (currentHijriYear - index).toString(),
         value: (currentHijriYear - index).toString(),
@@ -35,7 +46,16 @@ function DynamicDateInput({ label, slice, field }: { label: string, slice: any, 
         }));
     };
 
-    const [dayOptions, setDayOptions] = useState(getDaysInMonth(currentHijriYear.toString(), "01"));
+    const [dayOptions, setDayOptions] = useState(getDaysInMonth(initialDate.year || currentHijriYear.toString(), initialDate.month || "01"));
+
+    // تحديث الحقول عند تحميل المكون
+    useEffect(() => {
+        const initial = parseDate(value || defaultValue || "");
+        setYear(initial.year);
+        setMonth(initial.month);
+        setDay(initial.day);
+        setDayOptions(getDaysInMonth(initial.year || currentHijriYear.toString(), initial.month || "01"));
+    }, [value, defaultValue]);
 
     useEffect(() => {
         if (year && month) {
