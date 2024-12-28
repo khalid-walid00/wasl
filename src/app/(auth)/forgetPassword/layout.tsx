@@ -5,9 +5,9 @@ import metatagsGenerator, {
 
 export async function generateMetadata(): Promise<Metadata> {
   return metatagsGenerator({
-    title: " تغيير كلمة المرور - قُمرة",
+    title: " تغيير كلمة المرور- ",
     description:
-      "قمرة لسد احتياجات شركتك , بدءاً من تخطيط موارد المؤسسات وحتى إدارة علاقات العملاء والتجارة الإلكترونية ونظام إدارة المحتوى. ارتقِ بعملك إلى المستوى التالي",
+      " لسد احتياجات شركتك , بدءاً من تخطيط موارد المؤسسات وحتى إدارة علاقات العملاء والتجارة الإلكترونية ونظام إدارة المحتوى. ارتقِ بعملك إلى المستوى التالي",
     imageUrl: "https://khalid-walid.netlify.app/img/world-wide-web.png",
     type: ContentType.website,
     url: `/login`,
