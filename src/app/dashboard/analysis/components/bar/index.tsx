@@ -53,16 +53,7 @@ const ApexChartRender = ({ data=[], categories =[]}:any) => {
               fontSize: '14px'
             },
             align: 'right', // لضبط محاذاة النصوص إلى اليمين
-            // formatter: (value) => {
-            //   const labelMap = {
-            //     'Google Chrome': 'جوجل كروم',
-            //     'Facebook': 'فيسبوك',
-            //     'Instagram': 'انستجرام',
-            //     'X': 'اكس',
-            //     'Other': 'اخرى'
-            //   };
-            //   return labelMap[value] || value;
-            // }
+    
           }
         },
         grid: {
