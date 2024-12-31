@@ -138,8 +138,14 @@ export const vehiclesSlice = createSlice({
     setCUData: (state, action) => {
       state.vehicle = { ...state.vehicle, ...action.payload };
     },
-    faildSetData: (state, action) => {
+    setValidationErrors: (state, action) => {
       state.errors = action.payload;
+    },
+    
+    clearFeiledErrors: (state, action) => {
+      state.errors = state.errors.filter(
+        (error:any) => error.field !== action.payload
+      );
     },
     setSearch: (state, action) => {
       const { type, value } = action.payload;
@@ -260,7 +266,8 @@ export const {
   fetchOneData,
   setData,
   setFilter,
-  faildSetData,
+  setValidationErrors,
+  clearFeiledErrors,
   completeFormData,
   deleteItem,
   fetchDataRequestSuccess,

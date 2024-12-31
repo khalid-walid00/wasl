@@ -4,7 +4,9 @@ import CustomLabel from "~/common/components/atoms/label";
 import CustomSelector from "~/common/components/atoms/customSelector/CustomSelector";
 import { useEffect } from "react";
 import { fetchActivity } from "~/app/appSlice";
-import { setCUData } from "../../../vehicle.slice";
+import { setCUData, clearFeiledErrors, completeFormData } from "../../../vehicle.slice";
+import { validateField } from "~/utils/validation";
+import { vehicleRegisterSchema } from "../../validations";
 import { BsExclamationOctagon } from "react-icons/bs";
 import React from "react";
 
@@ -16,8 +18,14 @@ function DriverActivity() {
 
   const error = errors?.find((err: { field: string }) => err.field === "Activity");
 
-  const ActivityChange = (e: any) => {
+  const ActivityChange = async (e: any) => {
     dispatch(setCUData({ Activity: e }));
+    dispatch(completeFormData(e));
+
+    const isValid = await validateField(vehicleRegisterSchema, "Activity", e);
+    if (isValid) {
+      dispatch(clearFeiledErrors("Activity"));
+    }
   };
 
   useEffect(() => {
@@ -33,18 +41,18 @@ function DriverActivity() {
           value={Activity}
           options={optionsActivity}
           onChange={ActivityChange}
-          placeholder={"Select Type"}
+          placeholder={"Select Activity"}
           isLoading={ActivityLoading}
           className={`w-full border ${error && 'border-red-500 pr-10'}`}
         />
         {error && (
-          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2" />
+          <BsExclamationOctagon className="text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" />
         )}
       </div>
 
       <div
         className={`absolute text-red-500 left-0 top-full transition-all duration-300 ${
-          error ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+          error ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'
         }`}
       >
         {error?.message}

@@ -1,11 +1,13 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
-import { setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
+import { clearFeiledErrors, setCUData } from "~/app/dashboard/vehicle/vehicle.slice";
 import CustomSelector from "~/common/components/atoms/customSelector/CustomSelector";
 import { optionsPlateType } from "../options";
 import { BsExclamationOctagon } from "react-icons/bs";
 import React from "react";
+import { validateField } from "~/utils/validation";
+import { vehicleRegisterSchema } from "../../validations";
 
 function PlateType() {
   const {
@@ -16,10 +18,16 @@ function PlateType() {
   const dispatch = useDispatch();
   const error = errors?.find((err: { field: string }) => err.field === "PlateType");
 
-  const handlePlateTypeChange = (e: any) => {
+  const handlePlateTypeChange = async (e: any) => {
     dispatch(setCUData({ PlateType: e }));
+console.log("e",e);
+
+    const isValid = await validateField(vehicleRegisterSchema, "PlateType", e);
+    if (isValid) {
+      dispatch(clearFeiledErrors("PlateType"));
+    }
   };
-console.log("PlateType",PlateType);
+console.log("error",error);
   return (
     <div className="relative flex flex-col gap-2">
       <CustomLabel bold>Plate Type</CustomLabel>

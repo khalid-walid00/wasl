@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-const vehicleRegisterSchema = Yup.object({
+export const vehicleRegisterSchema = Yup.object({
   SequenceNumber: Yup.string()
     .required("Sequence number is mandatory.")
     .min(4, "Sequence number must be between 4 and 9 digits.")
@@ -20,15 +20,16 @@ const vehicleRegisterSchema = Yup.object({
 
     VehiclePlate: Yup.object({
     Number: Yup.string()
-      .required("Plate number is mandatory."),
-
+      .required("Plate number required.")
+      .min(1, "Plate number must be at least 1 characters.")
+      .max(4, "Plate number must be at most 4 characters."),
     RightLetter: Yup.string()
-      .required("Right/Middle/Left letter is mandatory."),
+      .required("Right letter required."),
 
     MiddleLetter: Yup.string()
-      .required("Right/Middle/Left letter is mandatory."),
+      .required("Middle letter required."),
     LeftLetter: Yup.string()
-      .required("Right/Middle/Left letter is mandatory.")
+      .required("Left letter required.")
 
   }),
 });

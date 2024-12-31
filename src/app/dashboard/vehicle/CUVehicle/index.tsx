@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SideAction from "~/common/components/molecules/sideActions";
-import { clearOneData, clearVehicle, faildSetData, fetchOneData, sendData } from "../vehicle.slice";
+import { clearOneData, clearVehicle, setValidationErrors, fetchOneData, sendData } from "../vehicle.slice";
 import SequenceNumber from "./components/sequenceNumber";
 import PlateType from "./components/plateType";
 import ImeiNumber from "./components/imeiNumber";
@@ -34,7 +34,7 @@ const CUVehicle = ({_id}:any) => {
     const validateRsult: any = await validateVehicleInfoData(vehicle);
     console.log("validateRsult", validateRsult);
         if (!validateRsult.valid) {
-          dispatch(faildSetData(validateRsult.errors));
+          dispatch(setValidationErrors(validateRsult.errors));
           return;
         }
     
