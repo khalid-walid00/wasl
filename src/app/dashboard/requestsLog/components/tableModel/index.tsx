@@ -79,7 +79,7 @@ function TableModel() {
 
 
                             </div>
-                            <div className=" flex h-full   gap-4">
+                            <div className=" flex flex-1 h-full   gap-4">
                                 <div className="flex  w-1/2 flex-col gap-1  min-h-96 h-full">
                                     <CustomLabel bold>Request Body</CustomLabel>
                                     <Editor code={item.RequestBody} />
