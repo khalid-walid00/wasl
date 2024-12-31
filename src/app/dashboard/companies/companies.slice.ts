@@ -96,7 +96,7 @@ export const companiesSlice = createSlice({
       state.errors =[];
     },
     clearFeiledErrors: (state, action) => {
-      state.errors = state.errors.filter(
+      state.errors = state.errors?.filter(
         (error:any) => error.field !== action.payload
       );
     },
@@ -209,10 +209,12 @@ export const companiesSlice = createSlice({
     completeFormData(state, action) {
       const { payload } = action;
       const matchingItems = state.items.Data?.find((item) => item.IdentityNumber === payload);
+      console.log("matchingItems", matchingItems);
       if (matchingItems !== undefined) {
          state.company = matchingItems;
         }
     }
+    
   }
 })
 export const { setDataEmpty, addItem, setSearch , replaceItem, search ,fetchOneData,setSelectedRowId,setFilter,fetchDataRequestSuccess,setValidationErrors,emptyValidationErrors,

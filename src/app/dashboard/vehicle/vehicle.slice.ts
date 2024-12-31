@@ -143,7 +143,7 @@ export const vehiclesSlice = createSlice({
     },
     
     clearFeiledErrors: (state, action) => {
-      state.errors = state.errors.filter(
+      state.errors = state?.errors?.filter(
         (error:any) => error.field !== action.payload
       );
     },
@@ -182,9 +182,9 @@ export const vehiclesSlice = createSlice({
     search: (state) => {
       const { type, value } = state.searchItems;
       if (value !== null) {
-        const matchingItems = state.items.Data.filter(
+        const matchingItems = state.items?.Data?.filter(
           (item: any) =>
-            item[type] && item[type].toString().includes(value)
+            item[type] && item[type]?.toString()?.includes(value)
         );
         state.itemsSearch = matchingItems;
       } else {

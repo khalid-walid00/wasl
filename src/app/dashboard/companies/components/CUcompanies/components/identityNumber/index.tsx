@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomLabel from "~/common/components/atoms/label";
 import CustomInput from "~/common/components/atoms/input";
-import { clearFeiledErrors, setCUData } from "~/app/dashboard/companies/companies.slice";
+import { clearFeiledErrors, completeFormData, setCUData } from "~/app/dashboard/companies/companies.slice";
 import { Tooltip } from "@nextui-org/react";
 import { BsExclamationOctagon } from "react-icons/bs";
 import { validateField } from "~/utils/validation";
@@ -28,6 +28,7 @@ function IdentityNumber() {
     updatedValue = updatedValue.replace(/\D/g, "");
 
     dispatch(setCUData({ IdentityNumber: updatedValue }));
+    dispatch(completeFormData(updatedValue));
 
     const isValid = await validateField(validationInfoSchema as any, "IdentityNumber", updatedValue);
     if (isValid) {
