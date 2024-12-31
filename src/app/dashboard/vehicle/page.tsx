@@ -17,15 +17,11 @@ function Page() {
     dispatch(fetchDataRequest({ endpoint, params:null, method: "GET" }));
   }, [dispatch]);
 
+console.log("itemsSearch", itemsSearch);
 
-  
   const columns = useMemo(
     () => [
-      {
-        Header: 'ImeiNumber',
-        accessor: 'ImeiNumber',
-        Cell: (tableProps: any) => <p>{tableProps.row.original?.ImeiNumber}</p>,
-      },
+
       {
         Header: 'Sequence Number',
         accessor: 'SequenceNumber',
@@ -34,7 +30,37 @@ function Page() {
       {
         Header: 'Plate Number',
         accessor: 'PlateNumber',
-        Cell: (tableProps: any) => <p>({tableProps.row.original?.VehiclePlate?.Number+ ` | `+ tableProps.row.original?.VehiclePlate?.LeftLetter +  " "+ tableProps.row.original?.VehiclePlate?.MiddleLetter  +  " "+ tableProps.row.original?.VehiclePlate?.RightLetter })</p>,
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.VehiclePlate?.Number}</p>,
+      },
+      {
+        Header: 'Plate Right Letter',
+        accessor: 'PlateNumber.RightLetter',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.VehiclePlate?.RightLetter}</p>,
+      },
+      {
+        Header: 'Plate Middle Letter',
+        accessor: 'PlateNumber.MiddleLetter',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.VehiclePlate?.MiddleLetter}</p>,
+      },
+      {
+        Header: 'Plate Left Letter',
+        accessor: 'PlateNumber.LeftLetter',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.VehiclePlate?.LeftLetter}</p>,
+      },
+      {
+        Header: 'ImeiNumber',
+        accessor: 'ImeiNumber',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.ImeiNumber}</p>,
+      },
+      {
+        Header: 'Wasl Vehicle Id',
+        accessor: 'WaslId',
+        Cell: (tableProps: any) => <p>{tableProps.row.original?.ImeiNumber}</p>,
+      },
+      {
+        Header: 'Registration Date',
+        accessor: 'CreatedDate',
+        Cell: (tableProps: any) => <p className=" text-nowrap">{tableProps.row.original?.CreatedDate?.replace('T', ' : ').slice(0, 21)}</p>,
       },
       {
         Header: 'Activity',

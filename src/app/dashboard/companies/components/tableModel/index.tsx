@@ -8,11 +8,11 @@ function TableModel() {
     const dispatch = useDispatch();
     const { modalRow, companyId, items: { Data } } = useSelector((state: any) => state.companiesSlice);
     return (
-        <CustomModal size='lg' isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
+        <CustomModal size='4xl' isOpen={modalRow} onOpenChange={() => dispatch(setSelectedRowId(null))} title="Company Details">
             <div>
                 {
                     Data?.filter((item: any) => item?.Id === companyId)?.map((item: any, index: number) => (
-                        <div key={index} className=" grid grid-cols-2 gap-3">
+                        <div key={index} className=" grid grid-cols-2 md:grid-cols-4 gap-3">
                             <div className="flex flex-col gap-1  ">
                                 <CustomLabel bold>Name</CustomLabel>
                                 {item?.Name || 'N/A'}
