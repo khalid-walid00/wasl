@@ -4,8 +4,7 @@ import dynamic from 'next/dynamic';
 const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const ApexChartRenderBar = ({ data = [], categories = [] }: any) => {
-  var options = {
-    series: data, 
+  const options = {
     chart: {
       type: 'bar' as const,
       height: '100%',
@@ -27,7 +26,7 @@ const ApexChartRenderBar = ({ data = [], categories = [] }: any) => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: categories, 
+      categories: categories,
     },
     yaxis: {
       title: {
@@ -40,20 +39,28 @@ const ApexChartRenderBar = ({ data = [], categories = [] }: any) => {
     tooltip: {
       y: {
         formatter: function (val: number) {
-          return "$ " + val + " thousands";
+          return val + " Vehicles";
         },
       },
     },
+    colors: [
+      '#FF0000', // Vehicle Not Register in Wasl - Red
+      '#008000', // Vehicle Register in Wasl - Green
+      '#0000FF', // Vehicle Deleted - Blue
+      '#FF5733', // Vehicle Not Register in Wasl Public - Orange
+      '#28a745', // Vehicle Register in Wasl Public - Dark Green
+      '#3498db', // Vehicle Deleted Public - Light Blue
+    ],
   };
 
   return (
-    <div className=" w-full">
-    <ApexCharts
-      options={options}
-      series={data} 
-      type="bar"
-      width="100%"
-    />
+    <div className="w-full">
+      <ApexCharts
+        options={options}
+        series={data}
+        type="bar"
+        width="100%"
+      />
     </div>
   );
 };
@@ -61,28 +68,39 @@ const ApexChartRenderBar = ({ data = [], categories = [] }: any) => {
 function BarAnalysis() {
   const data = [
     {
-      name: 'Net Profit',
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+      name: 'Vehicle Not Register in Wasl',
+      data: [40, 35, 50], 
     },
     {
-      name: 'Revenue',
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+      name: 'Vehicle Register in Wasl',
+      data: [76, 70, 90], 
     },
     {
-      name: 'Free Cash Flow',
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-    }
+      name: 'Vehicle Deleted',
+      data: [35, 40, 45], 
+    },
+    {
+      name: 'Vehicle Not Register in Wasl Public',
+      data: [60, 65, 50],
+    },
+    {
+      name: 'Vehicle Register in Wasl Public',
+      data: [85, 95, 100],
+    },
+    {
+      name: 'Vehicle Deleted Public',
+      data: [41, 60, 50], 
+    },
   ];
-  
-  const labels = ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
-  
-  
+
+  const labels = ['Feb', 'Mar', 'Apr'];
+
   return (
-    <div className=" bg-white flex items-center ">
+    <div className="bg-white flex items-center">
       {data && labels && (
         <ApexChartRenderBar
           data={data}
-          categories={labels} 
+          categories={labels}
         />
       )}
     </div>

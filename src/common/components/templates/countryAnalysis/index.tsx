@@ -1,33 +1,57 @@
-import CircleAnalysis from '../../molecules/circleAnalysis';
-import Section from '../../molecules/section';
-// type DataType = {
-//   data: number[];
-//   labels: string[];
-//   total: number;
-// };
+import React from "react";
+import CircleAnalysis from "../../molecules/circleAnalysis";
 
-// type CountrySctionProps = {
-//   data: DataType;
-// };
+const CountryAnalysisTemplate: React.FC<any> = () => {
+  const data = [
+    { 
+      method: "Get", 
+      statusCount: [
+        { status: 200, count: 40 },
+        { status: 404, count: 5 },
+        { status: 500, count: 2 }
+      ],
+      registData: "Data A", 
+      count: 47 
+    },
+    { 
+      method: "Post", 
+      statusCount: [
+        { status: 200, count: 10 },
+        { status: 404, count: 10 },
+        { status: 500, count: 5 }
+      ],
+      registData: "Data B", 
+      count: 25 
+    },
+    { 
+      method: "Put", 
+      statusCount: [
+        { status: 200, count: 15 },
+        { status: 404, count: 2 },
+        { status: 500, count: 3 }
+      ],
+      registData: "Data C", 
+      count: 20 
+    },
+    { 
+      method: "Delete", 
+      statusCount: [
+        { status: 200, count: 2 },
+        { status: 404, count: 3 },
+        { status: 500, count: 5 }
+      ],
+      registData: "Data D", 
+      count: 10 
+    },
+  ];
 
-const CountryAnalysisTemplate: React.FC<any> = ({
-  // data,
-}) => {
-  const data = [40, 30, 20, 10];
-  const labels = ["فئة 1", "فئة 2", "فئة 3", "فئة 4"]; 
+  const labels = ["Get", "Post", "Put", "Delete"];
 
   return (
-       <Section className="bg-white  rounded-[16px]" titleClass='text-black text-bold text-[18px] px-[22px] py-[15px] '
-        title='test'>
-      <CircleAnalysis
-        data={data}
-        labels={labels}
-        title={"test"}
-        loading={false}
-        description={"ss"}
-        name={"test"}
-        />
-        </Section>
+    <div className="bg-white rounded-[16px]">
+      <div className="text-black text-bold text-[18px] px-[22px] py-[15px]">Requests</div>
+      <CircleAnalysis data={data} labels={labels} />
+    </div>
   );
 };
 

@@ -37,9 +37,9 @@ function AnalysisSummaryTemplate() {
   ];
 
   const chartData = [
-    { name: "test", data: orders?.data },
-    { name: "test", data: views?.data },
-    { name: "test", data: actualViews?.data },
+    { name: "Company not Register in Wasl", data: orders?.data },
+    { name: "Company Register in Wasl", data: views?.data },
+    { name: "Company Deleted", data: actualViews?.data },
   ];
 
   return (
