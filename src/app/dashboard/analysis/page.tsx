@@ -15,16 +15,16 @@ import DountAnalysis from "~/common/components/templates/DountAnalysis";
 
 const Page = () => {
   const dispatch = useDispatch();
-  // const { analysis: { countries, platforms, products, referrer }, loading } =
-  // useSelector((state: any) => state.analysisSlice);
+  const { analysis: { countries, platforms, products, referrer }, loading } =
+  useSelector((state: any) => state.analysisSlice);
 
-  // useEffect(() => {
-  //   dispatch(fetchData());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
 
   return (
     <div className=" flex flex-col gap-6">
-      {/* <DatepickerComponent />
+      <DatepickerComponent />
       <div className="md:container bg-[#F7F7F7] px-[34px]  pb-[50px]">
 
         {false ? <><SectionLoading /></> : <>
@@ -37,13 +37,13 @@ const Page = () => {
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-[21px]  h-full">
             <DountAnalysis title="test"/>
-            <MostTrendingAnalysis  title= "test" />
+            {/* <MostTrendingAnalysis  title= "test" /> */}
           </div>
           </div>
           
         </>}
 
-      </div>     */}
+      </div>    
       
       </div>
   );

@@ -3,6 +3,8 @@ import metatagsGenerator, {
   ContentType,
 } from "~/utils/formater/metatagsGenerator";
 
+
+
 export async function generateMetadata(): Promise<Metadata> {
   return metatagsGenerator({
     title: "تسجيل الدخول",

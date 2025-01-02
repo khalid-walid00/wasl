@@ -5,6 +5,7 @@ import forgetPassword  from "~/app/(auth)/forgetPassword/forgetPassword.slice";
 import  vehiclesSlice  from "~/app/dashboard/vehicle/vehicle.slice";
 import  driversSlice  from "~/app/dashboard/drivers/drivers.slice";
 import requestsLogSlice from "~/app/dashboard/requestsLog/requestsLog.slice";
+import analysisSlice from "~/app/dashboard/analysis/analysisSlice";
 
 const reducer = combineReducers({
     config: configuerStore,
@@ -12,7 +13,8 @@ const reducer = combineReducers({
     forgetPassword,
     vehiclesSlice,
     driversSlice,
-    requestsLogSlice
+    requestsLogSlice,
+    analysisSlice
 })
 
 export default reducer;

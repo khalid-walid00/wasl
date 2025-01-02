@@ -30,10 +30,10 @@ function AnalysisSummaryTemplate() {
   });
 
   const analysisSummary = [
-    { title: "test", image: "/assets/icons2/eye.png", ...getRateData(views) },
-    { title: "test", image: "/assets/icons2/gust.png", ...getRateData(actualViews) },
-    { title: "test", image: "/assets/icons2/order.png", ...getRateData(orders) },
-    { title: "test", image: "/assets/icons2/order.png", ...getRateData(orders) },
+    { title: "company", image: "/assets/images/company.png", ...getRateData(views) },
+    { title: "requests", image: "/assets/images/request.png", ...getRateData(orders) },
+    { title: "vechile", image: "/assets/images/vehicle.png", ...getRateData(orders) },
+    { title: "drivers", image: "/assets/images/driver.png", ...getRateData(orders) },
   ];
 
   const chartData = [

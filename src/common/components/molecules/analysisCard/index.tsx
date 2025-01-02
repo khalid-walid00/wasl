@@ -27,13 +27,13 @@ const trendImages = [
   "bg-[#DB9C00]",
   "bg-[#008ffb]",
   "bg-[#FF2C2C]",
-  "bg-[#4A90E2]",  // لون أزرق
+  "bg-[#4A90E2]", 
 ];
 const boxBg = [
   "bg-[#F7F2E6]",
   "bg-[#E0ECEC]",
   "bg-[#F4E5E4]",
-  "bg-[#E6F1FA]",  // لون أزرق فاتح
+  "bg-[#E6F1FA]", 
 ];
 
 function AnalysisCard({ title, image, percentage, total, index, trend }: Props) {
@@ -41,7 +41,9 @@ function AnalysisCard({ title, image, percentage, total, index, trend }: Props) 
     <div className={`flex gap-16 justify-between ${boxBg[index]} py-[15px] px-[30px] rounded-lg`}>
       <div className="flex flex-col items-center gap-[11px]">
         <div className={`p-[11px] flex items-center justify-center rounded-full w-max ${trendImages[index]}`}>
-          <Image alt="icon" src={image} width={32} height={32} />
+          <div className="w-max">
+          <Image alt="icon" src={image} width={40} height={40} />
+          </div>
         </div>
         <div className="font-bold text-lg">{title}</div>
       </div>
