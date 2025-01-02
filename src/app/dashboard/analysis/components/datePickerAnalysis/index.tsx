@@ -16,7 +16,7 @@ const DatepickerComponent: React.FC = () => {
   const dispatch = useDispatch();
 
 
-  const [buttonSelected, setButtonSelected] = useState("اخر 7 ايام");
+  const [buttonSelected, setButtonSelected] = useState("last 7 days");
 
   const convertToISO = (date: Date | null): string | null =>
     date ? DateTime.fromJSDate(date).toISO() : null;
@@ -47,9 +47,9 @@ const DatepickerComponent: React.FC = () => {
   };
 
   const AnalysisData = [
-    { title: "اليوم", value: "today", action: () => setDateRange("اليوم", 0) },
-    { title: "اخر 7 ايام", value: "last 7 days", action: () => setDateRange("اخر 7 ايام", 7) },
-    { title: "اخر الشهر", value: "last month", action: () => setDateRange("اخر الشهر", 30) },
+    { title: "this day", value: "today", action: () => setDateRange("this day", 0) },
+    { title: "last 7 days", value: "last 7 days", action: () => setDateRange("last 7 days", 7) },
+    { title: "last month", value: "last month", action: () => setDateRange("last month", 30) },
   ];
 
   return (

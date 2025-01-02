@@ -31,7 +31,6 @@ const CircleAnalysis: React.FC<any> = ({ data, labels }) => {
                 return `
                   <div class="tooltip-content">
                     <div><strong>${value} requests for ${method}</strong></div>
-                    <div><strong>Registered Data:</strong> ${data[seriesIndex].registData}</div>
                     <div class="status-details">${statusDetails}</div>
                   </div>
                 `;
